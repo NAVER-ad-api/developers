@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://naver-ad-api.github.io/developers/en/blog</id>
+    <title>네이버 성과형 디스플레이 광고 API (Beta) Blog</title>
+    <updated>2023-02-03T00:00:00.000Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://naver-ad-api.github.io/developers/en/blog"/>
+    <subtitle>네이버 성과형 디스플레이 광고 API (Beta) Blog</subtitle>
+    <icon>https://naver-ad-api.github.io/developers/en/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[Welcome!]]></title>
+        <id>welcome</id>
+        <link href="https://naver-ad-api.github.io/developers/en/blog/welcome"/>
+        <updated>2023-02-03T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Welcome to our notice board.]]></summary>
+        <content type="html"><![CDATA[<p>Welcome to our notice board.</p><p>Here, you will find details about all updates, announcements, and important information related to our APIs.</p><p><img loading="lazy" alt="Docusaurus Plushie" src="/developers/en/assets/images/docusaurus-plushie-banner-a60f7593abca1e3eef26a9afa244e4fb.jpeg" width="1500" height="500" class="img_ev3q"></p>]]></content>
+        <category label="hello" term="hello"/>
+    </entry>
+</feed>

@@ -1,0 +1,5158 @@
+{
+	"swagger": "2.0",
+	"info": {
+		"title": "Ad API",
+		"description": "<b>COMMON HEADER PARAMETERS</b><br/> - `AccessManagerAccountNo`: Manager account ID that has access to the ad account. If the manager account's permission level is `member`, this value must be included to make an API request to ad accounts."
+	},
+	"host": "openapi.naver.com",
+	"basePath": "/v1/ad-api",
+	"tags": [
+		{
+			"name": "Campaigns"
+		},
+		{
+			"name": "Ad groups"
+		},
+		{
+			"name": "Creatives"
+		},
+		{
+			"name": "Targetting details"
+		},
+		{
+			"name": "Type information"
+		}
+	],
+	"paths": {
+		"/{version}/adAccounts/{adAccountNo}/adSets": {
+			"get": {
+				"tags": [
+					"Ad groups"
+				],
+				"summary": "List of ad groups",
+				"operationId": "getListUsingGET",
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "AccessManagerAccountNo",
+						"in": "header",
+						"description": "Manager account ID that has access to the ad account",
+						"required": false,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "activated",
+						"in": "query",
+						"description": "Indicates whether ad groups are turned on or off. If not specified, it gets all ad groups.",
+						"required": false,
+						"type": "boolean"
+					},
+					{
+						"name": "adAccountNo",
+						"in": "path",
+						"description": "adAccountNo",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "budgetTypes",
+						"in": "query",
+						"description": "Ad group budget types",
+						"required": false,
+						"type": "array",
+						"items": {
+							"type": "string",
+							"enum": [
+								"DAILY",
+								"TOTAL"
+							]
+						},
+						"collectionFormat": "multi",
+						"enum": [
+							"DAILY",
+							"TOTAL"
+						]
+					},
+					{
+						"name": "campaignNo",
+						"in": "query",
+						"description": "Parent campaign ID",
+						"required": false,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "deleteOnly",
+						"in": "query",
+						"description": "Gets only the deleted ad groups. If true, it gets only the deleted ad groups; if false, it gets the ad groups that are `RUNNABLE`, `BEFORE-STARTING`, or `TERMINATED`.",
+						"required": false,
+						"type": "boolean"
+					},
+					{
+						"name": "page",
+						"in": "query",
+						"description": "Page number (default: 0)",
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"name": "placementGroupCodes",
+						"in": "query",
+						"description": "Ad group placement",
+						"required": false,
+						"type": "array",
+						"items": {
+							"type": "string"
+						},
+						"collectionFormat": "multi"
+					},
+					{
+						"name": "size",
+						"in": "query",
+						"description": "Page size (default: 10, max: 100)",
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"name": "version",
+						"in": "path",
+						"description": "API version",
+						"required": true,
+						"type": "number",
+						"default": 1.0,
+						"format": "float"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Page«OpenAdSetListView»"
+						}
+					}
+				},
+				"deprecated": false
+			},
+			"post": {
+				"tags": [
+					"Ad groups"
+				],
+				"summary": "Create an ad group",
+				"operationId": "createAdSetUsingPOST",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "AccessManagerAccountNo",
+						"in": "header",
+						"description": "Manager account ID that has access to the ad account",
+						"required": false,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "adAccountNo",
+						"in": "path",
+						"description": "adAccountNo",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"in": "body",
+						"name": "params",
+						"description": "params",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/OpenAdSetCreationParam"
+						}
+					},
+					{
+						"name": "version",
+						"in": "path",
+						"description": "version",
+						"required": false,
+						"type": "number",
+						"default": 1.0,
+						"format": "float"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/OpenAdSetCreationParam"
+						}
+					}
+				},
+				"deprecated": false
+			},
+			"delete": {
+				"tags": [
+					"Ad groups"
+				],
+				"summary": "Delete ad groups",
+				"operationId": "deleteAdSetsUsingDELETE",
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "AccessManagerAccountNo",
+						"in": "header",
+						"description": "Manager account ID that has access to the ad account",
+						"required": false,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "adAccountNo",
+						"in": "path",
+						"description": "adAccountNo",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "adSetNos",
+						"in": "query",
+						"description": "List of ad group IDs",
+						"required": false,
+						"type": "array",
+						"items": {
+							"type": "integer",
+							"format": "int64"
+						},
+						"collectionFormat": "multi",
+						"maximum": 100,
+						"minimum": 1,
+						"allowEmptyValue": false
+					},
+					{
+						"name": "version",
+						"in": "path",
+						"description": "API version",
+						"required": true,
+						"type": "number",
+						"default": 1.0,
+						"format": "float"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/SuccessResponse"
+						}
+					}
+				},
+				"deprecated": false
+			}
+		},
+		"/{version}/adAccounts/{adAccountNo}/adSets/activate": {
+			"post": {
+				"tags": [
+					"Ad groups"
+				],
+				"summary": "Turn ad groups on or off",
+				"operationId": "activateAdSetsUsingPOST",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "AccessManagerAccountNo",
+						"in": "header",
+						"description": "Manager account ID that has access to the ad account",
+						"required": false,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "activated",
+						"in": "query",
+						"description": "Turns ad groups on or off. (Set this to true to turn them on.)",
+						"required": false,
+						"type": "boolean",
+						"allowEmptyValue": false
+					},
+					{
+						"name": "adAccountNo",
+						"in": "path",
+						"description": "adAccountNo",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "adSetNos",
+						"in": "query",
+						"description": "List of ad group IDs",
+						"required": false,
+						"type": "array",
+						"items": {
+							"type": "integer",
+							"format": "int64"
+						},
+						"collectionFormat": "multi",
+						"maximum": 100,
+						"minimum": 1,
+						"allowEmptyValue": false
+					},
+					{
+						"name": "version",
+						"in": "path",
+						"description": "API version",
+						"required": true,
+						"type": "number",
+						"default": 1.0,
+						"format": "float"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/SuccessResponse"
+						}
+					}
+				},
+				"deprecated": false
+			}
+		},
+		"/{version}/adAccounts/{adAccountNo}/adSets/edit": {
+			"post": {
+				"tags": [
+					"Ad groups"
+				],
+				"summary": "Change budgets, bids and costs for ad groups",
+				"operationId": "editAdSetUsingPOST",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "AccessManagerAccountNo",
+						"in": "header",
+						"description": "Manager account ID that has access to the ad account",
+						"required": false,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "adAccountNo",
+						"in": "path",
+						"description": "adAccountNo",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"in": "body",
+						"name": "editParam",
+						"description": "editParam",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/AdSetEditParam"
+						}
+					},
+					{
+						"name": "version",
+						"in": "path",
+						"description": "version",
+						"required": false,
+						"type": "number",
+						"default": 1.0,
+						"format": "float"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successfully changed.",
+						"schema": {
+							"$ref": "#/definitions/SuccessResponse"
+						}
+					},
+					"400": {
+						"description": "Bad request",
+						"schema": {
+							"$ref": "#/definitions/ErrorResult"
+						}
+					},
+					"422": {
+						"description": "Unprocessable",
+						"schema": {
+							"$ref": "#/definitions/ErrorResult"
+						}
+					}
+				},
+				"deprecated": false
+			}
+		},
+		"/{version}/adAccounts/{adAccountNo}/adSets/sampleByCampaignNo": {
+			"get": {
+				"tags": [
+					"Ad groups"
+				],
+				"summary": "Create an ad group - sample",
+				"description": "A sample to create a child ad group of a campaign",
+				"operationId": "sampleByCampaignNoUsingGET",
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "AccessManagerAccountNo",
+						"in": "header",
+						"description": "Manager account ID that has access to the ad account",
+						"required": false,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "campaignNo",
+						"in": "query",
+						"description": "campaignNo",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "version",
+						"in": "path",
+						"description": "API version",
+						"required": true,
+						"type": "number",
+						"default": 1.0,
+						"format": "float"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/OpenAdSetCreationParam"
+						}
+					}
+				},
+				"deprecated": false
+			}
+		},
+		"/{version}/adAccounts/{adAccountNo}/adSets/typeInfoByCampaignNo": {
+			"get": {
+				"tags": [
+					"Ad groups"
+				],
+				"summary": "Create an ad group - type information",
+				"description": "List of types available to create a child ad group of a campaign. Note that the creation of an ad group is not guaranteed.",
+				"operationId": "typeInfoByCampaignNoUsingGET",
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "AccessManagerAccountNo",
+						"in": "header",
+						"description": "Manager account ID that has access to the ad account",
+						"required": false,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "campaignNo",
+						"in": "query",
+						"description": "campaignNo",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "version",
+						"in": "path",
+						"description": "API version",
+						"required": true,
+						"type": "number",
+						"default": 1.0,
+						"format": "float"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/AvailableTypesOfAdSet"
+						}
+					}
+				},
+				"deprecated": false
+			}
+		},
+		"/{version}/adAccounts/{adAccountNo}/adSets/{adSetNo}": {
+			"get": {
+				"tags": [
+					"Ad groups"
+				],
+				"summary": "Get an ad group",
+				"operationId": "getAdSetUsingGET",
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "AccessManagerAccountNo",
+						"in": "header",
+						"description": "Manager account ID that has access to the ad account",
+						"required": false,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "adAccountNo",
+						"in": "path",
+						"description": "adAccountNo",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "adSetNo",
+						"in": "path",
+						"description": "adSetNo",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "includeCreativeTemplates",
+						"in": "query",
+						"description": "Indicates whether to include the list of creative templates that can be created.",
+						"required": false,
+						"type": "boolean",
+						"default": false,
+						"allowEmptyValue": false,
+						"x-example": false
+					},
+					{
+						"name": "version",
+						"in": "path",
+						"description": "API version",
+						"required": true,
+						"type": "number",
+						"default": 1.0,
+						"format": "float"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/OpenAdSetView"
+						}
+					}
+				},
+				"deprecated": false
+			},
+			"delete": {
+				"tags": [
+					"Ad groups"
+				],
+				"summary": "Delete an ad group",
+				"operationId": "deleteAdSetUsingDELETE",
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "AccessManagerAccountNo",
+						"in": "header",
+						"description": "Manager account ID that has access to the ad account",
+						"required": false,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "adAccountNo",
+						"in": "path",
+						"description": "adAccountNo",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "adSetNo",
+						"in": "path",
+						"description": "adSetNo",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "version",
+						"in": "path",
+						"description": "version",
+						"required": false,
+						"type": "number",
+						"default": 1.0,
+						"format": "float"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/SuccessResponse"
+						}
+					}
+				},
+				"deprecated": false
+			}
+		},
+		"/{version}/adAccounts/{adAccountNo}/campaigns": {
+			"get": {
+				"tags": [
+					"Campaigns"
+				],
+				"summary": "List of campaigns",
+				"operationId": "getListOldUsingGET",
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "AccessManagerAccountNo",
+						"in": "header",
+						"description": "Manager account ID that has access to the ad account",
+						"required": false,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "activated",
+						"in": "query",
+						"description": "If true or false, it gets only the campaigns that are turned on or off, respectively.  If not specified, it gets all campaigns.",
+						"required": false,
+						"type": "boolean"
+					},
+					{
+						"name": "adAccountNo",
+						"in": "path",
+						"description": "adAccountNo",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "deleteOnly",
+						"in": "query",
+						"description": "Gets only the deleted ad groups. If not true, the deleted campaigns are excluded from the results.",
+						"required": false,
+						"type": "boolean"
+					},
+					{
+						"name": "objectives",
+						"in": "query",
+						"description": "Gets campaigns that match the specified objectives. If not specified, it gets all campaigns.",
+						"required": false,
+						"type": "array",
+						"items": {
+							"type": "string",
+							"enum": [
+								"CONVERSION",
+								"WEB_SITE_TRAFFIC",
+								"INSTALL_APP",
+								"WATCH_VIDEO",
+								"CATALOG",
+								"SHOPPING"
+							]
+						},
+						"collectionFormat": "multi",
+						"enum": [
+							"CONVERSION",
+							"WEB_SITE_TRAFFIC",
+							"INSTALL_APP",
+							"WATCH_VIDEO",
+							"CATALOG",
+							"SHOPPING"
+						]
+					},
+					{
+						"name": "page",
+						"in": "query",
+						"description": "Page number (default: 0)",
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"name": "size",
+						"in": "query",
+						"description": "Page size (default: 10, max: 100)",
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"name": "version",
+						"in": "path",
+						"description": "API version",
+						"required": true,
+						"type": "number",
+						"default": 1.0,
+						"format": "float"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Page«OpenCampaignView»"
+						}
+					}
+				},
+				"deprecated": false
+			},
+			"post": {
+				"tags": [
+					"Campaigns"
+				],
+				"summary": "Create a campaign",
+				"operationId": "createUsingPOST",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "AccessManagerAccountNo",
+						"in": "header",
+						"description": "Manager account ID that has access to the ad account",
+						"required": false,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "adAccountNo",
+						"in": "path",
+						"description": "adAccountNo",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"in": "body",
+						"name": "params",
+						"description": "params",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/OpenCampaignCreationParam"
+						}
+					},
+					{
+						"name": "version",
+						"in": "path",
+						"description": "API version",
+						"required": true,
+						"type": "number",
+						"default": 1.0,
+						"format": "float"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/OpenCampaignView"
+						}
+					}
+				},
+				"deprecated": false
+			},
+			"delete": {
+				"tags": [
+					"Campaigns"
+				],
+				"summary": "Delete campaigns",
+				"operationId": "deleteCampaignsUsingDELETE",
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "AccessManagerAccountNo",
+						"in": "header",
+						"description": "Manager account ID that has access to the ad account",
+						"required": false,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "adAccountNo",
+						"in": "path",
+						"description": "adAccountNo",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "campaignNos",
+						"in": "query",
+						"description": "List of campaign IDs",
+						"required": false,
+						"type": "array",
+						"items": {
+							"type": "integer",
+							"format": "int64"
+						},
+						"collectionFormat": "multi",
+						"maximum": 100,
+						"minimum": 1,
+						"allowEmptyValue": false
+					},
+					{
+						"name": "version",
+						"in": "path",
+						"description": "API version",
+						"required": true,
+						"type": "number",
+						"default": 1.0,
+						"format": "float"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/SuccessResponse"
+						}
+					}
+				},
+				"deprecated": false
+			}
+		},
+		"/{version}/adAccounts/{adAccountNo}/campaigns/activate": {
+			"post": {
+				"tags": [
+					"Campaigns"
+				],
+				"summary": "Turn campaigns on or off",
+				"operationId": "activateUsingPOST",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "AccessManagerAccountNo",
+						"in": "header",
+						"description": "Manager account ID that has access to the ad account",
+						"required": false,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "activated",
+						"in": "query",
+						"description": "Turns campaigns on or off. (Set this to true to turn them on.)",
+						"required": false,
+						"type": "boolean",
+						"allowEmptyValue": false
+					},
+					{
+						"name": "adAccountNo",
+						"in": "path",
+						"description": "adAccountNo",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "campaignNos",
+						"in": "query",
+						"description": "List of campaign IDs",
+						"required": false,
+						"type": "array",
+						"items": {
+							"type": "integer",
+							"format": "int64"
+						},
+						"collectionFormat": "multi",
+						"maximum": 100,
+						"minimum": 1,
+						"allowEmptyValue": false
+					},
+					{
+						"name": "version",
+						"in": "path",
+						"description": "API version",
+						"required": true,
+						"type": "number",
+						"default": 1.0,
+						"format": "float"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "boolean"
+						}
+					}
+				},
+				"deprecated": false
+			}
+		},
+		"/{version}/adAccounts/{adAccountNo}/campaigns/brands": {
+			"get": {
+				"tags": [
+					"Campaigns"
+				],
+				"summary": "List of brands",
+				"operationId": "getBrandsUsingGET",
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "AccessManagerAccountNo",
+						"in": "header",
+						"description": "Manager account ID that has access to the ad account",
+						"required": false,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "adAccountNo",
+						"in": "path",
+						"description": "adAccountNo",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "page",
+						"in": "query",
+						"description": "Page number (default: 0)",
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"name": "size",
+						"in": "query",
+						"description": "Page size (default: 10, max: 100)",
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"name": "version",
+						"in": "path",
+						"description": "API version",
+						"required": true,
+						"type": "number",
+						"default": 1.0,
+						"format": "float"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Page«BrandListResponse»"
+						}
+					}
+				},
+				"deprecated": false
+			}
+		},
+		"/{version}/adAccounts/{adAccountNo}/campaigns/catalogs": {
+			"get": {
+				"tags": [
+					"Campaigns"
+				],
+				"summary": "List of catalogs",
+				"operationId": "getCatalogsUsingGET",
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "AccessManagerAccountNo",
+						"in": "header",
+						"description": "Manager account ID that has access to the ad account",
+						"required": false,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "adAccountNo",
+						"in": "path",
+						"description": "adAccountNo",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "mallId",
+						"in": "query",
+						"description": "mallId",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "version",
+						"in": "path",
+						"description": "API version",
+						"required": true,
+						"type": "number",
+						"default": 1.0,
+						"format": "float"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/CatalogNode"
+							}
+						}
+					}
+				},
+				"deprecated": false
+			}
+		},
+		"/{version}/adAccounts/{adAccountNo}/campaigns/conversionUrls": {
+			"get": {
+				"tags": [
+					"Campaigns"
+				],
+				"summary": "List of conversion tracking sites available based on the specified campaign objective",
+				"operationId": "getConversionUrlsUsingGET",
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "AccessManagerAccountNo",
+						"in": "header",
+						"description": "Manager account ID that has access to the ad account",
+						"required": false,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "adAccountNo",
+						"in": "path",
+						"description": "adAccountNo",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "objective",
+						"in": "query",
+						"description": "objective",
+						"required": true,
+						"type": "string",
+						"enum": [
+							"CONVERSION",
+							"WEB_SITE_TRAFFIC",
+							"INSTALL_APP",
+							"WATCH_VIDEO",
+							"CATALOG",
+							"SHOPPING"
+						]
+					},
+					{
+						"name": "version",
+						"in": "path",
+						"description": "API version",
+						"required": true,
+						"type": "number",
+						"default": 1.0,
+						"format": "float"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/ConversionUrlResponse"
+							}
+						}
+					}
+				},
+				"deprecated": false
+			}
+		},
+		"/{version}/adAccounts/{adAccountNo}/campaigns/editBudget": {
+			"post": {
+				"tags": [
+					"Campaigns"
+				],
+				"summary": "Change campaign budgets",
+				"operationId": "editBudgetUsingPOST",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "AccessManagerAccountNo",
+						"in": "header",
+						"description": "Manager account ID that has access to the ad account",
+						"required": false,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "adAccountNo",
+						"in": "path",
+						"description": "adAccountNo",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "campaignBudget",
+						"in": "query",
+						"description": "Campaign budget",
+						"required": false,
+						"type": "number",
+						"allowEmptyValue": false
+					},
+					{
+						"name": "campaignNos",
+						"in": "query",
+						"description": "List of campaign IDs",
+						"required": false,
+						"type": "array",
+						"items": {
+							"type": "integer",
+							"format": "int64"
+						},
+						"collectionFormat": "multi",
+						"maximum": 100,
+						"minimum": 1,
+						"allowEmptyValue": false
+					},
+					{
+						"name": "version",
+						"in": "path",
+						"description": "API version",
+						"required": true,
+						"type": "number",
+						"default": 1.0,
+						"format": "float"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "boolean"
+						}
+					}
+				},
+				"deprecated": false
+			}
+		},
+		"/{version}/adAccounts/{adAccountNo}/campaigns/urls": {
+			"get": {
+				"tags": [
+					"Campaigns"
+				],
+				"summary": "List of canonical URLs",
+				"operationId": "getUrlsUsingGET",
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "AccessManagerAccountNo",
+						"in": "header",
+						"description": "Manager account ID that has access to the ad account",
+						"required": false,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "adAccountNo",
+						"in": "path",
+						"description": "adAccountNo",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "page",
+						"in": "query",
+						"description": "Page number (default: 0)",
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"name": "size",
+						"in": "query",
+						"description": "Page size (default: 10, max: 100)",
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"name": "version",
+						"in": "path",
+						"description": "API version",
+						"required": true,
+						"type": "number",
+						"default": 1.0,
+						"format": "float"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Page«Url»"
+						}
+					}
+				},
+				"deprecated": false
+			}
+		},
+		"/{version}/adAccounts/{adAccountNo}/campaigns/{campaignNo}": {
+			"delete": {
+				"tags": [
+					"Campaigns"
+				],
+				"summary": "Delete a campaign",
+				"operationId": "deleteUsingDELETE",
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "AccessManagerAccountNo",
+						"in": "header",
+						"description": "Manager account ID that has access to the ad account",
+						"required": false,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "adAccountNo",
+						"in": "path",
+						"description": "adAccountNo",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "campaignNo",
+						"in": "path",
+						"description": "campaignNo",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "version",
+						"in": "path",
+						"description": "API version",
+						"required": true,
+						"type": "number",
+						"default": 1.0,
+						"format": "float"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "boolean"
+						}
+					}
+				},
+				"deprecated": false
+			}
+		},
+		"/{version}/adAccounts/{adAccountNo}/creatives": {
+			"get": {
+				"tags": [
+					"Creatives"
+				],
+				"summary": "List of creatives",
+				"operationId": "searchUsingGET",
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "AccessManagerAccountNo",
+						"in": "header",
+						"description": "Manager account ID that has access to the ad account",
+						"required": false,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "activated",
+						"in": "query",
+						"description": "Indicates whether creatives are turned on. If true or false, it gets only the creatives that are turned on or off, respectively. If not specified, it gets all creatives.",
+						"required": false,
+						"type": "boolean",
+						"allowEmptyValue": false
+					},
+					{
+						"name": "adAccountNo",
+						"in": "path",
+						"description": "adAccountNo",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "adSetNo",
+						"in": "query",
+						"description": "Ad group ID",
+						"required": false,
+						"type": "integer",
+						"format": "int64",
+						"allowEmptyValue": false
+					},
+					{
+						"name": "campaignNo",
+						"in": "query",
+						"description": "Campaign ID",
+						"required": false,
+						"type": "integer",
+						"format": "int64",
+						"allowEmptyValue": false
+					},
+					{
+						"name": "deleteOnly",
+						"in": "query",
+						"description": "Indicates whether to get only the deleted creatives. If true, it gets only the deleted creatives.",
+						"required": false,
+						"type": "boolean",
+						"default": false,
+						"allowEmptyValue": false,
+						"x-example": false
+					},
+					{
+						"name": "page",
+						"in": "query",
+						"description": "Page number (default: 0)",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "size",
+						"in": "query",
+						"description": "Page size (default: 10, max: 100)",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "version",
+						"in": "path",
+						"description": "API version",
+						"required": true,
+						"type": "number",
+						"default": 1.0,
+						"format": "float"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Page«OpenCreative»"
+						}
+					}
+				},
+				"deprecated": false
+			},
+			"delete": {
+				"tags": [
+					"Creatives"
+				],
+				"summary": "Delete creatives",
+				"description": "HTTP status code description<br> - Error 400 no creative exists, or the creative does not belong to the ad account, or the creative has already been deleted",
+				"operationId": "deleteUsingDELETE_2",
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "AccessManagerAccountNo",
+						"in": "header",
+						"description": "Manager account ID that has access to the ad account",
+						"required": false,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "adAccountNo",
+						"in": "path",
+						"description": "adAccountNo",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "creativeNos",
+						"in": "query",
+						"description": "List of creative IDs",
+						"required": true,
+						"type": "array",
+						"items": {
+							"type": "integer",
+							"format": "int64"
+						},
+						"collectionFormat": "multi",
+						"maximum": 100,
+						"minimum": 1,
+						"allowEmptyValue": false
+					},
+					{
+						"name": "version",
+						"in": "path",
+						"description": "version",
+						"required": true,
+						"type": "number",
+						"default": 1.0,
+						"format": "float"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/SuccessResponse"
+						}
+					}
+				},
+				"deprecated": false
+			}
+		},
+		"/{version}/adAccounts/{adAccountNo}/creatives/activate": {
+			"post": {
+				"tags": [
+					"Creatives"
+				],
+				"summary": "Turn creatives on or off",
+				"description": "HTTP status code description<br> - Error 400 no creative exists<br> - Error 400 draftCreativeNos does not exist<br> - Error 422 & error.code='CONDITION_DOES_NOT_MEET' : Cannot edit the creative",
+				"operationId": "activateUsingPOST_1",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "AccessManagerAccountNo",
+						"in": "header",
+						"description": "Manager account ID that has access to the ad account",
+						"required": false,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "activated",
+						"in": "query",
+						"description": "Indicates whether to turn creatives on. (Set this to true to turn creatives on.)",
+						"required": true,
+						"type": "boolean",
+						"allowEmptyValue": false
+					},
+					{
+						"name": "adAccountNo",
+						"in": "path",
+						"description": "adAccountNo",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "creativeNos",
+						"in": "query",
+						"description": "List of creative IDs",
+						"required": true,
+						"type": "array",
+						"items": {
+							"type": "integer",
+							"format": "int64"
+						},
+						"collectionFormat": "multi",
+						"maximum": 100,
+						"minimum": 1,
+						"allowEmptyValue": false
+					},
+					{
+						"name": "version",
+						"in": "path",
+						"description": "version",
+						"required": true,
+						"type": "number",
+						"default": 1.0,
+						"format": "float"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/SuccessResponse"
+						}
+					}
+				},
+				"deprecated": false
+			}
+		},
+		"/api/open/{version}/adAccounts/{adAccountNo}/creatives/{creativeType}": {
+			"post": {
+			  "tags": [
+				"Creatives"
+			  ],
+			  "summary": "Create a creative",
+			  "operationId": "createImageBannerUsingPOST",
+			  "consumes": [
+				"application/json"
+			  ],
+			  "produces": [
+				"*/*"
+			  ],
+			  "parameters": [
+				{
+				  "name": "adAccountNo",
+				  "in": "path",
+				  "description": "adAccountNo",
+				  "required": true,
+				  "type": "integer",
+				  "format": "int64"
+				},
+				{
+				  "name": "creativeType",
+				  "in": "path",
+				  "description": "Creative types:\r\n `SINGLE_IMAGE`,`MULTIPLE_IMAGE`,`SINGLE_VIDEO`,`IMAGE_BANNER`,`CATALOG`",
+				  "required": true,
+				  "type": "string",
+				  "enum": [
+					"SINGLE_IMAGE",
+					"MULTIPLE_IMAGE",
+					"SINGLE_VIDEO",
+					"IMAGE_BANNER",
+					"CATALOG"
+				  ]
+				},
+				{
+				  "in": "body",
+				  "name": "params",
+				  "description": "params",
+				  "required": true,
+				  "schema": {
+					"$ref": "#/definitions/OpenCreativeOfImageBannerParam"
+				  }
+				},
+				{
+				  "name": "version",
+				  "in": "path",
+				  "description": "version",
+				  "required": true,
+				  "type": "number",
+				  "default": 1.0,
+				  "format": "float"
+				}
+			  ],
+			  "responses": {
+				"200": {
+				  "description": "Successfully changed.",
+				  "schema": {
+					"$ref": "#/definitions/OpenCreativeDetail"
+				  }
+				},
+				"400": {
+				  "description": "Bad request",
+				  "schema": {
+					"$ref": "#/definitions/ErrorResult"
+				  }
+				},
+				"422": {
+				  "description": "Unprocessable",
+				  "schema": {
+					"$ref": "#/definitions/ErrorResult"
+				  }
+				}
+			  },
+			  "deprecated": false
+			}
+		},
+		"/api/open/{version}/adAccounts/{adAccountNo}/creatives/image": {
+			"post": {
+			  "tags": [
+				"Creatives"
+			  ],
+			  "summary": "Upload creative images",
+			  "operationId": "uploadImageUsingPOST",
+			  "consumes": [
+				"multipart/form-data"
+			  ],
+			  "produces": [
+				"*/*"
+			  ],
+			  "parameters": [
+				{
+				  "name": "AccessManagerAccountNo",
+				  "in": "header",
+				  "description": "Manager account ID that has access to the ad account",
+				  "required": false,
+				  "type": "integer",
+				  "format": "int64"
+				},
+				{
+				  "name": "adAccountNo",
+				  "in": "path",
+				  "description": "adAccountNo",
+				  "required": true,
+				  "type": "integer",
+				  "format": "int64"
+				},
+				{
+				  "in": "query",
+				  "name": "creativeTemplateCode",
+				  "description": "Creative templates:\r\n `BANNER_750`, `BANNER_750X200`, `BANNER_1250`, `BANNER_1250X560`",
+				  "required": true,
+				  "schema": {
+					"type": "string"
+				  }
+				},
+				{
+				  "name": "file",
+				  "in": "formData",
+				  "description": "file",
+				  "required": true,
+				  "type": "file"
+				},
+				{
+				  "name": "version",
+				  "in": "path",
+				  "description": "version",
+				  "required": true,
+				  "type": "number",
+				  "default": 1.0,
+				  "format": "float"
+				}
+			  ],
+			  "responses": {
+				"200": {
+				  "description": "Successfully changed.",
+				  "schema": {
+					"$ref": "#/definitions/Image"
+				  }
+				},
+				"400": {
+				  "description": "Bad request",
+				  "schema": {
+					"$ref": "#/definitions/ErrorResult"
+				  }
+				},
+				"422": {
+				  "description": "Unprocessable",
+				  "schema": {
+					"$ref": "#/definitions/ErrorResult"
+				  }
+				}
+			  },
+			  "deprecated": false
+			}
+		},
+		"/{version}/adAccounts/{adAccountNo}/creatives/{creativeNo}": {
+			"delete": {
+				"tags": [
+					"Creatives"
+				],
+				"summary": "Delete a creative",
+				"description": "HTTP status code description<br> - Error 400 no creative exists, or the creative does not belong to the ad account, or the creative has already been deleted",
+				"operationId": "deleteUsingDELETE_1",
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "AccessManagerAccountNo",
+						"in": "header",
+						"description": "Manager account ID that has access to the ad account",
+						"required": false,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "adAccountNo",
+						"in": "path",
+						"description": "adAccountNo",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "creativeNo",
+						"in": "path",
+						"description": "creativeNo",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "version",
+						"in": "path",
+						"description": "version",
+						"required": true,
+						"type": "number",
+						"default": 1.0,
+						"format": "float"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/SuccessResponse"
+						}
+					}
+				},
+				"deprecated": false
+			}
+		},
+		"/{version}/constants": {
+			"get": {
+				"tags": [
+					"Type information"
+				],
+				"summary": "multipleConstants",
+				"operationId": "multipleConstantsUsingGET",
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "types",
+						"in": "query",
+						"description": "types",
+						"required": true,
+						"type": "array",
+						"items": {
+							"type": "string"
+						},
+						"collectionFormat": "multi"
+					},
+					{
+						"name": "version",
+						"in": "path",
+						"description": "API version",
+						"required": true,
+						"type": "number",
+						"default": 1.0,
+						"format": "float"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "object",
+							"additionalProperties": {
+								"type": "array",
+								"items": {
+									"$ref": "#/definitions/ConstantResponse"
+								}
+							}
+						}
+					}
+				},
+				"deprecated": false
+			}
+		},
+		"/{version}/constants/bidGoals": {
+			"get": {
+				"tags": [
+					"Type information"
+				],
+				"summary": "bidGoals",
+				"operationId": "bidGoalsUsingGET",
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "version",
+						"in": "path",
+						"description": "API version",
+						"required": true,
+						"type": "number",
+						"default": 1.0,
+						"format": "float"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/ConstantResponse"
+							}
+						}
+					}
+				},
+				"deprecated": false
+			}
+		},
+		"/{version}/constants/bidStrategies": {
+			"get": {
+				"tags": [
+					"Type information"
+				],
+				"summary": "bidStrategies",
+				"operationId": "bidStrategiesUsingGET",
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "version",
+						"in": "path",
+						"description": "API version",
+						"required": true,
+						"type": "number",
+						"default": 1.0,
+						"format": "float"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/ConstantResponse"
+							}
+						}
+					}
+				},
+				"deprecated": false
+			}
+		},
+		"/{version}/constants/bidTypes": {
+			"get": {
+				"tags": [
+					"Type information"
+				],
+				"summary": "bidTypes",
+				"operationId": "bidTypesUsingGET",
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "version",
+						"in": "path",
+						"description": "API version",
+						"required": true,
+						"type": "number",
+						"default": 1.0,
+						"format": "float"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/ConstantResponse"
+							}
+						}
+					}
+				},
+				"deprecated": false
+			}
+		},
+		"/{version}/constants/budgetTypes": {
+			"get": {
+				"tags": [
+					"Type information"
+				],
+				"summary": "budgetTypes",
+				"operationId": "budgetTypesUsingGET",
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "version",
+						"in": "path",
+						"description": "API version",
+						"required": true,
+						"type": "number",
+						"default": 1.0,
+						"format": "float"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/ConstantResponse"
+							}
+						}
+					}
+				},
+				"deprecated": false
+			}
+		},
+		"/{version}/constants/campaignObjectives": {
+			"get": {
+				"tags": [
+					"Type information"
+				],
+				"summary": "campaignObjectives",
+				"operationId": "campaignObjectivesUsingGET",
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "version",
+						"in": "path",
+						"description": "API version",
+						"required": true,
+						"type": "number",
+						"default": 1.0,
+						"format": "float"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/ConstantResponse"
+							}
+						}
+					}
+				},
+				"deprecated": false
+			}
+		},
+		"/{version}/constants/creativeChooserTypes": {
+			"get": {
+				"tags": [
+					"Type information"
+				],
+				"summary": "creativeChooserTypes",
+				"operationId": "creativeChooserTypesUsingGET",
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "version",
+						"in": "path",
+						"description": "API version",
+						"required": true,
+						"type": "number",
+						"default": 1.0,
+						"format": "float"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/ConstantResponse"
+							}
+						}
+					}
+				},
+				"deprecated": false
+			}
+		},
+		"/{version}/constants/deviceTypes": {
+			"get": {
+				"tags": [
+					"Type information"
+				],
+				"summary": "deviceTypes",
+				"operationId": "deviceTypesUsingGET",
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "version",
+						"in": "path",
+						"description": "API version",
+						"required": true,
+						"type": "number",
+						"default": 1.0,
+						"format": "float"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/ConstantResponse"
+							}
+						}
+					}
+				},
+				"deprecated": false
+			}
+		},
+		"/{version}/constants/frequencyAdUnits": {
+			"get": {
+				"tags": [
+					"Type information"
+				],
+				"summary": "frequencyAdUnits",
+				"operationId": "frequencyAdUnitsUsingGET",
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "version",
+						"in": "path",
+						"description": "API version",
+						"required": true,
+						"type": "number",
+						"default": 1.0,
+						"format": "float"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/ConstantResponse"
+							}
+						}
+					}
+				},
+				"deprecated": false
+			}
+		},
+		"/{version}/constants/gender": {
+			"get": {
+				"tags": [
+					"Type information"
+				],
+				"summary": "genders",
+				"operationId": "gendersUsingGET",
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "version",
+						"in": "path",
+						"description": "API version",
+						"required": true,
+						"type": "number",
+						"default": 1.0,
+						"format": "float"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/ConstantResponse"
+							}
+						}
+					}
+				},
+				"deprecated": false
+			}
+		},
+		"/{version}/targetings/ageRanges": {
+			"get": {
+				"tags": [
+					"Targetting details"
+				],
+				"summary": "ageRanges",
+				"operationId": "ageRangesUsingGET",
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "version",
+						"in": "path",
+						"description": "API version",
+						"required": true,
+						"type": "number",
+						"default": 1.0,
+						"format": "float"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/AgeRange"
+							}
+						}
+					}
+				},
+				"deprecated": false
+			}
+		},
+		"/{version}/targetings/extendedDemo": {
+			"get": {
+				"tags": [
+					"Targetting details"
+				],
+				"summary": "extendedDemoCodes",
+				"operationId": "extendedDemoCodesUsingGET",
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "version",
+						"in": "path",
+						"description": "API version",
+						"required": true,
+						"type": "number",
+						"default": 1.0,
+						"format": "float"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "object",
+							"additionalProperties": {
+								"type": "array",
+								"items": {
+									"$ref": "#/definitions/CodeKeywordResponse"
+								}
+							}
+						}
+					}
+				},
+				"deprecated": false
+			}
+		},
+		"/{version}/targetings/interests": {
+			"get": {
+				"tags": [
+					"Targetting details"
+				],
+				"summary": "interests",
+				"operationId": "interestsUsingGET",
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "version",
+						"in": "path",
+						"description": "API version",
+						"required": true,
+						"type": "number",
+						"default": 1.0,
+						"format": "float"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/InterestKeywordResponse"
+							}
+						}
+					}
+				},
+				"deprecated": false
+			}
+		},
+		"/{version}/targetings/locations": {
+			"get": {
+				"tags": [
+					"Targetting details"
+				],
+				"summary": "locations",
+				"operationId": "locationsUsingGET",
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "version",
+						"in": "path",
+						"description": "API version",
+						"required": true,
+						"type": "number",
+						"default": 1.0,
+						"format": "float"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/RegionCodeResponse"
+							}
+						}
+					}
+				},
+				"deprecated": false
+			}
+		},
+		"/{version}/targetings/placementGroupCodes": {
+			"get": {
+				"tags": [
+					"Targetting details"
+				],
+				"summary": "placementGroupCodes",
+				"operationId": "placementGroupCodesUsingGET",
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "version",
+						"in": "path",
+						"description": "API version",
+						"required": true,
+						"type": "number",
+						"default": 1.0,
+						"format": "float"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/ConstantResponse"
+							}
+						}
+					}
+				},
+				"deprecated": false
+			}
+		},
+		"/{version}/targetings/purchaseIntent": {
+			"get": {
+				"tags": [
+					"Targetting details"
+				],
+				"summary": "purchaseIntents",
+				"operationId": "purchaseIntentsUsingGET",
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "version",
+						"in": "path",
+						"description": "API version",
+						"required": true,
+						"type": "number",
+						"default": 1.0,
+						"format": "float"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/InterestKeywordResponse"
+							}
+						}
+					}
+				},
+				"deprecated": false
+			}
+		}
+	},
+	"definitions": {
+		"AdSetEditBidPriceParam": {
+			"title": "AdSetEditBidPriceParam",
+			"allOf": [
+				{
+					"$ref": "#/definitions/AdSetEditParam"
+				},
+				{
+					"type": "object",
+					"required": [
+						"adSetNos",
+						"bidPrice",
+						"editType"
+					],
+					"properties": {
+						"adSetNos": {
+							"type": "array",
+							"description": "List of ad group numbers",
+							"items": {
+								"type": "integer",
+								"format": "int64",
+								"minimum": 1,
+								"maximum": 100
+							}
+						},
+						"bidPrice": {
+							"type": "number",
+							"example": 10000.0,
+							"description": "Bid amount"
+						},
+						"editType": {
+							"type": "string",
+							"description": "Parameter to edit"
+						}
+					},
+					"title": "AdSetEditBidPriceParam"
+				}
+			]
+		},
+		"AdSetEditBidStrategyValueParam": {
+			"title": "AdSetEditBidStrategyValueParam",
+			"allOf": [
+				{
+					"$ref": "#/definitions/AdSetEditParam"
+				},
+				{
+					"type": "object",
+					"required": [
+						"adSetNos",
+						"bidStrategyValue",
+						"editType"
+					],
+					"properties": {
+						"adSetNos": {
+							"type": "array",
+							"description": "List of ad group numbers",
+							"items": {
+								"type": "integer",
+								"format": "int64",
+								"minimum": 1,
+								"maximum": 100
+							}
+						},
+						"bidStrategyValue": {
+							"type": "number",
+							"example": 100000.0,
+							"description": "Bid and cost limit"
+						},
+						"editType": {
+							"type": "string",
+							"description": "Parameter to edit"
+						}
+					},
+					"title": "AdSetEditBidStrategyValueParam"
+				}
+			]
+		},
+		"AdSetEditBudgetParam": {
+			"title": "AdSetEditBudgetParam",
+			"allOf": [
+				{
+					"$ref": "#/definitions/AdSetEditParam"
+				},
+				{
+					"type": "object",
+					"required": [
+						"adSetNos",
+						"budgetAmount",
+						"editType"
+					],
+					"properties": {
+						"adSetNos": {
+							"type": "array",
+							"description": "List of ad group numbers",
+							"items": {
+								"type": "integer",
+								"format": "int64",
+								"minimum": 1,
+								"maximum": 100
+							}
+						},
+						"budgetAmount": {
+							"type": "number",
+							"example": 100000.0,
+							"description": "Budget"
+						},
+						"editType": {
+							"type": "string",
+							"description": "Parameter to edit"
+						}
+					},
+					"title": "AdSetEditBudgetParam"
+				}
+			]
+		},
+		"AdSetEditParam": {
+			"type": "object",
+			"required": [
+				"adSetNos",
+				"editType"
+			],
+			"discriminator": "editType",
+			"properties": {
+				"adSetNos": {
+					"type": "array",
+					"description": "List of ad group numbers",
+					"items": {
+						"type": "integer",
+						"format": "int64",
+						"minimum": 1,
+						"maximum": 100
+					}
+				},
+				"editType": {
+					"type": "string",
+					"description": "Parameter to edit"
+				}
+			},
+			"title": "AdSetEditParam"
+		},
+		"AgeRange": {
+			"type": "object",
+			"properties": {
+				"from": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"to": {
+					"type": "integer",
+					"format": "int32"
+				}
+			},
+			"title": "AgeRange"
+		},
+		"AvailableTypesOfAdSet": {
+			"type": "object",
+			"properties": {
+				"bidGoals": {
+					"type": "array",
+					"items": {
+						"type": "string",
+						"enum": [
+							"MAX_CLICK",
+							"MAX_CONV",
+							"NONE"
+						]
+					}
+				},
+				"bidStrategies": {
+					"type": "array",
+					"items": {
+						"type": "string",
+						"enum": [
+							"FIXED_BID",
+							"BID_CAP",
+							"COST_CAP",
+							"NO_CAP",
+							"TARGET_COST"
+						]
+					}
+				},
+				"bidTypes": {
+					"type": "array",
+					"items": {
+						"type": "string",
+						"enum": [
+							"CPC",
+							"CPM",
+							"CPV"
+						]
+					}
+				},
+				"budgetTypes": {
+					"type": "array",
+					"items": {
+						"type": "string",
+						"enum": [
+							"DAILY",
+							"TOTAL"
+						]
+					}
+				},
+				"deviceTypes": {
+					"type": "array",
+					"items": {
+						"type": "string",
+						"enum": [
+							"DESKTOP",
+							"MOBILE",
+							"UNKNOWN"
+						]
+					}
+				},
+				"placementGroupCodes": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				}
+			},
+			"title": "AvailableTypesOfAdSet"
+		},
+		"Brand": {
+			"type": "object",
+			"properties": {
+				"adAccountNo": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"brandAdultOnly": {
+					"type": "boolean"
+				},
+				"brandFavorites": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/BrandFavorites"
+					}
+				},
+				"createdAt": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"disabled": {
+					"type": "boolean"
+				},
+				"explanation": {
+					"type": "string"
+				},
+				"industryRelations": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/BrandIndustryRelation"
+					}
+				},
+				"name": {
+					"type": "string"
+				},
+				"no": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"partnerName": {
+					"type": "string"
+				},
+				"registrationNumber": {
+					"type": "string"
+				},
+				"status": {
+					"type": "string",
+					"enum": [
+						"REQUEST",
+						"COMPLETE",
+						"MODIFY_REQUEST",
+						"POSTPONE"
+					]
+				},
+				"updatedAt": {
+					"type": "string",
+					"format": "date-time"
+				}
+			},
+			"title": "Brand"
+		},
+		"BrandFavorites": {
+			"type": "object",
+			"properties": {
+				"adAccountNo": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"brandNo": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"createdAt": {
+					"type": "string",
+					"format": "date-time"
+				}
+			},
+			"title": "BrandFavorites"
+		},
+		"BrandIndustryRelation": {
+			"type": "object",
+			"properties": {
+				"brandNo": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"categoryFirst": {
+					"$ref": "#/definitions/IndustryCategoryFirst"
+				},
+				"categorySecond": {
+					"$ref": "#/definitions/IndustryCategorySecond"
+				},
+				"createdAt": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"industryCategorySecondId": {
+					"type": "integer",
+					"format": "int64"
+				}
+			},
+			"title": "BrandIndustryRelation"
+		},
+		"BrandListResponse": {
+			"type": "object",
+			"properties": {
+				"adAccountNo": {
+					"type": "integer",
+					"format": "int64",
+					"description": "Ad account ID with its brand registered"
+				},
+				"brandName": {
+					"type": "string",
+					"description": "Brand name"
+				},
+				"brandNo": {
+					"type": "integer",
+					"format": "int64",
+					"description": "Brand ID"
+				},
+				"categoryFirstId": {
+					"type": "integer",
+					"format": "int64",
+					"description": "Category ID"
+				},
+				"categoryFirstName": {
+					"type": "string",
+					"description": "Category name"
+				},
+				"categorySecondId": {
+					"type": "integer",
+					"format": "int64",
+					"description": "Subcategory ID"
+				},
+				"categorySecondName": {
+					"type": "string",
+					"description": "Subcategory name"
+				},
+				"explanation": {
+					"type": "string",
+					"description": "Description"
+				},
+				"favorites": {
+					"type": "boolean",
+					"description": "Indicates whether it is added as a favorite."
+				},
+				"updatedAt": {
+					"type": "string",
+					"format": "date-time",
+					"description": "Update time"
+				}
+			},
+			"title": "BrandListResponse"
+		},
+		"CATALOG": {
+			"title": "CATALOG",
+			"allOf": [
+				{
+					"$ref": "#/definitions/OpenCampaignCreationParam"
+				},
+				{
+					"type": "object",
+					"required": [
+						"brandNo",
+						"catalogId",
+						"name",
+						"objective",
+						"urlNo"
+					],
+					"properties": {
+						"brandNo": {
+							"type": "integer",
+							"format": "int64",
+							"description": "Brand ID"
+						},
+						"budgetAmount": {
+							"type": "number",
+							"example": 100000.0,
+							"description": "Budget"
+						},
+						"catalogId": {
+							"type": "string",
+							"description": "Catalog ID"
+						},
+						"conversionUrlNo": {
+							"type": "integer",
+							"format": "int64",
+							"description": "Conversion tracking URL ID"
+						},
+						"name": {
+							"type": "string",
+							"description": "Campaign name",
+							"minLength": 2,
+							"maxLength": 128
+						},
+						"objective": {
+							"type": "string",
+							"description": "Campaign objective"
+						},
+						"urlNo": {
+							"type": "integer",
+							"format": "int64",
+							"description": "Canonical URL ID"
+						}
+					},
+					"title": "CATALOG"
+				}
+			]
+		},
+		"CONVERSION": {
+			"title": "CONVERSION",
+			"allOf": [
+				{
+					"$ref": "#/definitions/OpenCampaignCreationParam"
+				},
+				{
+					"type": "object",
+					"required": [
+						"brandNo",
+						"name",
+						"objective",
+						"urlNo"
+					],
+					"properties": {
+						"brandNo": {
+							"type": "integer",
+							"format": "int64",
+							"description": "Brand ID"
+						},
+						"budgetAmount": {
+							"type": "number",
+							"example": 100000.0,
+							"description": "Budget"
+						},
+						"conversionType": {
+							"type": "string",
+							"description": "Optimized conversion type\r\n- Available values: `PURCHASE`,`CART`"
+						},
+						"conversionUrlNo": {
+							"type": "integer",
+							"format": "int64",
+							"description": "Conversion tracking URL ID"
+						},
+						"name": {
+							"type": "string",
+							"description": "Campaign name",
+							"minLength": 2,
+							"maxLength": 128
+						},
+						"objective": {
+							"type": "string",
+							"description": "Campaign objective"
+						},
+						"urlNo": {
+							"type": "integer",
+							"format": "int64",
+							"description": "Canonical URL ID"
+						}
+					},
+					"title": "CONVERSION"
+				}
+			]
+		},
+		"CampaignSearchKeyword": {
+			"type": "object",
+			"properties": {
+				"campaignNo": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"createdAt": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"searchKeywordNo": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"updaterId": {
+					"type": "string"
+				}
+			},
+			"title": "CampaignSearchKeyword"
+		},
+		"CampaignStats": {
+			"type": "object",
+			"properties": {
+				"active": {
+					"type": "boolean"
+				},
+				"autoPlayCount": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"bidType": {
+					"type": "string",
+					"enum": [
+						"CPC",
+						"CPM",
+						"CPV"
+					]
+				},
+				"campaignName": {
+					"type": "string"
+				},
+				"campaignNo": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"campaignObjective": {
+					"type": "string",
+					"enum": [
+						"CONVERSION",
+						"WEB_SITE_TRAFFIC",
+						"INSTALL_APP",
+						"WATCH_VIDEO",
+						"CATALOG",
+						"SHOPPING"
+					]
+				},
+				"clickCount": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"clickPlayCount": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"cpc": {
+					"type": "number"
+				},
+				"cpm": {
+					"type": "number"
+				},
+				"cpv": {
+					"type": "number"
+				},
+				"ctr": {
+					"type": "number"
+				},
+				"failedToLoad": {
+					"type": "boolean"
+				},
+				"impCount": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"multiBidType": {
+					"type": "boolean"
+				},
+				"prog25Count": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"prog50Count": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"prog75Count": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"prog95Count": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"reachImp": {
+					"type": "number"
+				},
+				"reachSales": {
+					"type": "number"
+				},
+				"resultCount": {
+					"type": "number"
+				},
+				"resultString": {
+					"type": "string"
+				},
+				"sales": {
+					"type": "number"
+				},
+				"salesPerResult": {
+					"type": "number"
+				},
+				"salesPerResultString": {
+					"type": "string"
+				},
+				"status": {
+					"type": "string"
+				},
+				"videoImpCount": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"vplayCount": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"vtr": {
+					"type": "number"
+				}
+			},
+			"title": "CampaignStats"
+		},
+		"CatalogNode": {
+			"type": "object",
+			"properties": {
+				"catalogTypeId": {
+					"type": "string"
+				},
+				"id": {
+					"type": "string"
+				},
+				"name": {
+					"type": "string"
+				}
+			},
+			"title": "CatalogNode"
+		},
+		"CodeKeywordResponse": {
+			"type": "object",
+			"properties": {
+				"code": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"keyword": {
+					"type": "string"
+				}
+			},
+			"title": "CodeKeywordResponse"
+		},
+		"ConstantResponse": {
+			"type": "object",
+			"properties": {
+				"extra": {
+					"type": "string"
+				},
+				"name": {
+					"type": "string"
+				},
+				"value": {
+					"type": "string"
+				}
+			},
+			"title": "ConstantResponse"
+		},
+		"ConversionUrlResponse": {
+			"type": "object",
+			"properties": {
+				"appId": {
+					"type": "string"
+				},
+				"bizChannelNo": {
+					"type": "integer",
+					"format": "int64",
+					"description": "Biz channel ID"
+				},
+				"naAccountId": {
+					"type": "string",
+					"description": "NAVER key"
+				},
+				"name": {
+					"type": "string",
+					"description": "Biz channel name"
+				},
+				"storePlatform": {
+					"type": "string",
+					"enum": [
+						"ANDROID",
+						"IOS"
+					]
+				},
+				"trackingDays": {
+					"type": "integer",
+					"format": "int32",
+					"description": "Conversion tracking period"
+				},
+				"url": {
+					"type": "string",
+					"description": "Biz channel URL"
+				},
+				"urlNo": {
+					"type": "integer",
+					"format": "int64",
+					"description": "URL ID"
+				}
+			},
+			"title": "ConversionUrlResponse"
+		},
+		"Duration": {
+			"type": "object",
+			"properties": {
+				"nano": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"negative": {
+					"type": "boolean"
+				},
+				"seconds": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"units": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/TemporalUnit"
+					}
+				},
+				"zero": {
+					"type": "boolean"
+				}
+			},
+			"title": "Duration"
+		},
+		"Error": {
+			"type": "object",
+			"properties": {
+				"code": {
+					"type": "string",
+					"enum": [
+						"CASE_1",
+						"CASE_2",
+						"CASE_3",
+						"CASE_4",
+						"CASE_5",
+						"CONDITION_DOES_NOT_MEET",
+						"DATA_NOT_EXIST",
+						"DATA_CONCURRENCY_PROBLEM",
+						"DUPLICATED_VALUE",
+						"ALREADY_DONE",
+						"NOT_ALLOWED_FILE_TYPE",
+						"INVALID_PARAMETER",
+						"INVALID_URL",
+						"INVALID_SHOPPING",
+						"BAD_REQUEST",
+						"AUTH_ERROR",
+						"UNDER_CONSTRUCTION",
+						"UNKNOWN_ERROR"
+					]
+				},
+				"description": {
+					"type": "string"
+				},
+				"detailCode": {
+					"type": "string"
+				},
+				"extra": {
+					"type": "object"
+				},
+				"message": {
+					"type": "string"
+				}
+			},
+			"title": "Error"
+		},
+		"ErrorResult": {
+			"type": "object",
+			"properties": {
+				"error": {
+					"$ref": "#/definitions/Error"
+				}
+			},
+			"title": "ErrorResult"
+		},
+		"INSTALL_APP": {
+			"title": "INSTALL_APP",
+			"allOf": [
+				{
+					"$ref": "#/definitions/OpenCampaignCreationParam"
+				},
+				{
+					"type": "object",
+					"required": [
+						"brandNo",
+						"name",
+						"objective",
+						"urlNo"
+					],
+					"properties": {
+						"brandNo": {
+							"type": "integer",
+							"format": "int64",
+							"description": "Brand ID"
+						},
+						"budgetAmount": {
+							"type": "number",
+							"example": 100000.0,
+							"description": "Budget"
+						},
+						"name": {
+							"type": "string",
+							"description": "Campaign name",
+							"minLength": 2,
+							"maxLength": 128
+						},
+						"objective": {
+							"type": "string",
+							"description": "Campaign objective"
+						},
+						"urlNo": {
+							"type": "integer",
+							"format": "int64",
+							"description": "Canonical URL ID"
+						}
+					},
+					"title": "INSTALL_APP"
+				}
+			]
+		},
+		"Image": {
+			"type": "object",
+			"properties": {
+				"adAccountNo": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"createdAt": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"fileSize": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"filename": {
+					"type": "string"
+				},
+				"height": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"imageUrl": {
+					"type": "string"
+				},
+				"no": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"sizeGroupNo": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"width": {
+					"type": "integer",
+					"format": "int32"
+				}
+			},
+			"title": "Image"
+		},
+		"IndustryCategoryFirst": {
+			"type": "object",
+			"properties": {
+				"categorySecond": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/IndustryCategorySecond"
+					}
+				},
+				"id": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"name": {
+					"type": "string"
+				},
+				"visible": {
+					"type": "boolean"
+				}
+			},
+			"title": "IndustryCategoryFirst"
+		},
+		"IndustryCategorySecond": {
+			"type": "object",
+			"properties": {
+				"categoryFirstId": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"id": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"name": {
+					"type": "string"
+				},
+				"visible": {
+					"type": "boolean"
+				}
+			},
+			"title": "IndustryCategorySecond"
+		},
+		"InterestKeywordResponse": {
+			"type": "object",
+			"properties": {
+				"children": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/InterestKeywordResponse"
+					}
+				},
+				"code": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"depth": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"keyword": {
+					"type": "string"
+				}
+			},
+			"title": "InterestKeywordResponse"
+		},
+		"InterestTargetParam": {
+			"type": "object",
+			"properties": {
+				"code": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"depth": {
+					"type": "integer",
+					"format": "int32"
+				}
+			},
+			"title": "InterestTargetParam"
+		},
+		"LocalTime": {
+			"type": "object",
+			"properties": {
+				"hour": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"minute": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"nano": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"second": {
+					"type": "integer",
+					"format": "int32"
+				}
+			},
+			"title": "LocalTime"
+		},
+		"OpenAdSetCreationParam": {
+			"type": "object",
+			"required": [
+				"campaignNo",
+				"name"
+			],
+			"properties": {
+				"accelerated": {
+					"type": "boolean",
+					"description": "Delivery method indicating whether to accelerate ad delivery."
+				},
+				"ageRanges": {
+					"type": "array",
+					"description": "Age",
+					"items": {
+						"$ref": "#/definitions/AgeRange"
+					}
+				},
+				"allDevice": {
+					"type": "boolean",
+					"description": "Indicates whether to select all eligible devices."
+				},
+				"allPlacementGroup": {
+					"type": "boolean",
+					"description": "Indicates whether to select all eligible ad placement."
+				},
+				"bidGoal": {
+					"type": "string",
+					"description": "Bid strategy\r\n- Available values: `MAX_CONV`,`MAX_CLICK`,`NONE`"
+				},
+				"bidPrice": {
+					"type": "number",
+					"description": "Bid amount"
+				},
+				"bidStrategy": {
+					"type": "string",
+					"description": "How to manage costs\r\n- Available values: `FIXED_BID`,`BID_CAP`,`COST_CAP`,`NO_CAP`"
+				},
+				"bidStrategyValue": {
+					"type": "number",
+					"description": "Bid limit"
+				},
+				"bidType": {
+					"type": "string",
+					"description": "Billing type\r\n- Available values: `CPC`,`CPM`,`CPV`"
+				},
+				"budgetAmount": {
+					"type": "number",
+					"description": "Budget amount"
+				},
+				"budgetType": {
+					"type": "string",
+					"description": "Budget type",
+					"enum": [
+						"DAILY",
+						"TOTAL"
+					]
+				},
+				"campaignNo": {
+					"type": "integer",
+					"format": "int64",
+					"description": "Campaign ID"
+				},
+				"creativeChooserType": {
+					"type": "string",
+					"description": "Creative selection method",
+					"enum": [
+						"VALUE_WEIGHTED_RANDOM",
+						"SIMPLE_RANDOM",
+						"OPTIMIZATION"
+					]
+				},
+				"devices": {
+					"type": "array",
+					"description": "Device type\r\n- Available values: `DESKTOP`,`MOBILE`",
+					"items": {
+						"type": "string"
+					}
+				},
+				"endTime": {
+					"type": "string",
+					"description": "End time"
+				},
+				"extensionDemos": {
+					"type": "array",
+					"description": "Extension demos",
+					"items": {
+						"type": "integer",
+						"format": "int32"
+					}
+				},
+				"frequencyAdUnit": {
+					"type": "string",
+					"description": "Impression unit",
+					"enum": [
+						"AD_SET",
+						"CREATIVE"
+					]
+				},
+				"genders": {
+					"type": "array",
+					"description": "Gender\r\n- Available values: `M`,`F`,`U`",
+					"items": {
+						"type": "string"
+					}
+				},
+				"interestCodes": {
+					"type": "array",
+					"description": "Interests",
+					"items": {
+						"$ref": "#/definitions/InterestTargetParam"
+					}
+				},
+				"locations": {
+					"type": "array",
+					"description": "Regions",
+					"items": {
+						"type": "string"
+					}
+				},
+				"name": {
+					"type": "string",
+					"description": "Ad group name",
+					"minLength": 2,
+					"maxLength": 128
+				},
+				"ongoing": {
+					"type": "boolean",
+					"description": "Indicates whether to continue to show ads."
+				},
+				"placementGroupCodes": {
+					"type": "array",
+					"description": "Ad group placement",
+					"items": {
+						"type": "string"
+					}
+				},
+				"platforms": {
+					"type": "array",
+					"description": "Operating system\r\n- Available values: `ANDROID`,`IOS`",
+					"items": {
+						"type": "string"
+					}
+				},
+				"purchaseIntentCodes": {
+					"type": "array",
+					"description": "Buying intent",
+					"items": {
+						"type": "integer",
+						"format": "int32"
+					}
+				},
+				"quota": {
+					"type": "integer",
+					"format": "int32",
+					"description": "Impression quota",
+					"minimum": 1.0,
+					"maximum": 5.0,
+					"exclusiveMinimum": false,
+					"exclusiveMaximum": false
+				},
+				"scheduleTimeSlots": {
+					"type": "array",
+					"description": "Detailed schedule",
+					"items": {
+						"$ref": "#/definitions/ScheduleTimeSlotParam"
+					}
+				},
+				"startTime": {
+					"type": "string",
+					"description": "Start time"
+				}
+			},
+			"title": "OpenAdSetCreationParam"
+		},
+		"OpenAdSetListView": {
+			"type": "object",
+			"properties": {
+				"activated": {
+					"type": "boolean",
+					"description": "Indicates whether ad groups are turned on or off."
+				},
+				"allPlacementGroup": {
+					"type": "boolean",
+					"description": "Indicates whether to select all eligible ad placement."
+				},
+				"autoBidStatus": {
+					"type": "string",
+					"enum": [
+						"LEARNING",
+						"RE_LEARNING",
+						"STABLE",
+						"LIMITED"
+					]
+				},
+				"bidGoal": {
+					"type": "string",
+					"description": "Bid strategy\r\n- Available values: `MAX_CONV`,`MAX_CLICK`,`NONE`",
+					"enum": [
+						"MAX_CLICK",
+						"MAX_CONV",
+						"NONE"
+					]
+				},
+				"bidPrice": {
+					"type": "number",
+					"description": "Bid amount"
+				},
+				"bidStrategy": {
+					"type": "string",
+					"description": "How to manage costs\r\n- Available values: `FIXED_BID`,`BID_CAP`,`COST_CAP`,`NO_CAP`",
+					"enum": [
+						"FIXED_BID",
+						"BID_CAP",
+						"COST_CAP",
+						"NO_CAP",
+						"TARGET_COST"
+					]
+				},
+				"bidStrategyValue": {
+					"type": "number",
+					"description": "Bid limit"
+				},
+				"bidType": {
+					"type": "string",
+					"description": "Billing type\r\n- Available values: `CPC`,`CPM`,`CPV`",
+					"enum": [
+						"CPC",
+						"CPM",
+						"CPV"
+					]
+				},
+				"budgetAmount": {
+					"type": "number",
+					"description": "Budget amount"
+				},
+				"budgetType": {
+					"type": "string",
+					"description": "Budget type",
+					"enum": [
+						"DAILY",
+						"TOTAL"
+					]
+				},
+				"campaignName": {
+					"type": "string",
+					"description": "Campaign name"
+				},
+				"campaignNo": {
+					"type": "integer",
+					"format": "int64",
+					"description": "Campaign ID"
+				},
+				"deleted": {
+					"type": "boolean",
+					"description": "Indicates whether the campaign is deleted."
+				},
+				"endTime": {
+					"type": "string",
+					"format": "date-time",
+					"description": "End time"
+				},
+				"interestIntersection": {
+					"type": "boolean"
+				},
+				"name": {
+					"type": "string",
+					"description": "Ad group name"
+				},
+				"no": {
+					"type": "integer",
+					"format": "int64",
+					"description": "Ad group ID"
+				},
+				"objective": {
+					"type": "string",
+					"description": "Campaign objective",
+					"enum": [
+						"CONVERSION",
+						"WEB_SITE_TRAFFIC",
+						"INSTALL_APP",
+						"WATCH_VIDEO",
+						"CATALOG",
+						"SHOPPING"
+					]
+				},
+				"placementGroups": {
+					"type": "array",
+					"description": "Ad group placement",
+					"items": {
+						"$ref": "#/definitions/PlacementGroup"
+					}
+				},
+				"startTime": {
+					"type": "string",
+					"format": "date-time",
+					"description": "Start time"
+				},
+				"timezoneOffset": {
+					"type": "string"
+				}
+			},
+			"title": "OpenAdSetListView"
+		},
+		"OpenAdSetView": {
+			"type": "object",
+			"required": [
+				"campaignNo",
+				"name"
+			],
+			"properties": {
+				"accelerated": {
+					"type": "boolean",
+					"description": "Delivery method indicating whether to accelerate ad delivery."
+				},
+				"adidLibraryParams": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/OpenCustomTargetView"
+					}
+				},
+				"ageRanges": {
+					"type": "array",
+					"description": "Age",
+					"items": {
+						"$ref": "#/definitions/AgeRange"
+					}
+				},
+				"aiplTargetParams": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/OpenCustomTargetView"
+					}
+				},
+				"allDevice": {
+					"type": "boolean",
+					"description": "Indicates whether to select all eligible devices."
+				},
+				"allPlacementGroup": {
+					"type": "boolean",
+					"description": "Indicates whether to select all eligible ad placement."
+				},
+				"bidGoal": {
+					"type": "string",
+					"description": "Bid strategy\r\n- Available values: `MAX_CONV`,`MAX_CLICK`,`NONE`"
+				},
+				"bidPrice": {
+					"type": "number",
+					"description": "Bid amount"
+				},
+				"bidStrategy": {
+					"type": "string",
+					"description": "How to manage costs\r\n- Available values: `FIXED_BID`,`BID_CAP`,`COST_CAP`,`NO_CAP`"
+				},
+				"bidStrategyValue": {
+					"type": "number",
+					"description": "Bid limit"
+				},
+				"bidType": {
+					"type": "string",
+					"description": "Billing type\r\n- Available values: `CPC`,`CPM`,`CPV`"
+				},
+				"budgetAmount": {
+					"type": "number",
+					"description": "Budget amount"
+				},
+				"budgetType": {
+					"type": "string",
+					"description": "Budget type",
+					"enum": [
+						"DAILY",
+						"TOTAL"
+					]
+				},
+				"campaignNo": {
+					"type": "integer",
+					"format": "int64",
+					"description": "Campaign ID"
+				},
+				"creativeChooserType": {
+					"type": "string",
+					"description": "Creative selection method",
+					"enum": [
+						"VALUE_WEIGHTED_RANDOM",
+						"SIMPLE_RANDOM",
+						"OPTIMIZATION"
+					]
+				},
+				"creativeTemplates": {
+					"type": "array",
+					"description": "Creative template information",
+					"items": {
+					  "$ref": "#/definitions/OpenCreativeTemplateView"
+					}
+				},
+				"devices": {
+					"type": "array",
+					"description": "Device type\r\n- Available values: `DESKTOP`,`MOBILE`",
+					"items": {
+						"type": "string"
+					}
+				},
+				"endTime": {
+					"type": "string",
+					"description": "End time"
+				},
+				"extensionDemos": {
+					"type": "array",
+					"description": "Extension demos",
+					"items": {
+						"type": "integer",
+						"format": "int32"
+					}
+				},
+				"frequencyAdUnit": {
+					"type": "string",
+					"description": "Impression unit",
+					"enum": [
+						"AD_SET",
+						"CREATIVE"
+					]
+				},
+				"genders": {
+					"type": "array",
+					"description": "Gender\r\n- Available values: `M`,`F`,`U`",
+					"items": {
+						"type": "string"
+					}
+				},
+				"interestCodes": {
+					"type": "array",
+					"description": "Interests",
+					"items": {
+						"$ref": "#/definitions/InterestTargetParam"
+					}
+				},
+				"locations": {
+					"type": "array",
+					"description": "Regions",
+					"items": {
+						"type": "string"
+					}
+				},
+				"lookalikeAudienceParams": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/OpenCustomTargetView"
+					}
+				},
+				"matTargetParams": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/OpenCustomTargetView"
+					}
+				},
+				"name": {
+					"type": "string",
+					"description": "Ad group name",
+					"minLength": 2,
+					"maxLength": 128
+				},
+				"no": {
+					"type": "integer",
+					"format": "int64",
+					"description": "Ad group ID"
+				},
+				"ongoing": {
+					"type": "boolean",
+					"description": "Indicates whether to continue to show ads."
+				},
+				"placementGroupCodes": {
+					"type": "array",
+					"description": "Ad group placement",
+					"items": {
+						"type": "string"
+					}
+				},
+				"platforms": {
+					"type": "array",
+					"description": "Operating system\r\n- Available values: `ANDROID`,`IOS`",
+					"items": {
+						"type": "string"
+					}
+				},
+				"purchaseIntentCodes": {
+					"type": "array",
+					"description": "Buying intent",
+					"items": {
+						"type": "integer",
+						"format": "int32"
+					}
+				},
+				"quota": {
+					"type": "integer",
+					"format": "int32",
+					"description": "Impression quota",
+					"minimum": 1.0,
+					"maximum": 5.0,
+					"exclusiveMinimum": false,
+					"exclusiveMaximum": false
+				},
+				"scheduleTimeSlots": {
+					"type": "array",
+					"description": "Detailed schedule",
+					"items": {
+						"$ref": "#/definitions/ScheduleTimeSlotParam"
+					}
+				},
+				"shoppingNewsTargetParams": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/OpenCustomTargetView"
+					}
+				},
+				"spentBudgetRatio": {
+					"type": "number"
+				},
+				"startTime": {
+					"type": "string",
+					"description": "Start time"
+				},
+				"status": {
+					"type": "string",
+					"enum": [
+						"RUNNABLE",
+						"BEFORE_STARTING",
+						"TERMINATED",
+						"DELETED",
+						"BUDGET_EXHAUSTED",
+						"LOW_TARGETED",
+						"TARGET_DISABLED",
+						"LEARNING",
+						"LEARNING_LIMITED"
+					]
+				}
+			},
+			"title": "OpenAdSetView"
+		},
+		"OpenApiPageable": {
+			"type": "object",
+			"properties": {
+				"page": {
+					"type": "integer",
+					"format": "int32",
+					"description": "Page number (default: 0)"
+				},
+				"size": {
+					"type": "integer",
+					"format": "int32",
+					"description": "Page size (default: 10, max: 100)"
+				}
+			},
+			"title": "OpenApiPageable"
+		},
+		"OpenCampaignCreationParam": {
+			"type": "object",
+			"required": [
+				"brandNo",
+				"name",
+				"objective",
+				"urlNo"
+			],
+			"discriminator": "objective",
+			"properties": {
+				"brandNo": {
+					"type": "integer",
+					"format": "int64",
+					"description": "Brand ID"
+				},
+				"budgetAmount": {
+					"type": "number",
+					"example": 100000.0,
+					"description": "Budget"
+				},
+				"name": {
+					"type": "string",
+					"description": "Campaign name",
+					"minLength": 2,
+					"maxLength": 128
+				},
+				"objective": {
+					"type": "string",
+					"description": "Campaign objective"
+				},
+				"urlNo": {
+					"type": "integer",
+					"format": "int64",
+					"description": "Canonical URL ID"
+				}
+			},
+			"title": "OpenCampaignCreationParam"
+		},
+		"OpenCampaignView": {
+			"type": "object",
+			"properties": {
+				"activated": {
+					"type": "boolean",
+					"description": "Indicates whether the campaign is turned on or off."
+				},
+				"adAccountNo": {
+					"type": "integer",
+					"format": "int64",
+					"description": "Ad account ID"
+				},
+				"appName": {
+					"type": "string",
+					"description": "App name. It is still present for old data, but is not available."
+				},
+				"bidTypes": {
+					"type": "array",
+					"items": {
+						"type": "string",
+						"enum": [
+							"CPC",
+							"CPM",
+							"CPV"
+						]
+					}
+				},
+				"brand": {
+					"description": "Brand object",
+					"$ref": "#/definitions/Brand"
+				},
+				"brandNo": {
+					"type": "integer",
+					"format": "int64",
+					"description": "Brand ID"
+				},
+				"budgetAmount": {
+					"type": "number",
+					"description": "Campaign budget limit"
+				},
+				"budgetExhausted": {
+					"type": "boolean",
+					"description": "Indicates whether the budget limit is reached."
+				},
+				"campaignSearchKeywords": {
+					"type": "array",
+					"description": "Keyword objects",
+					"items": {
+						"$ref": "#/definitions/CampaignSearchKeyword"
+					}
+				},
+				"catalogAvailable": {
+					"type": "boolean",
+					"description": "Indicates whether a catalog is availabe."
+				},
+				"catalogId": {
+					"type": "string",
+					"description": "Catalog ID"
+				},
+				"conversionType": {
+					"type": "string",
+					"description": "Optimized conversion type\r\n- Available values: `PURCHASE`,`CART`",
+					"enum": [
+						"PURCHASE",
+						"MEMBERSHIP",
+						"CART",
+						"RESERVATION",
+						"ETC"
+					]
+				},
+				"conversionUrl": {
+					"description": "Conversion tracking object",
+					"$ref": "#/definitions/Url"
+				},
+				"conversionUrlName": {
+					"type": "string",
+					"description": "Conversion tracking biz channel name"
+				},
+				"conversionUrlNo": {
+					"type": "integer",
+					"format": "int64",
+					"description": "Conversion tracking URL ID"
+				},
+				"conversionUrlStorePlatform": {
+					"type": "string",
+					"enum": [
+						"ANDROID",
+						"IOS"
+					]
+				},
+				"createdAt": {
+					"description": "Creation time",
+					"$ref": "#/definitions/Timestamp"
+				},
+				"deleted": {
+					"type": "boolean",
+					"description": "Indicates whether the campaign is deleted."
+				},
+				"name": {
+					"type": "string",
+					"description": "Campaign name"
+				},
+				"no": {
+					"type": "integer",
+					"format": "int64",
+					"description": "Campaign ID"
+				},
+				"objective": {
+					"type": "string",
+					"description": "Campaign objective",
+					"enum": [
+						"CONVERSION",
+						"WEB_SITE_TRAFFIC",
+						"INSTALL_APP",
+						"WATCH_VIDEO",
+						"CATALOG",
+						"SHOPPING"
+					]
+				},
+				"pausedAt": {
+					"description": "Pause time",
+					"$ref": "#/definitions/Timestamp"
+				},
+				"spentBudgetRatio": {
+					"type": "number"
+				},
+				"stats": {
+					"description": "Campaign statistics object",
+					"$ref": "#/definitions/CampaignStats"
+				},
+				"updatedAt": {
+					"description": "Update time",
+					"$ref": "#/definitions/Timestamp"
+				},
+				"url": {
+					"description": "Canonical URL object",
+					"$ref": "#/definitions/Url"
+				},
+				"urlNo": {
+					"type": "integer",
+					"format": "int64",
+					"description": "URL ID"
+				}
+			},
+			"title": "OpenCampaignView"
+		},
+		"OpenCreative": {
+			"type": "object",
+			"required": [
+				"activated",
+				"adSetName",
+				"adSetNo",
+				"campaignName",
+				"campaignNo",
+				"name",
+				"no"
+			],
+			"properties": {
+				"activated": {
+					"type": "boolean",
+					"description": "Indicates whether to turn creatives on."
+				},
+				"adSetName": {
+					"type": "string",
+					"description": "Ad group name"
+				},
+				"adSetNo": {
+					"type": "integer",
+					"format": "int64",
+					"description": "Ad group ID"
+				},
+				"campaignName": {
+					"type": "string",
+					"description": "Campaign name"
+				},
+				"campaignNo": {
+					"type": "integer",
+					"format": "int64",
+					"description": "Campaign ID"
+				},
+				"creativeType": {
+					"type": "string",
+					"description": "Creative types:\r\n `SINGLE_IMAGE`,`MULTIPLE_IMAGE`,`SINGLE_VIDEO`,`IMAGE_BANNER`,`CATALOG`",
+					"enum": [
+						"SINGLE_IMAGE",
+						"MULTIPLE_IMAGE",
+						"SINGLE_VIDEO",
+						"IMAGE_BANNER",
+						"CATALOG"
+					]
+				},
+				"image": {
+					"description": "Main image",
+					"$ref": "#/definitions/Image"
+				},
+				"linkUrl": {
+					"type": "string",
+					"description": "Canonical URL"
+				},
+				"name": {
+					"type": "string",
+					"description": "Creative name"
+				},
+				"no": {
+					"type": "integer",
+					"format": "int64",
+					"description": "Creative ID"
+				},
+				"status": {
+					"type": "string",
+					"description": "Creative states:\r\n `PENDING','REJECT','ACCEPT','PENDING_IN_OPERATION','REJECT_IN_OPERATION','DELETED`"
+				}
+			},
+			"title": "OpenCreative"
+		},
+		"OpenCreativeDetail": {
+			"type": "object",
+			"properties": {
+			  "activated": {
+				"type": "boolean",
+				"description": "Indicates whether to turn creatives on."
+			  },
+			  "creativeTemplateCode": {
+				"type": "string",
+				"description": "Creative templates:\r\n `BANNER_750`, `BANNER_750X200`, `BANNER_1250`, `BANNER_1250X560`"
+			  },
+			  "creativeType": {
+				"type": "string",
+				"description": "Creative type",
+				"enum": [
+				  "SINGLE_IMAGE",
+				  "MULTIPLE_IMAGE",
+				  "SINGLE_VIDEO",
+				  "IMAGE_BANNER",
+				  "CATALOG"
+				]
+			  },
+			  "medias": {
+				"type": "array",
+				"description": "Creative media information",
+				"items": {
+				  "$ref": "#/definitions/OpeneMedia"
+				}
+			  },
+			  "message": {
+				"type": "string"
+			  },
+			  "name": {
+				"type": "string",
+				"description": "Creative name"
+			  },
+			  "no": {
+				"type": "integer",
+				"format": "int64",
+				"description": "Creative ID"
+			  },
+			  "status": {
+				"type": "string",
+				"description": "Creative states:\r\n `PENDING','REJECT','ACCEPT','PENDING_IN_OPERATION','REJECT_IN_OPERATION','DELETED`"
+			  }
+			},
+			"title": "OpenCreativeDetail"
+		},
+		"OpenCreativeOfImageBannerParam": {
+			"type": "object",
+			"required": [
+			  "adSetNo",
+			  "imageNo",
+			  "altMessage",
+			  "creativeTemplateCode",
+			  "name",
+			  "url"
+			],
+			"properties": {
+			  "adSetNo": {
+				"type": "integer",
+				"format": "int64"
+			  },
+			  "altMessage": {
+				"type": "string"
+			  },
+			  "creativeTemplateCode": {
+				"type": "string"
+			  },
+			  "imageNo": {
+				"type": "integer",
+				"format": "int64"
+			  },
+			  "name": {
+				"type": "string",
+				"minLength": 2,
+				"maxLength": 128
+			  },
+			  "url": {
+				"type": "string"
+			  }
+			},
+			"title": "OpenCreativeOfImageBannerParam"
+		},
+		"OpenCreativeTemplateView": {
+			"type": "object",
+			"properties": {
+			  "code": {
+				"type": "string",
+				"description": "Creative templates:\r\n `BANNER_750`, `BANNER_750X200`, `BANNER_1250`, `BANNER_1250X560`"
+			  },
+			  "creativeType": {
+				"type": "string",
+				"description": "Creative type",
+				"enum": [
+				  "SINGLE_IMAGE",
+				  "MULTIPLE_IMAGE",
+				  "SINGLE_VIDEO",
+				  "IMAGE_BANNER",
+				  "CATALOG"
+				]
+			  },
+			  "sizeGroups": {
+				"type": "array",
+				"description": "Creative media (images and videos) size",
+				"items": {
+				  "$ref": "#/definitions/SizeGroup"
+				}
+			  }
+			},
+			"title": "OpenCreativeTemplateView"
+		},
+		"SizeGroup": {
+			"type": "object",
+			"properties": {
+			  "height": {
+				"type": "integer",
+				"format": "int32",
+				"description": "Height or height ratio"
+			  },
+			  "maxFileSize": {
+				"type": "integer",
+				"format": "int64",
+				"description": "Maximum file size"
+			  },
+			  "ratioBased": {
+				"type": "boolean",
+				"description": "Indicates whether it is ratio based information."
+			  },
+			  "width": {
+				"type": "integer",
+				"format": "int32",
+				"description": "Width or width ratio"
+			  }
+			},
+			"title": "SizeGroup"
+		},
+		"OpenCustomTargetView": {
+			"type": "object",
+			"properties": {
+				"included": {
+					"type": "boolean"
+				},
+				"name": {
+					"type": "string"
+				},
+				"no": {
+					"type": "integer",
+					"format": "int64"
+				}
+			},
+			"title": "OpenCustomTargetView"
+		},
+		"OpenImage": {
+			"type": "object",
+			"properties": {
+			  "createdAt": {
+				"type": "string",
+				"format": "date-time",
+				"description": "Date and time when the creative image was created."
+			  },
+			  "fileSize": {
+				"type": "integer",
+				"format": "int64",
+				"description": "Creative image file size"
+			  },
+			  "height": {
+				"type": "integer",
+				"format": "int32",
+				"description": "Creative image height"
+			  },
+			  "imageUrl": {
+				"type": "string",
+				"description": "Creative image URL"
+			  },
+			  "no": {
+				"type": "integer",
+				"format": "int64",
+				"description": "Creative image ID"
+			  },
+			  "width": {
+				"type": "integer",
+				"format": "int32",
+				"description": "Creative image width"
+			  }
+			},
+			"title": "OpenImage"
+		},
+		"OpenMediaContent": {
+			"type": "object",
+			"properties": {
+			  "adviceMessage": {
+				"type": "string",
+				"description": "Notice message"
+			  },
+			  "altMessage": {
+				"type": "string",
+				"description": "Ad message"
+			  },
+			  "callToAction": {
+				"type": "string",
+				"description": "Action"
+			  },
+			  "linkDescription": {
+				"type": "string",
+				"description": "Description 2"
+			  },
+			  "linkText3rd": {
+				"type": "string",
+				"description": "Description 3"
+			  },
+			  "linkText4th": {
+				"type": "string",
+				"description": "Long description 1 for the desktop banner type"
+			  },
+			  "linkText5th": {
+				"type": "string",
+				"description": "Long description 2 for the desktop banner type"
+			  },
+			  "linkTitle": {
+				"type": "string",
+				"description": "Description 1"
+			  },
+			  "linkUrl": {
+				"type": "string",
+				"description": "Landing URL"
+			  }
+			},
+			"title": "OpenMediaContent"
+		},
+		"OpeneMedia": {
+			"type": "object",
+			"properties": {
+			  "content": {
+				"description": "Creative content information",
+				"$ref": "#/definitions/OpenMediaContent"
+			  },
+			  "image": {
+				"description": "Creative image information",
+				"$ref": "#/definitions/OpenImage"
+			  }
+			},
+			"title": "OpeneMedia"
+		},
+		"Page«BrandListResponse»": {
+			"type": "object",
+			"properties": {
+				"content": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/BrandListResponse"
+					}
+				},
+				"empty": {
+					"type": "boolean"
+				},
+				"first": {
+					"type": "boolean"
+				},
+				"last": {
+					"type": "boolean"
+				},
+				"number": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"numberOfElements": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"pageable": {
+					"$ref": "#/definitions/OpenApiPageable"
+				},
+				"size": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"sort": {
+					"$ref": "#/definitions/Sort"
+				},
+				"totalElements": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"totalPages": {
+					"type": "integer",
+					"format": "int32"
+				}
+			},
+			"title": "Page«BrandListResponse»"
+		},
+		"Page«OpenAdSetListView»": {
+			"type": "object",
+			"properties": {
+				"content": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/OpenAdSetListView"
+					}
+				},
+				"empty": {
+					"type": "boolean"
+				},
+				"first": {
+					"type": "boolean"
+				},
+				"last": {
+					"type": "boolean"
+				},
+				"number": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"numberOfElements": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"pageable": {
+					"$ref": "#/definitions/OpenApiPageable"
+				},
+				"size": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"sort": {
+					"$ref": "#/definitions/Sort"
+				},
+				"totalElements": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"totalPages": {
+					"type": "integer",
+					"format": "int32"
+				}
+			},
+			"title": "Page«OpenAdSetListView»"
+		},
+		"Page«OpenCampaignView»": {
+			"type": "object",
+			"properties": {
+				"content": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/OpenCampaignView"
+					}
+				},
+				"empty": {
+					"type": "boolean"
+				},
+				"first": {
+					"type": "boolean"
+				},
+				"last": {
+					"type": "boolean"
+				},
+				"number": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"numberOfElements": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"pageable": {
+					"$ref": "#/definitions/OpenApiPageable"
+				},
+				"size": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"sort": {
+					"$ref": "#/definitions/Sort"
+				},
+				"totalElements": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"totalPages": {
+					"type": "integer",
+					"format": "int32"
+				}
+			},
+			"title": "Page«OpenCampaignView»"
+		},
+		"Page«OpenCreative»": {
+			"type": "object",
+			"properties": {
+				"content": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/OpenCreative"
+					}
+				},
+				"empty": {
+					"type": "boolean"
+				},
+				"first": {
+					"type": "boolean"
+				},
+				"last": {
+					"type": "boolean"
+				},
+				"number": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"numberOfElements": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"pageable": {
+					"$ref": "#/definitions/OpenApiPageable"
+				},
+				"size": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"sort": {
+					"$ref": "#/definitions/Sort"
+				},
+				"totalElements": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"totalPages": {
+					"type": "integer",
+					"format": "int32"
+				}
+			},
+			"title": "Page«OpenCreative»"
+		},
+		"Page«Url»": {
+			"type": "object",
+			"properties": {
+				"content": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Url"
+					}
+				},
+				"empty": {
+					"type": "boolean"
+				},
+				"first": {
+					"type": "boolean"
+				},
+				"last": {
+					"type": "boolean"
+				},
+				"number": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"numberOfElements": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"pageable": {
+					"$ref": "#/definitions/OpenApiPageable"
+				},
+				"size": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"sort": {
+					"$ref": "#/definitions/Sort"
+				},
+				"totalElements": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"totalPages": {
+					"type": "integer",
+					"format": "int32"
+				}
+			},
+			"title": "Page«Url»"
+		},
+		"PlacementGroup": {
+			"type": "object",
+			"properties": {
+				"basisGrade": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"betaExposable": {
+					"type": "boolean"
+				},
+				"code": {
+					"type": "string"
+				},
+				"displayOrder": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"exposablePhases": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"hidden": {
+					"type": "boolean"
+				},
+				"managerId": {
+					"type": "string"
+				},
+				"name": {
+					"type": "string"
+				},
+				"productType": {
+					"type": "string",
+					"enum": [
+						"SMARTCHANNEL",
+						"BANNER",
+						"FEED",
+						"INSTREAM",
+						"SHOPPING"
+					]
+				},
+				"publisherGroupCode": {
+					"type": "string"
+				},
+				"updatedAt": {
+					"type": "string",
+					"format": "date-time"
+				}
+			},
+			"title": "PlacementGroup"
+		},
+		"RegionCodeResponse": {
+			"type": "object",
+			"properties": {
+				"childLocations": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/RegionCodeResponse"
+					}
+				},
+				"country": {
+					"type": "string",
+					"enum": [
+						"KR",
+						"US"
+					]
+				},
+				"level": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"location": {
+					"type": "string"
+				},
+				"rcode": {
+					"type": "string"
+				}
+			},
+			"title": "RegionCodeResponse"
+		},
+		"SHOPPING": {
+			"title": "SHOPPING",
+			"allOf": [
+				{
+					"$ref": "#/definitions/OpenCampaignCreationParam"
+				},
+				{
+					"type": "object",
+					"required": [
+						"brandNo",
+						"name",
+						"objective",
+						"urlNo"
+					],
+					"properties": {
+						"brandNo": {
+							"type": "integer",
+							"format": "int64",
+							"description": "Brand ID"
+						},
+						"budgetAmount": {
+							"type": "number",
+							"example": 100000.0,
+							"description": "Budget"
+						},
+						"conversionType": {
+							"type": "string",
+							"description": "Optimized conversion type\r\n- Available values: `PURCHASE`,`CART`"
+						},
+						"conversionUrlNo": {
+							"type": "integer",
+							"format": "int64",
+							"description": "Conversion tracking URL ID"
+						},
+						"name": {
+							"type": "string",
+							"description": "Campaign name",
+							"minLength": 2,
+							"maxLength": 128
+						},
+						"objective": {
+							"type": "string",
+							"description": "Campaign objective"
+						},
+						"urlNo": {
+							"type": "integer",
+							"format": "int64",
+							"description": "Canonical URL ID"
+						}
+					},
+					"title": "SHOPPING"
+				}
+			]
+		},
+		"ScheduleTimeSlotParam": {
+			"type": "object",
+			"properties": {
+				"dayOfWeek": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"endHour": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"startHour": {
+					"type": "integer",
+					"format": "int32"
+				}
+			},
+			"title": "ScheduleTimeSlotParam"
+		},
+		"Sort": {
+			"type": "object",
+			"properties": {
+				"empty": {
+					"type": "boolean"
+				},
+				"sorted": {
+					"type": "boolean"
+				},
+				"unsorted": {
+					"type": "boolean"
+				}
+			},
+			"title": "Sort"
+		},
+		"SuccessResponse": {
+			"type": "object",
+			"properties": {
+				"description": {
+					"type": "string"
+				},
+				"message": {
+					"type": "string"
+				},
+				"success": {
+					"type": "boolean"
+				}
+			},
+			"title": "SuccessResponse"
+		},
+		"TemporalUnit": {
+			"type": "object",
+			"properties": {
+				"dateBased": {
+					"type": "boolean"
+				},
+				"duration": {
+					"$ref": "#/definitions/Duration"
+				},
+				"durationEstimated": {
+					"type": "boolean"
+				},
+				"timeBased": {
+					"type": "boolean"
+				}
+			},
+			"title": "TemporalUnit"
+		},
+		"Timestamp": {
+			"type": "object",
+			"properties": {
+				"date": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"day": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"hours": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"minutes": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"month": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"nanos": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"seconds": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"time": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"timezoneOffset": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"year": {
+					"type": "integer",
+					"format": "int32"
+				}
+			},
+			"title": "Timestamp"
+		},
+		"Url": {
+			"type": "object",
+			"properties": {
+				"adAccountNo": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"bizChannelType": {
+					"type": "string",
+					"enum": [
+						"NAVER_SHOPPING",
+						"WEBSITE",
+						"MOBILE_APP"
+					]
+				},
+				"createdAt": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"deleted": {
+					"type": "boolean"
+				},
+				"inspectionStatus": {
+					"type": "string",
+					"enum": [
+						"PENDING",
+						"APPROVED",
+						"REJECTED"
+					]
+				},
+				"localUpdatedAt": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"mallId": {
+					"type": "string"
+				},
+				"managerId": {
+					"type": "string"
+				},
+				"managerName": {
+					"type": "string"
+				},
+				"mobileApp": {
+					"type": "boolean"
+				},
+				"no": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"storePlatform": {
+					"type": "string",
+					"enum": [
+						"ANDROID",
+						"IOS"
+					]
+				},
+				"updatedAt": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"updaterId": {
+					"type": "string"
+				},
+				"url": {
+					"type": "string"
+				},
+				"zoneId": {
+					"$ref": "#/definitions/ZoneId"
+				}
+			},
+			"title": "Url"
+		},
+		"WATCH_VIDEO": {
+			"title": "WATCH_VIDEO",
+			"allOf": [
+				{
+					"$ref": "#/definitions/OpenCampaignCreationParam"
+				},
+				{
+					"type": "object",
+					"required": [
+						"brandNo",
+						"name",
+						"objective",
+						"urlNo"
+					],
+					"properties": {
+						"brandNo": {
+							"type": "integer",
+							"format": "int64",
+							"description": "Brand ID"
+						},
+						"budgetAmount": {
+							"type": "number",
+							"example": 100000.0,
+							"description": "Budget"
+						},
+						"conversionUrlNo": {
+							"type": "integer",
+							"format": "int64",
+							"description": "Conversion tracking URL ID"
+						},
+						"name": {
+							"type": "string",
+							"description": "Campaign name",
+							"minLength": 2,
+							"maxLength": 128
+						},
+						"objective": {
+							"type": "string",
+							"description": "Campaign objective"
+						},
+						"urlNo": {
+							"type": "integer",
+							"format": "int64",
+							"description": "Canonical URL ID"
+						}
+					},
+					"title": "WATCH_VIDEO"
+				}
+			]
+		},
+		"WEB_SITE_TRAFFIC": {
+			"title": "WEB_SITE_TRAFFIC",
+			"allOf": [
+				{
+					"$ref": "#/definitions/OpenCampaignCreationParam"
+				},
+				{
+					"type": "object",
+					"required": [
+						"brandNo",
+						"name",
+						"objective",
+						"urlNo"
+					],
+					"properties": {
+						"brandNo": {
+							"type": "integer",
+							"format": "int64",
+							"description": "Brand ID"
+						},
+						"budgetAmount": {
+							"type": "number",
+							"example": 100000.0,
+							"description": "Budget"
+						},
+						"conversionUrlNo": {
+							"type": "integer",
+							"format": "int64",
+							"description": "Conversion tracking URL ID"
+						},
+						"name": {
+							"type": "string",
+							"description": "Campaign name",
+							"minLength": 2,
+							"maxLength": 128
+						},
+						"objective": {
+							"type": "string",
+							"description": "Campaign objective"
+						},
+						"urlNo": {
+							"type": "integer",
+							"format": "int64",
+							"description": "Canonical URL ID"
+						}
+					},
+					"title": "WEB_SITE_TRAFFIC"
+				}
+			]
+		},
+		"ZoneId": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "string"
+				},
+				"rules": {
+					"$ref": "#/definitions/ZoneRules"
+				}
+			},
+			"title": "ZoneId"
+		},
+		"ZoneOffset": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "string"
+				},
+				"rules": {
+					"$ref": "#/definitions/ZoneRules"
+				},
+				"totalSeconds": {
+					"type": "integer",
+					"format": "int32"
+				}
+			},
+			"title": "ZoneOffset"
+		},
+		"ZoneOffsetTransition": {
+			"type": "object",
+			"properties": {
+				"dateTimeAfter": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"dateTimeBefore": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"duration": {
+					"$ref": "#/definitions/Duration"
+				},
+				"gap": {
+					"type": "boolean"
+				},
+				"instant": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"offsetAfter": {
+					"$ref": "#/definitions/ZoneOffset"
+				},
+				"offsetBefore": {
+					"$ref": "#/definitions/ZoneOffset"
+				},
+				"overlap": {
+					"type": "boolean"
+				}
+			},
+			"title": "ZoneOffsetTransition"
+		},
+		"ZoneOffsetTransitionRule": {
+			"type": "object",
+			"properties": {
+				"dayOfMonthIndicator": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"dayOfWeek": {
+					"type": "string",
+					"enum": [
+						"MONDAY",
+						"TUESDAY",
+						"WEDNESDAY",
+						"THURSDAY",
+						"FRIDAY",
+						"SATURDAY",
+						"SUNDAY"
+					]
+				},
+				"localTime": {
+					"$ref": "#/definitions/LocalTime"
+				},
+				"midnightEndOfDay": {
+					"type": "boolean"
+				},
+				"month": {
+					"type": "string",
+					"enum": [
+						"JANUARY",
+						"FEBRUARY",
+						"MARCH",
+						"APRIL",
+						"MAY",
+						"JUNE",
+						"JULY",
+						"AUGUST",
+						"SEPTEMBER",
+						"OCTOBER",
+						"NOVEMBER",
+						"DECEMBER"
+					]
+				},
+				"offsetAfter": {
+					"$ref": "#/definitions/ZoneOffset"
+				},
+				"offsetBefore": {
+					"$ref": "#/definitions/ZoneOffset"
+				},
+				"standardOffset": {
+					"$ref": "#/definitions/ZoneOffset"
+				},
+				"timeDefinition": {
+					"type": "string",
+					"enum": [
+						"UTC",
+						"WALL",
+						"STANDARD"
+					]
+				}
+			},
+			"title": "ZoneOffsetTransitionRule"
+		},
+		"ZoneRules": {
+			"type": "object",
+			"properties": {
+				"fixedOffset": {
+					"type": "boolean"
+				},
+				"transitionRules": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/ZoneOffsetTransitionRule"
+					}
+				},
+				"transitions": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/ZoneOffsetTransition"
+					}
+				}
+			},
+			"title": "ZoneRules"
+		}
+	}
+}

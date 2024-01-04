@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+    <channel>
+        <title>네이버 성과형 디스플레이 광고 API (Beta) Blog</title>
+        <link>https://naver-ad-api.github.io/developers/en/blog</link>
+        <description>네이버 성과형 디스플레이 광고 API (Beta) Blog</description>
+        <lastBuildDate>Fri, 03 Feb 2023 00:00:00 GMT</lastBuildDate>
+        <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+        <generator>https://github.com/jpmonette/feed</generator>
+        <language>en</language>
+        <item>
+            <title><![CDATA[Welcome!]]></title>
+            <link>https://naver-ad-api.github.io/developers/en/blog/welcome</link>
+            <guid>welcome</guid>
+            <pubDate>Fri, 03 Feb 2023 00:00:00 GMT</pubDate>
+            <description><![CDATA[Welcome to our notice board.]]></description>
+            <content:encoded><![CDATA[<p>Welcome to our notice board.</p><p>Here, you will find details about all updates, announcements, and important information related to our APIs.</p><p><img loading="lazy" alt="Docusaurus Plushie" src="/developers/en/assets/images/docusaurus-plushie-banner-a60f7593abca1e3eef26a9afa244e4fb.jpeg" width="1500" height="500" class="img_ev3q"></p>]]></content:encoded>
+            <category>hello</category>
+        </item>
+    </channel>
+</rss>
