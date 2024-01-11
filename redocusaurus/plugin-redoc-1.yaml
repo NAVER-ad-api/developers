@@ -1142,7 +1142,7 @@ paths:
           schema:
             $ref: '#/definitions/SuccessResponse'
       deprecated: false
-  /api/open/{version}/adAccounts/{adAccountNo}/creatives/{creativeType}:
+  /{version}/adAccounts/{adAccountNo}/creatives/{creativeType}:
     post:
       tags:
         - Creatives
@@ -1197,7 +1197,7 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResult'
       deprecated: false
-  /api/open/{version}/adAccounts/{adAccountNo}/creatives/image:
+  /{version}/adAccounts/{adAccountNo}/creatives/image:
     post:
       tags:
         - Creatives

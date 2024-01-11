@@ -1538,7 +1538,7 @@
 				"deprecated": false
 			}
 		},
-		"/api/open/{version}/adAccounts/{adAccountNo}/creatives/{creativeType}": {
+		"/{version}/adAccounts/{adAccountNo}/creatives/{creativeType}": {
 			"post": {
 			  "tags": [
 				"Creatives"
@@ -1616,7 +1616,7 @@
 			  "deprecated": false
 			}
 		},
-		"/api/open/{version}/adAccounts/{adAccountNo}/creatives/image": {
+		"/{version}/adAccounts/{adAccountNo}/creatives/image": {
 			"post": {
 			  "tags": [
 				"Creatives"
