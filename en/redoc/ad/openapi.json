@@ -1463,6 +1463,136 @@
 				"deprecated": false
 			}
 		},
+		"/{version}/adAccounts/{adAccountNo}/creatives/IMAGE_BANNER": {
+			"post": {
+			  "tags": [
+				"Creatives"
+			  ],
+			  "summary": "광고 소재 생성 (이미지 배너)",
+			  "description": "소재타입 `이미지 배너`의 소재 생성합니다.",
+			  "operationId": "createCreativeOfImageBannerUsingPOST",
+			  "consumes": [
+				"application/json"
+			  ],
+			  "produces": [
+				"*/*"
+			  ],
+			  "parameters": [
+				{
+				  "name": "adAccountNo",
+				  "in": "path",
+				  "description": "adAccountNo",
+				  "required": true,
+				  "type": "integer",
+				  "format": "int64"
+				},
+				{
+				  "in": "body",
+				  "name": "params",
+				  "description": "params",
+				  "required": true,
+				  "schema": {
+					"$ref": "#/definitions/OpenCreativeOfImageBannerParam"
+				  }
+				},
+				{
+				  "name": "version",
+				  "in": "path",
+				  "description": "version",
+				  "required": true,
+				  "type": "number",
+				  "default": 1.0,
+				  "format": "float"
+				}
+			  ],
+			  "responses": {
+				"200": {
+				  "description": "변경 완료했습니다.",
+				  "schema": {
+					"$ref": "#/definitions/OpenCreativeDetail"
+				  }
+				},
+				"400": {
+				  "description": "잘못된 요청입니다.",
+				  "schema": {
+					"$ref": "#/definitions/ErrorResult"
+				  }
+				},
+				"422": {
+				  "description": "처리할 수 없는 상태입니다.",
+				  "schema": {
+					"$ref": "#/definitions/ErrorResult"
+				  }
+				}
+			  },
+			  "deprecated": false
+			}
+		  },
+		  "/{version}/adAccounts/{adAccountNo}/creatives/SINGLE_IMAGE": {
+			"post": {
+			  "tags": [
+				"Creatives"
+			  ],
+			  "summary": "광고 소재 생성 (네이티브 이미지)",
+			  "description": "현재, 소재타입 `네이티브 이미지`의 소재 생성이 가능합니다.",
+			  "operationId": "createCreativeOfSingleImageUsingPOST",
+			  "consumes": [
+				"application/json"
+			  ],
+			  "produces": [
+				"*/*"
+			  ],
+			  "parameters": [
+				{
+				  "name": "adAccountNo",
+				  "in": "path",
+				  "description": "adAccountNo",
+				  "required": true,
+				  "type": "integer",
+				  "format": "int64"
+				},
+				{
+				  "in": "body",
+				  "name": "params",
+				  "description": "params",
+				  "required": true,
+				  "schema": {
+					"$ref": "#/definitions/OpenCreativeOfSingleImageParam"
+				  }
+				},
+				{
+				  "name": "version",
+				  "in": "path",
+				  "description": "version",
+				  "required": true,
+				  "type": "number",
+				  "default": 1.0,
+				  "format": "float"
+				}
+			  ],
+			  "responses": {
+				"200": {
+				  "description": "변경 완료했습니다.",
+				  "schema": {
+					"$ref": "#/definitions/OpenCreativeDetail"
+				  }
+				},
+				"400": {
+				  "description": "잘못된 요청입니다.",
+				  "schema": {
+					"$ref": "#/definitions/ErrorResult"
+				  }
+				},
+				"422": {
+				  "description": "처리할 수 없는 상태입니다.",
+				  "schema": {
+					"$ref": "#/definitions/ErrorResult"
+				  }
+				}
+			  },
+			  "deprecated": false
+			}
+		  },
 		"/{version}/adAccounts/{adAccountNo}/creatives/activate": {
 			"post": {
 				"tags": [
@@ -1538,20 +1668,25 @@
 				"deprecated": false
 			}
 		},
-		"/{version}/adAccounts/{adAccountNo}/creatives/{creativeType}": {
-			"post": {
+		"/{version}/adAccounts/{adAccountNo}/creatives/callToActions": {
+			"get": {
 			  "tags": [
 				"Creatives"
 			  ],
-			  "summary": "Create a creative",
-			  "operationId": "createImageBannerUsingPOST",
-			  "consumes": [
-				"application/json"
-			  ],
+			  "summary": "광고 소재의 행동 유도 목록",
+			  "operationId": "callToActionsUsingGET",
 			  "produces": [
 				"*/*"
 			  ],
 			  "parameters": [
+				{
+				  "name": "AccessManagerAccountNo",
+				  "in": "header",
+				  "description": "해당 광고 계정에 대한 접근 권한이 있는 관리 계정 ID",
+				  "required": false,
+				  "type": "integer",
+				  "format": "int64"
+				},
 				{
 				  "name": "adAccountNo",
 				  "in": "path",
@@ -1561,32 +1696,18 @@
 				  "format": "int64"
 				},
 				{
-				  "name": "creativeType",
-				  "in": "path",
-				  "description": "Creative types:\r\n `SINGLE_IMAGE`,`MULTIPLE_IMAGE`,`SINGLE_VIDEO`,`IMAGE_BANNER`,`CATALOG`",
+				  "name": "adSetNo",
+				  "in": "query",
+				  "description": "광고 그룹 ID",
 				  "required": true,
-				  "type": "string",
-				  "enum": [
-					"SINGLE_IMAGE",
-					"MULTIPLE_IMAGE",
-					"SINGLE_VIDEO",
-					"IMAGE_BANNER",
-					"CATALOG"
-				  ]
-				},
-				{
-				  "in": "body",
-				  "name": "params",
-				  "description": "params",
-				  "required": true,
-				  "schema": {
-					"$ref": "#/definitions/OpenCreativeOfImageBannerParam"
-				  }
+				  "type": "integer",
+				  "format": "int64",
+				  "allowEmptyValue": false
 				},
 				{
 				  "name": "version",
 				  "in": "path",
-				  "description": "version",
+				  "description": "API 버전",
 				  "required": true,
 				  "type": "number",
 				  "default": 1.0,
@@ -1595,27 +1716,18 @@
 			  ],
 			  "responses": {
 				"200": {
-				  "description": "Successfully changed.",
+				  "description": "OK",
 				  "schema": {
-					"$ref": "#/definitions/OpenCreativeDetail"
-				  }
-				},
-				"400": {
-				  "description": "Bad request",
-				  "schema": {
-					"$ref": "#/definitions/ErrorResult"
-				  }
-				},
-				"422": {
-				  "description": "Unprocessable",
-				  "schema": {
-					"$ref": "#/definitions/ErrorResult"
+					"type": "array",
+					"items": {
+					  "$ref": "#/definitions/ConstantResponse"
+					}
 				  }
 				}
 			  },
 			  "deprecated": false
 			}
-		},
+		  },
 		"/{version}/adAccounts/{adAccountNo}/creatives/image": {
 			"post": {
 			  "tags": [
@@ -4120,7 +4232,7 @@
 			  },
 			  "creativeTemplateCode": {
 				"type": "string",
-				"description": "Creative templates:\r\n `BANNER_750`, `BANNER_750X200`, `BANNER_1250`, `BANNER_1250X560`"
+				"description": "Creative templates"
 			  },
 			  "creativeType": {
 				"type": "string",
@@ -4163,38 +4275,127 @@
 			"type": "object",
 			"required": [
 			  "adSetNo",
-			  "imageNo",
 			  "altMessage",
 			  "creativeTemplateCode",
+			  "imageNo",
 			  "name",
 			  "url"
 			],
 			"properties": {
 			  "adSetNo": {
 				"type": "integer",
-				"format": "int64"
+				"format": "int64",
+				"description": "광고 그룹 ID"
 			  },
 			  "altMessage": {
-				"type": "string"
+				"type": "string",
+				"description": "광고 안내 문구",
+				"minLength": 1,
+				"maxLength": 100
 			  },
 			  "creativeTemplateCode": {
-				"type": "string"
+				"type": "string",
+				"description": "소재 템플릿:\r\n `BANNER_750`, `BANNER_750X200`, `BANNER_1250`, `BANNER_1250X560`"
 			  },
 			  "imageNo": {
 				"type": "integer",
-				"format": "int64"
+				"format": "int64",
+				"description": "소재 이미지 ID"
 			  },
 			  "name": {
 				"type": "string",
+				"description": "소재 이름",
 				"minLength": 2,
 				"maxLength": 128
 			  },
 			  "url": {
-				"type": "string"
+				"type": "string",
+				"description": "랜딩 URL"
 			  }
 			},
 			"title": "OpenCreativeOfImageBannerParam"
-		},
+		  },
+		  "OpenCreativeOfSingleImageParam": {
+			"type": "object",
+			"required": [
+			  "adSetNo",
+			  "creativeTemplateCode",
+			  "ctaCode",
+			  "imageNo",
+			  "linkTitle",
+			  "linkUrl",
+			  "message",
+			  "name"
+			],
+			"properties": {
+			  "adSetNo": {
+				"type": "integer",
+				"format": "int64",
+				"description": "광고 그룹 ID"
+			  },
+			  "adviceMessage": {
+				"type": "string",
+				"description": "고지 문구",
+				"minLength": 0,
+				"maxLength": 45
+			  },
+			  "creativeTemplateCode": {
+				"type": "string",
+				"description": "소재 템플릿:\r\n `NATIVE_SINGLE_IMAGE_V2`, `NATIVE_SINGLE_IMAGE_PC`, `FEED_SINGLE_IMAGE`, `FEED_SINGLE_IMAGE_SQUARE`"
+			  },
+			  "ctaCode": {
+				"type": "string",
+				"description": "행동 유도"
+			  },
+			  "imageNo": {
+				"type": "integer",
+				"format": "int64",
+				"description": "소재 이미지 ID"
+			  },
+			  "linkDescription": {
+				"type": "string",
+				"description": "설명 문구2",
+				"minLength": 2
+			  },
+			  "linkText3rd": {
+				"type": "string",
+				"description": "설명 문구3",
+				"minLength": 2
+			  },
+			  "linkText4th": {
+				"type": "string",
+				"description": "PC 배너형 긴 설명문구 1",
+				"minLength": 2
+			  },
+			  "linkText5th": {
+				"type": "string",
+				"description": "PC 배너형 긴 설명문구 2",
+				"minLength": 2
+			  },
+			  "linkTitle": {
+				"type": "string",
+				"description": "설명 문구1",
+				"minLength": 2
+			  },
+			  "linkUrl": {
+				"type": "string",
+				"description": "랜딩 URL"
+			  },
+			  "message": {
+				"type": "string",
+				"description": "광고 문구",
+				"minLength": 2,
+				"maxLength": 120
+			  },
+			  "name": {
+				"type": "string",
+				"description": "소재 이름",
+				"minLength": 2,
+				"maxLength": 128
+			  }
+			},
+			"title": "OpenCreativeOfSingleImageParam"
+		  },
 		"OpenCreativeTemplateView": {
 			"type": "object",
 			"properties": {
