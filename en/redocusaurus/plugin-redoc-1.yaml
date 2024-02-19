@@ -1086,8 +1086,8 @@ paths:
     post:
       tags:
         - Creatives
-      summary: 광고 소재 생성 (이미지 배너)
-      description: 소재타입 `이미지 배너`의 소재 생성합니다.
+      summary: Create a creative (image banner)
+      description: Creates an `IMAGE_BANNER` type creative.
       operationId: createCreativeOfImageBannerUsingPOST
       consumes:
         - application/json
@@ -1115,15 +1115,15 @@ paths:
           format: float
       responses:
         '200':
-          description: 변경 완료했습니다.
+          description: Successfully changed.
           schema:
             $ref: '#/definitions/OpenCreativeDetail'
         '400':
-          description: 잘못된 요청입니다.
+          description: Bad request
           schema:
             $ref: '#/definitions/ErrorResult'
         '422':
-          description: 처리할 수 없는 상태입니다.
+          description: Unprocessable
           schema:
             $ref: '#/definitions/ErrorResult'
       deprecated: false
@@ -1131,8 +1131,8 @@ paths:
     post:
       tags:
         - Creatives
-      summary: 광고 소재 생성 (네이티브 이미지)
-      description: 현재, 소재타입 `네이티브 이미지`의 소재 생성이 가능합니다.
+      summary: Create a creative (native image)
+      description: Currently, creative creation for a `native image` type is supported.
       operationId: createCreativeOfSingleImageUsingPOST
       consumes:
         - application/json
@@ -1160,15 +1160,15 @@ paths:
           format: float
       responses:
         '200':
-          description: 변경 완료했습니다.
+          description: Successfully changed.
           schema:
             $ref: '#/definitions/OpenCreativeDetail'
         '400':
-          description: 잘못된 요청입니다.
+          description: Bad request
           schema:
             $ref: '#/definitions/ErrorResult'
         '422':
-          description: 처리할 수 없는 상태입니다.
+          description: Unprocessable
           schema:
             $ref: '#/definitions/ErrorResult'
       deprecated: false
@@ -1236,14 +1236,14 @@ paths:
     get:
       tags:
         - Creatives
-      summary: 광고 소재의 행동 유도 목록
+      summary: List of call-to-action ad creatives
       operationId: callToActionsUsingGET
       produces:
         - '*/*'
       parameters:
         - name: AccessManagerAccountNo
           in: header
-          description: 해당 광고 계정에 대한 접근 권한이 있는 관리 계정 ID
+          description: Manager account ID that has access to the ad account
           required: false
           type: integer
           format: int64
@@ -1255,14 +1255,14 @@ paths:
           format: int64
         - name: adSetNo
           in: query
-          description: 광고 그룹 ID
+          description: Ad group ID
           required: true
           type: integer
           format: int64
           allowEmptyValue: false
         - name: version
           in: path
-          description: API 버전
+          description: API version
           required: true
           type: number
           default: 1
@@ -1300,7 +1300,7 @@ paths:
           format: int64
         - in: query
           name: creativeTemplateCode
-          description: "Creative templates:\r\n `BANNER_750`, `BANNER_750X200`, `BANNER_1250`, `BANNER_1250X560`"
+          description: Creative templates
           required: true
           schema:
             type: string
@@ -3129,27 +3129,27 @@ definitions:
       adSetNo:
         type: integer
         format: int64
-        description: 광고 그룹 ID
+        description: Ad group ID
       altMessage:
         type: string
-        description: 광고 안내 문구
+        description: Ad message
         minLength: 1
         maxLength: 100
       creativeTemplateCode:
         type: string
-        description: "소재 템플릿:\r\n `BANNER_750`, `BANNER_750X200`, `BANNER_1250`, `BANNER_1250X560`"
+        description: "Creative templates:\r\n `BANNER_750`, `BANNER_750X200`, `BANNER_1250`, `BANNER_1250X560`"
       imageNo:
         type: integer
         format: int64
-        description: 소재 이미지 ID
+        description: Creative image ID
       name:
         type: string
-        description: 소재 이름
+        description: Creative name
         minLength: 2
         maxLength: 128
       url:
         type: string
-        description: 랜딩 URL
+        description: Landing URL
     title: OpenCreativeOfImageBannerParam
   OpenCreativeOfSingleImageParam:
     type: object
@@ -3166,53 +3166,53 @@ definitions:
       adSetNo:
         type: integer
         format: int64
-        description: 광고 그룹 ID
+        description: Ad group ID
       adviceMessage:
         type: string
-        description: 고지 문구
+        description: Notice message
         minLength: 0
         maxLength: 45
       creativeTemplateCode:
         type: string
-        description: "소재 템플릿:\r\n `NATIVE_SINGLE_IMAGE_V2`, `NATIVE_SINGLE_IMAGE_PC`, `FEED_SINGLE_IMAGE`, `FEED_SINGLE_IMAGE_SQUARE`"
+        description: "Creative templates:\r\n `NATIVE_SINGLE_IMAGE_V2`, `NATIVE_SINGLE_IMAGE_PC`, `FEED_SINGLE_IMAGE`, `FEED_SINGLE_IMAGE_SQUARE`"
       ctaCode:
         type: string
-        description: 행동 유도
+        description: Call-to-action
       imageNo:
         type: integer
         format: int64
-        description: 소재 이미지 ID
+        description: Creative image ID
       linkDescription:
         type: string
-        description: 설명 문구2
+        description: Description 2
         minLength: 2
       linkText3rd:
         type: string
-        description: 설명 문구3
+        description: Description 3
         minLength: 2
       linkText4th:
         type: string
-        description: PC 배너형 긴 설명문구 1
+        description: Long description 1 for the desktop banner type
         minLength: 2
       linkText5th:
         type: string
-        description: PC 배너형 긴 설명문구 2
+        description: Long description 2 for the desktop banner type
         minLength: 2
       linkTitle:
         type: string
-        description: 설명 문구1
+        description: Description 1
         minLength: 2
       linkUrl:
         type: string
-        description: 랜딩 URL
+        description: Landing URL
       message:
         type: string
-        description: 광고 문구
+        description: Ad message
         minLength: 2
         maxLength: 120
       name:
         type: string
-        description: 소재 이름
+        description: Creative name
         minLength: 2
         maxLength: 128
     title: OpenCreativeOfSingleImageParam
@@ -3305,7 +3305,7 @@ definitions:
         description: Ad message
       callToAction:
         type: string
-        description: Action
+        description: Call-to-action
       linkDescription:
         type: string
         description: Description 2
