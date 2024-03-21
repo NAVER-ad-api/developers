@@ -3255,6 +3255,15 @@
 							"example": 100000.0,
 							"description": "Budget"
 						},
+						"conversionType": {
+							"type": "string",
+							"description": "Optimized conversion type\r\n- Available values: `INSTALL`"
+						},
+						"conversionUrlNo": {
+							"type": "integer",
+							"format": "int64",
+							"description": "Conversion tracking URL ID"
+						},
 						"name": {
 							"type": "string",
 							"description": "Campaign name",
@@ -3989,6 +3998,11 @@
 					"type": "number",
 					"example": 100000.0,
 					"description": "Budget"
+				},
+				"conversionUrlNo": {
+					"type": "integer",
+					"format": "int64",
+					"description": "Conversion tracking URL ID"
 				},
 				"name": {
 					"type": "string",

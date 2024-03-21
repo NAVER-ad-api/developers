@@ -11,7 +11,7 @@
         <item>
             <title><![CDATA[Welcome!]]></title>
             <link>https://naver-ad-api.github.io/developers/en/blog/welcome</link>
-            <guid>welcome</guid>
+            <guid>https://naver-ad-api.github.io/developers/en/blog/welcome</guid>
             <pubDate>Fri, 03 Feb 2023 00:00:00 GMT</pubDate>
             <description><![CDATA[Welcome to our notice board.]]></description>
             <content:encoded><![CDATA[<p>Welcome to our notice board.</p><p>Here, you will find details about all updates, announcements, and important information related to our APIs.</p><p><img loading="lazy" alt="Docusaurus Plushie" src="/developers/en/assets/images/docusaurus-plushie-banner-a60f7593abca1e3eef26a9afa244e4fb.jpeg" width="1500" height="500" class="img_ev3q"></p>]]></content:encoded>
