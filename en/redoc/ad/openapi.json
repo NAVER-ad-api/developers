@@ -2863,6 +2863,10 @@
 							"type": "string",
 							"description": "Campaign objective"
 						},
+						"s2sApiOn": {
+							"type": "boolean",
+							"description": "S2S API Conversion tracking Configuration"
+						},
 						"urlNo": {
 							"type": "integer",
 							"format": "int64",
@@ -2916,6 +2920,10 @@
 						"objective": {
 							"type": "string",
 							"description": "Campaign objective"
+						},
+						"s2sApiOn": {
+							"type": "boolean",
+							"description": "S2S API Conversion tracking Configuration"
 						},
 						"urlNo": {
 							"type": "integer",
@@ -3273,6 +3281,10 @@
 						"objective": {
 							"type": "string",
 							"description": "Campaign objective"
+						},
+						"s2sApiOn": {
+							"type": "boolean",
+							"description": "S2S API Conversion tracking Configuration"
 						},
 						"urlNo": {
 							"type": "integer",
@@ -5165,6 +5177,10 @@
 							"type": "string",
 							"description": "Campaign objective"
 						},
+						"s2sApiOn": {
+							"type": "boolean",
+							"description": "S2S API Conversion tracking Configuration"
+						},
 						"urlNo": {
 							"type": "integer",
 							"format": "int64",
@@ -5214,6 +5230,10 @@
 						"objective": {
 							"type": "string",
 							"description": "Campaign objective"
+						},
+						"s2sApiOn": {
+							"type": "boolean",
+							"description": "S2S API Conversion tracking Configuration"
 						},
 						"urlNo": {
 							"type": "integer",

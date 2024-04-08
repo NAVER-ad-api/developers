@@ -2074,6 +2074,9 @@ definitions:
           objective:
             type: string
             description: Campaign objective
+          s2sApiOn:
+            type: boolean
+            description: S2S API Conversion tracking Configuration
           urlNo:
             type: integer
             format: int64
@@ -2113,6 +2116,9 @@ definitions:
           objective:
             type: string
             description: Campaign objective
+          s2sApiOn:
+            type: boolean
+            description: S2S API Conversion tracking Configuration
           urlNo:
             type: integer
             format: int64
@@ -2371,6 +2377,9 @@ definitions:
           objective:
             type: string
             description: Campaign objective
+          s2sApiOn:
+            type: boolean
+            description: S2S API Conversion tracking Configuration
           urlNo:
             type: integer
             format: int64
@@ -3769,6 +3778,9 @@ definitions:
           objective:
             type: string
             description: Campaign objective
+          s2sApiOn:
+            type: boolean
+            description: S2S API Conversion tracking Configuration
           urlNo:
             type: integer
             format: int64
@@ -3805,6 +3817,9 @@ definitions:
           objective:
             type: string
             description: Campaign objective
+          s2sApiOn:
+            type: boolean
+            description: S2S API Conversion tracking Configuration
           urlNo:
             type: integer
             format: int64
