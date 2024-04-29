@@ -55,10 +55,18 @@ paths:
       tags:
         - Get real-time data
       summary: Get real-time data of an ad account
-      description: |
-        Gets real-time performance data for a specific ad account.
+      description: Gets real-time performance data for a specific ad account.
       operationId: adAccountRealtimePerformance
       parameters:
+        - name: AccessManagerAccountNo
+          in: header
+          description: >-
+            Manager account number that has access to the performance data of
+            the ad account
+          required: true
+          schema:
+            type: integer
+            format: int64
         - name: version
           in: path
           description: API version
@@ -76,10 +84,11 @@ paths:
           example: 1234
         - name: targetDate
           in: query
-          description: Date (today or yesterday). If not specified, it is “today.”
+          description: Date (today or yesterday).
           required: false
           schema:
             type: string
+            default: today
             enum:
               - today
               - yesterday
@@ -93,11 +102,16 @@ paths:
             type: integer
             format: int64
           example: 1675907423
-        - name: AccessManagerAccountNo
-          in: header
-          description: >-
-            Manager account number that has access to the performance data of
-            the ad account
+        - name: timeUnit
+          in: query
+          description: 'Interval for retrieving data (By day: daily, By hour: hourly)'
+          required: false
+          schema:
+            type: string
+            default: daily
+            enum:
+              - daily
+              - hourly
       responses:
         '200':
           description: OK
@@ -110,10 +124,26 @@ paths:
       tags:
         - Get real-time data
       summary: Get real-time data of a creative
-      description: |
-        Gets real-time performance data for a specific creative.
+      description: Gets real-time performance data for a specific creative.
       operationId: creativeRealtimePerformance
       parameters:
+        - name: creativeNo
+          in: path
+          description: Creative number
+          required: true
+          schema:
+            type: integer
+            format: int64
+          example: 5678
+        - name: AccessManagerAccountNo
+          in: header
+          description: >-
+            Manager account number that has access to the performance data of
+            the ad account
+          required: true
+          schema:
+            type: integer
+            format: int64
         - name: version
           in: path
           description: API version
@@ -129,20 +159,13 @@ paths:
             type: integer
             format: int64
           example: 1234
-        - name: creativeNo
-          in: path
-          description: Creative number
-          required: true
-          schema:
-            type: integer
-            format: int64
-          example: 5678
         - name: targetDate
           in: query
-          description: Date (today or yesterday). If not specified, it is “today.”
+          description: Date (today or yesterday).
           required: false
           schema:
             type: string
+            default: today
             enum:
               - today
               - yesterday
@@ -156,11 +179,16 @@ paths:
             type: integer
             format: int64
           example: 1675907423
-        - name: AccessManagerAccountNo
-          in: header
-          description: >-
-            Manager account number that has access to the performance data of
-            the ad account
+        - name: timeUnit
+          in: query
+          description: 'Interval for retrieving data (By day: daily, By hour: hourly)'
+          required: false
+          schema:
+            type: string
+            default: daily
+            enum:
+              - daily
+              - hourly
       responses:
         '200':
           description: OK
@@ -173,10 +201,26 @@ paths:
       tags:
         - Get real-time data
       summary: Get real-time data of a campaign
-      description: |
-        Gets real-time performance data for a specific campaign.
+      description: Gets real-time performance data for a specific campaign.
       operationId: campaignRealtimePerformance
       parameters:
+        - name: campaignNo
+          in: path
+          description: Campaign number
+          required: true
+          schema:
+            type: integer
+            format: int64
+          example: 5678
+        - name: AccessManagerAccountNo
+          in: header
+          description: >-
+            Manager account number that has access to the performance data of
+            the ad account
+          required: true
+          schema:
+            type: integer
+            format: int64
         - name: version
           in: path
           description: API version
@@ -192,20 +236,13 @@ paths:
             type: integer
             format: int64
           example: 1234
-        - name: campaignNo
-          in: path
-          description: Campaign number
-          required: true
-          schema:
-            type: integer
-            format: int64
-          example: 5678
         - name: targetDate
           in: query
-          description: Date (today or yesterday). If not specified, it is “today.”
+          description: Date (today or yesterday).
           required: false
           schema:
             type: string
+            default: today
             enum:
               - today
               - yesterday
@@ -219,11 +256,16 @@ paths:
             type: integer
             format: int64
           example: 1675907423
-        - name: AccessManagerAccountNo
-          in: header
-          description: >-
-            Manager account number that has access to the performance data of
-            the ad account
+        - name: timeUnit
+          in: query
+          description: 'Interval for retrieving data (By day: daily, By hour: hourly)'
+          required: false
+          schema:
+            type: string
+            default: daily
+            enum:
+              - daily
+              - hourly
       responses:
         '200':
           description: OK
@@ -236,10 +278,26 @@ paths:
       tags:
         - Get real-time data
       summary: Get real-time data of an ad group
-      description: |
-        Gets real-time performance data for a specific ad group.
+      description: Gets real-time performance data for a specific ad group.
       operationId: adSetRealtimePerformance
       parameters:
+        - name: adSetNo
+          in: path
+          description: Ad group number
+          required: true
+          schema:
+            type: integer
+            format: int64
+          example: 5678
+        - name: AccessManagerAccountNo
+          in: header
+          description: >-
+            Manager account number that has access to the performance data of
+            the ad account
+          required: true
+          schema:
+            type: integer
+            format: int64
         - name: version
           in: path
           description: API version
@@ -255,20 +313,13 @@ paths:
             type: integer
             format: int64
           example: 1234
-        - name: adSetNo
-          in: path
-          description: Ad group number
-          required: true
-          schema:
-            type: integer
-            format: int64
-          example: 5678
         - name: targetDate
           in: query
-          description: Date (today or yesterday). If not specified, it is `today`.
+          description: Date (today or yesterday).
           required: false
           schema:
             type: string
+            default: today
             enum:
               - today
               - yesterday
@@ -282,11 +333,16 @@ paths:
             type: integer
             format: int64
           example: 1675907423
-        - name: AccessManagerAccountNo
-          in: header
-          description: >-
-            Manager account number that has access to the performance data of
-            the ad account
+        - name: timeUnit
+          in: query
+          description: 'Interval for retrieving data (By day: daily, By hour: hourly)'
+          required: false
+          schema:
+            type: string
+            default: daily
+            enum:
+              - daily
+              - hourly
       responses:
         '200':
           description: OK
@@ -299,26 +355,11 @@ paths:
       tags:
         - Get past data
       summary: Get past data of an ad account
-      description: >
+      description: >-
         Gets past performance data for a specific ad account, aggregated by
         campaign, ad group, or creative.
       operationId: adAccountPastPerformance
       parameters:
-        - name: version
-          in: path
-          description: API version
-          required: true
-          schema:
-            type: float
-            default: '1.0'
-        - name: adAccountNo
-          in: path
-          description: Ad account number
-          required: true
-          schema:
-            type: integer
-            format: int64
-          example: 1234
         - name: aggregationType
           in: path
           description: >-
@@ -331,55 +372,15 @@ paths:
               - campaigns
               - adSets
               - creatives
-        - name: startDate
-          in: query
-          description: Start date (yyyy-MM-dd)
-          required: true
-          schema:
-            type: string
-          example: '2023-01-01'
-        - name: endDate
-          in: query
-          description: End date (yyyy-MM-dd)
-          required: true
-          schema:
-            type: string
-          example: '2023-01-30'
-        - name: next
-          in: query
-          description: Next page token
-          required: false
-          schema:
-            type: string
-        - name: limit
-          in: query
-          description: Number of records to get. If not specified, it is 1000.
-          required: false
-          schema:
-            type: integer
-            format: int32
-          example: 1000
         - name: AccessManagerAccountNo
           in: header
           description: >-
             Manager account number that has access to the performance data of
             the ad account
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PastPerformanceResponse'
-  /v1/ad-api/{version}/adAccounts/{adAccountNo}/performance/past/creatives/{creativeNo}/{aggregationType}:
-    get:
-      tags:
-        - Get past data
-      summary: Get past data of a creative
-      description: |
-        Gets past performance data for a specific creative.
-      operationId: creativePastPerformance
-      parameters:
+          required: true
+          schema:
+            type: integer
+            format: int64
         - name: version
           in: path
           description: API version
@@ -395,6 +396,61 @@ paths:
             type: integer
             format: int64
           example: 1234
+        - name: startDate
+          in: query
+          description: Start date (yyyy-MM-dd)
+          required: true
+          schema:
+            type: string
+            format: date
+          example: '2023-01-01'
+        - name: endDate
+          in: query
+          description: End date (yyyy-MM-dd)
+          required: true
+          schema:
+            type: string
+            format: date
+          example: '2023-01-30'
+        - name: next
+          in: query
+          description: Next page token
+          required: false
+          schema:
+            type: string
+          example: zwMvjK6XRhyiJoFGZZkqhw:1707978058060
+        - name: limit
+          in: query
+          description: Number of records to get.
+          required: false
+          schema:
+            type: int
+            default: '1000'
+        - name: timeUnit
+          in: query
+          description: 'Interval for retrieving data (By day: daily, By hour: hourly)'
+          required: false
+          schema:
+            type: string
+            default: daily
+            enum:
+              - daily
+              - hourly
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PastPerformanceResponse'
+  /v1/ad-api/{version}/adAccounts/{adAccountNo}/performance/past/creatives/{creativeNo}/{aggregationType}:
+    get:
+      tags:
+        - Get past data
+      summary: Get past data of a creative
+      description: Gets past performance data for a specific creative.
+      operationId: creativePastPerformance
+      parameters:
         - name: creativeNo
           in: path
           description: Creative number
@@ -411,56 +467,15 @@ paths:
             type: string
             enum:
               - creatives
-        - name: startDate
-          in: query
-          description: Start date (yyyy-MM-dd)
-          required: true
-          schema:
-            type: string
-          example: '2023-01-01'
-        - name: endDate
-          in: query
-          description: End date (yyyy-MM-dd)
-          required: true
-          schema:
-            type: string
-          example: '2023-01-30'
-        - name: next
-          in: query
-          description: Next page token
-          required: false
-          schema:
-            type: string
-        - name: limit
-          in: query
-          description: Number of records to get. If not specified, it is 1000.
-          required: false
-          schema:
-            type: integer
-            format: int32
-          example: 1000
         - name: AccessManagerAccountNo
           in: header
           description: >-
             Manager account number that has access to the performance data of
             the ad account
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PastPerformanceResponse'
-  /v1/ad-api/{version}/adAccounts/{adAccountNo}/performance/past/campaigns/{campaignNo}/{aggregationType}:
-    get:
-      tags:
-        - Get past data
-      summary: Get past data of a campaign
-      description: >
-        Gets past performance data for a specific campaign, aggregated by ad
-        group or creative.
-      operationId: campaignPastPerformance
-      parameters:
+          required: true
+          schema:
+            type: integer
+            format: int64
         - name: version
           in: path
           description: API version
@@ -476,6 +491,63 @@ paths:
             type: integer
             format: int64
           example: 1234
+        - name: startDate
+          in: query
+          description: Start date (yyyy-MM-dd)
+          required: true
+          schema:
+            type: string
+            format: date
+          example: '2023-01-01'
+        - name: endDate
+          in: query
+          description: End date (yyyy-MM-dd)
+          required: true
+          schema:
+            type: string
+            format: date
+          example: '2023-01-30'
+        - name: next
+          in: query
+          description: Next page token
+          required: false
+          schema:
+            type: string
+          example: zwMvjK6XRhyiJoFGZZkqhw:1707978058060
+        - name: limit
+          in: query
+          description: Number of records to get.
+          required: false
+          schema:
+            type: int
+            default: '1000'
+        - name: timeUnit
+          in: query
+          description: 'Interval for retrieving data (By day: daily, By hour: hourly)'
+          required: false
+          schema:
+            type: string
+            default: daily
+            enum:
+              - daily
+              - hourly
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PastPerformanceResponse'
+  /v1/ad-api/{version}/adAccounts/{adAccountNo}/performance/past/campaigns/{campaignNo}/{aggregationType}:
+    get:
+      tags:
+        - Get past data
+      summary: Get past data of a campaign
+      description: >-
+        Gets past performance data for a specific campaign, aggregated by ad
+        group or creative.
+      operationId: campaignPastPerformance
+      parameters:
         - name: campaignNo
           in: path
           description: Campaign number
@@ -495,56 +567,15 @@ paths:
             enum:
               - adSets
               - creatives
-        - name: startDate
-          in: query
-          description: Start date (yyyy-MM-dd)
-          required: true
-          schema:
-            type: string
-          example: '2023-01-01'
-        - name: endDate
-          in: query
-          description: End date (yyyy-MM-dd)
-          required: true
-          schema:
-            type: string
-          example: '2023-01-30'
-        - name: next
-          in: query
-          description: Next page token
-          required: false
-          schema:
-            type: string
-        - name: limit
-          in: query
-          description: Number of records to get. If not specified, it is 1000.
-          required: false
-          schema:
-            type: integer
-            format: int32
-          example: 1000
         - name: AccessManagerAccountNo
           in: header
           description: >-
             Manager account number that has access to the performance data of
             the ad account
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PastPerformanceResponse'
-  /v1/ad-api/{version}/adAccounts/{adAccountNo}/performance/past/adSets/{adSetNo}/{aggregationType}:
-    get:
-      tags:
-        - Get past data
-      summary: Get past data of an ad group
-      description: >
-        Gets past performance data for a specific ad group, aggregated by
-        creative.
-      operationId: adSetPastPerformance
-      parameters:
+          required: true
+          schema:
+            type: integer
+            format: int64
         - name: version
           in: path
           description: API version
@@ -560,6 +591,63 @@ paths:
             type: integer
             format: int64
           example: 1234
+        - name: startDate
+          in: query
+          description: Start date (yyyy-MM-dd)
+          required: true
+          schema:
+            type: string
+            format: date
+          example: '2023-01-01'
+        - name: endDate
+          in: query
+          description: End date (yyyy-MM-dd)
+          required: true
+          schema:
+            type: string
+            format: date
+          example: '2023-01-30'
+        - name: next
+          in: query
+          description: Next page token
+          required: false
+          schema:
+            type: string
+          example: zwMvjK6XRhyiJoFGZZkqhw:1707978058060
+        - name: limit
+          in: query
+          description: Number of records to get.
+          required: false
+          schema:
+            type: int
+            default: '1000'
+        - name: timeUnit
+          in: query
+          description: 'Interval for retrieving data (By day: daily, By hour: hourly)'
+          required: false
+          schema:
+            type: string
+            default: daily
+            enum:
+              - daily
+              - hourly
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PastPerformanceResponse'
+  /v1/ad-api/{version}/adAccounts/{adAccountNo}/performance/past/adSets/{adSetNo}/{aggregationType}:
+    get:
+      tags:
+        - Get past data
+      summary: Get past data of an ad group
+      description: >-
+        Gets past performance data for a specific ad group, aggregated by
+        creative.
+      operationId: adSetPastPerformance
+      parameters:
         - name: adSetNo
           in: path
           description: Ad group number
@@ -576,12 +664,37 @@ paths:
             type: string
             enum:
               - creatives
+        - name: AccessManagerAccountNo
+          in: header
+          description: >-
+            Manager account number that has access to the performance data of
+            the ad account
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: version
+          in: path
+          description: API version
+          required: true
+          schema:
+            type: float
+            default: '1.0'
+        - name: adAccountNo
+          in: path
+          description: Ad account number
+          required: true
+          schema:
+            type: integer
+            format: int64
+          example: 1234
         - name: startDate
           in: query
           description: Start date (yyyy-MM-dd)
           required: true
           schema:
             type: string
+            format: date
           example: '2023-01-01'
         - name: endDate
           in: query
@@ -589,6 +702,7 @@ paths:
           required: true
           schema:
             type: string
+            format: date
           example: '2023-01-30'
         - name: next
           in: query
@@ -596,19 +710,24 @@ paths:
           required: false
           schema:
             type: string
+          example: zwMvjK6XRhyiJoFGZZkqhw:1707978058060
         - name: limit
           in: query
-          description: Number of records to get. If not specified, it is 1000.
+          description: Number of records to get.
           required: false
           schema:
-            type: integer
-            format: int32
-          example: 1000
-        - name: AccessManagerAccountNo
-          in: header
-          description: >-
-            Manager account number that has access to the performance data of
-            the ad account
+            type: int
+            default: '1000'
+        - name: timeUnit
+          in: query
+          description: 'Interval for retrieving data (By day: daily, By hour: hourly)'
+          required: false
+          schema:
+            type: string
+            default: daily
+            enum:
+              - daily
+              - hourly
       responses:
         '200':
           description: OK
@@ -637,6 +756,11 @@ components:
           type: string
           description: Date of occurrence
           format: date
+        hour:
+          type: string
+          description: >-
+            Hour of occurrence. If the interval is specified as daily, no value
+            is included in the response.
         impCount:
           type: integer
           description: Impression count

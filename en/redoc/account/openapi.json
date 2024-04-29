@@ -367,119 +367,119 @@
         }
       },
       "title": "OpenManagerAccount"
-    }
-  },
-  "OpenMyManagerAccount": {
-    "type": "object",
-    "properties": {
-        "createdAt": {
-            "type": "string",
-            "format": "date-time",
-            "description": "Creation time"
-        },
-        "disabled": {
-            "type": "boolean",
-            "description": "Indicates whether the account is disabled."
-        },
-        "name": {
-            "type": "string",
-            "description": "Manager account name"
-        },
-        "no": {
-            "type": "integer",
-            "format": "int64",
-            "description": "Manager account ID"
-        },
-        "role": {
-            "type": "string",
-            "description": "Permission level",
-            "enum": [
-                "MASTER",
-                "STANDARD",
-                "READ_ONLY",
-                "PERFORMANCE_MANAGEMENT"
-            ]
-        },
-        "updatedAt": {
-            "type": "string",
-            "format": "date-time",
-            "description": "Last update time"
-        }
     },
-    "title": "OpenMyManagerAccount"
-  },
-  "Pageable": {
+    "OpenMyManagerAccount": {
       "type": "object",
       "properties": {
-          "offset": {
-              "type": "integer",
-              "format": "int64"
+          "createdAt": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Creation time"
           },
-          "pageNumber": {
-              "type": "integer",
-              "format": "int32"
+          "disabled": {
+              "type": "boolean",
+              "description": "Indicates whether the account is disabled."
           },
-          "pageSize": {
-              "type": "integer",
-              "format": "int32"
+          "name": {
+              "type": "string",
+              "description": "Manager account name"
           },
-          "paged": {
+          "no": {
+              "type": "integer",
+              "format": "int64",
+              "description": "Manager account ID"
+          },
+          "role": {
+              "type": "string",
+              "description": "Permission level",
+              "enum": [
+                  "MASTER",
+                  "STANDARD",
+                  "READ_ONLY",
+                  "PERFORMANCE_MANAGEMENT"
+              ]
+          },
+          "updatedAt": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Last update time"
+          }
+      },
+      "title": "OpenMyManagerAccount"
+    },
+    "Pageable": {
+        "type": "object",
+        "properties": {
+            "offset": {
+                "type": "integer",
+                "format": "int64"
+            },
+            "pageNumber": {
+                "type": "integer",
+                "format": "int32"
+            },
+            "pageSize": {
+                "type": "integer",
+                "format": "int32"
+            },
+            "paged": {
+                "type": "boolean"
+            },
+            "sort": {
+                "$ref": "#/definitions/Sort"
+            },
+            "unpaged": {
+                "type": "boolean"
+            }
+        },
+        "title": "Pageable"
+    },
+    "Page«OpenMyManagerAccount»": {
+      "type": "object",
+      "properties": {
+          "content": {
+              "type": "array",
+              "items": {
+                  "$ref": "#/definitions/OpenMyManagerAccount"
+              }
+          },
+          "empty": {
               "type": "boolean"
+          },
+          "first": {
+              "type": "boolean"
+          },
+          "last": {
+              "type": "boolean"
+          },
+          "number": {
+              "type": "integer",
+              "format": "int32"
+          },
+          "numberOfElements": {
+              "type": "integer",
+              "format": "int32"
+          },
+          "pageable": {
+              "$ref": "#/definitions/OpenApiPageable"
+          },
+          "size": {
+              "type": "integer",
+              "format": "int32"
           },
           "sort": {
               "$ref": "#/definitions/Sort"
           },
-          "unpaged": {
-              "type": "boolean"
+          "totalElements": {
+              "type": "integer",
+              "format": "int64"
+          },
+          "totalPages": {
+              "type": "integer",
+              "format": "int32"
           }
       },
-      "title": "Pageable"
-  },
-  "Page«OpenMyManagerAccount»": {
-    "type": "object",
-    "properties": {
-        "content": {
-            "type": "array",
-            "items": {
-                "$ref": "#/definitions/OpenMyManagerAccount"
-            }
-        },
-        "empty": {
-            "type": "boolean"
-        },
-        "first": {
-            "type": "boolean"
-        },
-        "last": {
-            "type": "boolean"
-        },
-        "number": {
-            "type": "integer",
-            "format": "int32"
-        },
-        "numberOfElements": {
-            "type": "integer",
-            "format": "int32"
-        },
-        "pageable": {
-            "$ref": "#/definitions/OpenApiPageable"
-        },
-        "size": {
-            "type": "integer",
-            "format": "int32"
-        },
-        "sort": {
-            "$ref": "#/definitions/Sort"
-        },
-        "totalElements": {
-            "type": "integer",
-            "format": "int64"
-        },
-        "totalPages": {
-            "type": "integer",
-            "format": "int32"
-        }
-    },
-    "title": "Page«OpenMyManagerAccount»"
+      "title": "Page«OpenMyManagerAccount»"
+    }
   }
 }
