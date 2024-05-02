@@ -1747,8 +1747,8 @@
 			"tags": [
 			"Creatives"
 			],
-			"summary": "Create a creative with image slides",
-			"description": "Creative creation with `image slides` is supported.",
+			"summary": "Create a creative with image slides(carousel format)",
+			"description": "Creative creation with image slides(carousel format) is supported.",
 			"operationId": "createCreativeOfMultipleImageUsingPOST",
 			"consumes": [
 			"application/json"
@@ -1812,8 +1812,8 @@
 			  "tags": [
 			  "Creatives"
 			  ],
-			  "summary": "Create a creative in banner/feed type of video",
-			  "description": "Creative creation for a banner/feed type of `video` is supported.",
+			  "summary": "Create a creative in out-stream type of video",
+			  "description": "Creative creation for a out-stream type of `video` is supported.",
 			  "operationId": "createCreativeOfNativeSingleVideoUsingPOST",
 			  "consumes": [
 			  "application/json"
@@ -5283,7 +5283,7 @@
 				"format"     : "int64"   ,
 				"description": "Ad group ID"
 			  },
-			  "creativeTemplateCode": {"type": "string"},
+			  "creativeTemplateCode": {"type": "string", "description": "Creative templates:\r\n `FEED_MULTIPLE_IMAGE`"},
 			  "ctaCode": {"type": "string"},
 			  "imageMedias": {
 				"type": "array",
