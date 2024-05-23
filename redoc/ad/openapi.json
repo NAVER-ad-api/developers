@@ -1677,7 +1677,7 @@
 			  "deprecated": false
 			}
 		},
-		"/{version}/adAccounts/{adAccountNo}/creatives/INSTREAM_VIDEO/": {
+		"/{version}/adAccounts/{adAccountNo}/creatives/INSTREAM_VIDEO": {
       "post": {
         "tags": [
           "Creatives"
@@ -5215,7 +5215,7 @@
 			  "altMessage": {
 				"type": "string",
 				"description": "Ad message",
-				"minLength": 1,
+				"minLength": 2,
 				"maxLength": 100
 			  },
 			  "creativeTemplateCode": {
@@ -5477,6 +5477,11 @@
 				"type": "integer",
 				"format": "int64",
 				"description": "Maximum file size"
+			  },
+			  "no": {
+				"type": "integer",
+				"format": "int32",
+				"description": "SizeGroup ID"
 			  },
 			  "ratioBased": {
 				"type": "boolean",
