@@ -23,7 +23,7 @@
 			"name": "Type information"
 		},
 		{
-			"name":"Potential customers"
+			"name": "Potential customers"
 		}
 	],
 	"paths": {
@@ -626,157 +626,157 @@
 				"deprecated": false
 			}
 		},
-		"/{version}/adAccounts/{adAccountNo}/adSets/{adSetNo}/adidLibraries":{
-			"get":{
-				"tags":[
+		"/{version}/adAccounts/{adAccountNo}/adSets/{adSetNo}/adidLibraries": {
+			"get": {
+				"tags": [
 					"Ad groups"
 				],
-				"summary":"Get customer file target",
-				"operationId":"getCustomizedTargetingAdidLibraryUsingGET",
-				"produces":[
+				"summary": "Get customer file target",
+				"operationId": "getCustomizedTargetingAdidLibraryUsingGET",
+				"produces": [
 					"*/*"
 				],
-				"parameters":[
+				"parameters": [
 					{
-						"name":"AccessManagerAccountNo",
-						"in":"header",
-						"description":"Manager account ID that has access to the ad account",
-						"required":false,
-						"type":"integer",
-						"format":"int64"
+						"name": "AccessManagerAccountNo",
+						"in": "header",
+						"description": "Manager account ID that has access to the ad account",
+						"required": false,
+						"type": "integer",
+						"format": "int64"
 					},
 					{
-						"name":"adAccountNo",
-						"in":"path",
-						"description":"adAccountNo",
-						"required":true,
-						"type":"integer",
-						"format":"int64"
+						"name": "adAccountNo",
+						"in": "path",
+						"description": "adAccountNo",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
 					},
 					{
-						"name":"adSetNo",
-						"in":"path",
-						"description":"adSetNo",
-						"required":true,
-						"type":"integer",
-						"format":"int64"
+						"name": "adSetNo",
+						"in": "path",
+						"description": "adSetNo",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
 					},
 					{
-						"name":"version",
-						"in":"path",
-						"description":"API version",
-						"required":true,
-						"type":"number",
-						"default":1.0,
-						"format":"float"
+						"name": "version",
+						"in": "path",
+						"description": "API version",
+						"required": true,
+						"type": "number",
+						"default": 1.0,
+						"format": "float"
 					}
 				],
-				"responses":{
-					"200":{
-						"description":"OK",
-						"schema":{
-							"type":"array",
-							"items":{
-								"$ref":"#/definitions/OpenCustomTargetView"
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/OpenCustomTargetView"
 							}
 						}
 					},
-					"400":{
-						"description":"Bad request",
-						"schema":{
-							"$ref":"#/definitions/ErrorResult"
+					"400": {
+						"description": "Bad request",
+						"schema": {
+							"$ref": "#/definitions/ErrorResult"
 						}
 					},
-					"422":{
-						"description":"Unprocessable",
-						"schema":{
-							"$ref":"#/definitions/ErrorResult"
+					"422": {
+						"description": "Unprocessable",
+						"schema": {
+							"$ref": "#/definitions/ErrorResult"
 						}
 					}
 				},
-				"deprecated":false
+				"deprecated": false
 			},
-			"put":{
-				"tags":[
+			"put": {
+				"tags": [
 					"Ad groups"
 				],
-				"summary":"Update customer file target",
-				"description":"- The existing customer file target is deleted and replaced with a new target list.\n- You can select up to 30 targets that are available, and a target cannot be chosen if the target population is less than 1,000.",
-				"operationId":"createCustomizedTargetingAdidLibraryUsingPUT",
-				"consumes":[
+				"summary": "Update customer file target",
+				"description": "- The existing customer file target is deleted and replaced with a new target list.\n- You can select up to 30 targets that are available, and a target cannot be chosen if the target population is less than 1,000.",
+				"operationId": "createCustomizedTargetingAdidLibraryUsingPUT",
+				"consumes": [
 					"application/json"
 				],
-				"produces":[
+				"produces": [
 					"*/*"
 				],
-				"parameters":[
+				"parameters": [
 					{
-						"name":"AccessManagerAccountNo",
-						"in":"header",
-						"description":"Manager account ID that has access to the ad account",
-						"required":false,
-						"type":"integer",
-						"format":"int64"
+						"name": "AccessManagerAccountNo",
+						"in": "header",
+						"description": "Manager account ID that has access to the ad account",
+						"required": false,
+						"type": "integer",
+						"format": "int64"
 					},
 					{
-						"name":"adAccountNo",
-						"in":"path",
-						"description":"adAccountNo",
-						"required":true,
-						"type":"integer",
-						"format":"int64"
+						"name": "adAccountNo",
+						"in": "path",
+						"description": "adAccountNo",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
 					},
 					{
-						"name":"adSetNo",
-						"in":"path",
-						"description":"adSetNo",
-						"required":true,
-						"type":"integer",
-						"format":"int64"
+						"name": "adSetNo",
+						"in": "path",
+						"description": "adSetNo",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
 					},
 					{
-						"in":"body",
-						"name":"params",
-						"description":"params",
-						"required":true,
-						"schema":{
-							"$ref":"#/definitions/CreateCustomizedTargetingAdidLibrariesRequest"
+						"in": "body",
+						"name": "params",
+						"description": "params",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/CreateCustomizedTargetingAdidLibrariesRequest"
 						}
 					},
 					{
-						"name":"version",
-						"in":"path",
-						"description":"API version",
-						"required":true,
-						"type":"number",
-						"default":1.0,
-						"format":"float"
+						"name": "version",
+						"in": "path",
+						"description": "API version",
+						"required": true,
+						"type": "number",
+						"default": 1.0,
+						"format": "float"
 					}
 				],
-				"responses":{
-					"200":{
-						"description":"OK",
-						"schema":{
-							"type":"array",
-							"items":{
-								"$ref":"#/definitions/CustomTargetParam"
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/CustomTargetParam"
 							}
 						}
 					},
-					"400":{
-						"description":"Bad request",
-						"schema":{
-							"$ref":"#/definitions/ErrorResult"
+					"400": {
+						"description": "Bad request",
+						"schema": {
+							"$ref": "#/definitions/ErrorResult"
 						}
 					},
-					"422":{
-						"description":"Unprocessable",
-						"schema":{
-							"$ref":"#/definitions/ErrorResult"
+					"422": {
+						"description": "Unprocessable",
+						"schema": {
+							"$ref": "#/definitions/ErrorResult"
 						}
 					}
 				},
-				"deprecated":false
+				"deprecated": false
 			}
 		},
 		"/{version}/adAccounts/{adAccountNo}/campaigns": {
@@ -1271,7 +1271,7 @@
 					"Campaigns"
 				],
 				"summary": "Change campaign budgets",
-				"description":"- This API is used to update campaign spending limit. Please note that we do not currently support an API for campaign budget optimization.",
+				"description": "- This API is used to update campaign spending limit. Please note that we do not currently support an API for campaign budget optimization.",
 				"operationId": "editBudgetUsingPOST",
 				"consumes": [
 					"application/json"
@@ -1622,319 +1622,327 @@
 		},
 		"/{version}/adAccounts/{adAccountNo}/creatives/IMAGE_BANNER": {
 			"post": {
-			  "tags": ["Creatives"],
-			  "summary": "Create a creative of IMAGE_BANNER",
-			  "description": "Creates an `IMAGE_BANNER` type creative.",
-			  "operationId": "createCreativeOfImageBannerUsingPOST",
-			  "consumes": ["application/json"],
-			  "produces": ["*/*"],
-			  "parameters": [
-				{
-				  "name": "adAccountNo",
-				  "in": "path",
-				  "description": "adAccountNo",
-				  "required": true,
-				  "type": "integer",
-				  "format": "int64"
+				"tags": [
+					"Creatives"
+				],
+				"summary": "Create a creative (image banner)",
+				"description": "Creates an `IMAGE_BANNER` type creative.",
+				"operationId": "createCreativeOfImageBannerUsingPOST",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "adAccountNo",
+						"in": "path",
+						"description": "adAccountNo",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"in": "body",
+						"name": "params",
+						"description": "params",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/OpenCreativeOfImageBannerParam"
+						}
+					},
+					{
+						"name": "version",
+						"in": "path",
+						"description": "version",
+						"required": true,
+						"type": "number",
+						"default": 1.0,
+						"format": "float"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successfully changed.",
+						"schema": {
+							"$ref": "#/definitions/OpenCreativeDetail"
+						}
+					},
+					"400": {
+						"description": "Bad request",
+						"schema": {
+							"$ref": "#/definitions/ErrorResult"
+						}
+					},
+					"422": {
+						"description": "Unprocessable",
+						"schema": {
+							"$ref": "#/definitions/ErrorResult"
+						}
+					}
 				},
-				{
-				  "in": "body",
-				  "name": "params",
-				  "description": "params",
-				  "required": true,
-				  "schema": {"$ref": "#/definitions/OpenCreativeOfImageBannerParam"}
-				},
-				{
-				  "name": "version",
-				  "in": "path",
-				  "description": "version",
-				  "required": true,
-				  "type": "number",
-				  "default": 1.0,
-				  "format": "float"
-				}
-			  ],
-			  "responses": {
-				"200": {
-				  "description": "Successfully changed.",
-				  "schema": {
-					"$ref": "#/definitions/OpenCreativeDetail"
-				  }
-				},
-				"400": {
-				  "description": "Bad request",
-				  "schema": {
-					"$ref": "#/definitions/ErrorResult"
-				  }
-				},
-				"422": {
-				  "description": "Unprocessable",
-				  "schema": {
-					"$ref": "#/definitions/ErrorResult"
-				  }
-				}
-			  },
-			  "deprecated": false
+				"deprecated": false
 			}
 		},
 		"/{version}/adAccounts/{adAccountNo}/creatives/INSTREAM_VIDEO": {
-      "post": {
-        "tags": [
-          "Creatives"
-        ],
-        "summary": "Create a creative in in-stream type of video",
-        "description": "Creative creation for an in-steam type of `video` is supported.",
-        "operationId": "createCreativeOfInstreamVideoUsingPOST",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "*/*"
-        ],
-        "parameters": [
-          {
-            "name": "adAccountNo",
-            "in": "path",
-            "description": "adAccountNo",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "in": "body",
-            "name": "params",
-            "description": "params",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/OpenCreativeOfInstreamVideoParam"
-            }
-          },
-          {
-            "name": "version",
-            "in": "path",
-            "description": "version",
-            "required": true,
-            "type": "number",
-            "default": 1.0,
-            "format": "float"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successfully changed.",
-            "schema": {
-              "$ref": "#/definitions/OpenCreativeDetail"
-            }
-          },
-          "400": {
-            "description": "Bad request",
-            "schema": {
-              "$ref": "#/definitions/ErrorResult"
-            }
-          },
-          "422": {
-            "description": "Unprocessable",
-            "schema": {
-              "$ref": "#/definitions/ErrorResult"
-            }
-          }
-        },
-        "deprecated": false
-      }
-    	},
+			"post": {
+				"tags": [
+					"Creatives"
+				],
+				"summary": "Create a creative in in-stream type of video",
+				"description": "Creative creation for an in-steam type of `video` is supported.",
+				"operationId": "createCreativeOfInstreamVideoUsingPOST",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "adAccountNo",
+						"in": "path",
+						"description": "adAccountNo",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"in": "body",
+						"name": "params",
+						"description": "params",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/OpenCreativeOfInstreamVideoParam"
+						}
+					},
+					{
+						"name": "version",
+						"in": "path",
+						"description": "version",
+						"required": true,
+						"type": "number",
+						"default": 1.0,
+						"format": "float"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successfully changed.",
+						"schema": {
+							"$ref": "#/definitions/OpenCreativeDetail"
+						}
+					},
+					"400": {
+						"description": "Bad request",
+						"schema": {
+							"$ref": "#/definitions/ErrorResult"
+						}
+					},
+					"422": {
+						"description": "Unprocessable",
+						"schema": {
+							"$ref": "#/definitions/ErrorResult"
+						}
+					}
+				},
+				"deprecated": false
+			}
+		},
 		"/{version}/adAccounts/{adAccountNo}/creatives/MULTIPLE_IMAGE": {
-		  "post": {
-			"tags": [
-			"Creatives"
-			],
-			"summary": "Create a creative with image slides(carousel format)",
-			"description": "Creative creation with image slides(carousel format) is supported.",
-			"operationId": "createCreativeOfMultipleImageUsingPOST",
-			"consumes": [
-			"application/json"
-			],
-			"produces": [
-			"*/*"
-			],
-			"parameters": [
-			{
-				"name": "adAccountNo",
-				"in": "path",
-				"description": "adAccountNo",
-				"required": true,
-				"type": "integer",
-				"format": "int64"
-			},
-			{
-				"in": "body",
-				"name": "params",
-				"description": "params",
-				"required": true,
-				"schema": {
-				"$ref": "#/definitions/OpenCreativeOfMultipleImageParam"
-				}
-			},
-			{
-				"name": "version",
-				"in": "path",
-				"description": "version",
-				"required": true,
-				"type": "number",
-				"default": 1.0,
-				"format": "float"
+			"post": {
+				"tags": [
+					"Creatives"
+				],
+				"summary": "Create a creative with image slides (carousel format)",
+				"description": "Creative creation with image slides (carousel format) is supported.",
+				"operationId": "createCreativeOfMultipleImageUsingPOST",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "adAccountNo",
+						"in": "path",
+						"description": "adAccountNo",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"in": "body",
+						"name": "params",
+						"description": "params",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/OpenCreativeOfMultipleImageParam"
+						}
+					},
+					{
+						"name": "version",
+						"in": "path",
+						"description": "version",
+						"required": true,
+						"type": "number",
+						"default": 1.0,
+						"format": "float"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successfully changed.",
+						"schema": {
+							"$ref": "#/definitions/OpenCreativeDetail"
+						}
+					},
+					"400": {
+						"description": "Bad request",
+						"schema": {
+							"$ref": "#/definitions/ErrorResult"
+						}
+					},
+					"422": {
+						"description": "Unprocessable",
+						"schema": {
+							"$ref": "#/definitions/ErrorResult"
+						}
+					}
+				},
+				"deprecated": false
 			}
-			],
-			"responses": {
-			"200": {
-				"description": "Successfully changed.",
-				"schema": {
-				"$ref": "#/definitions/OpenCreativeDetail"
-				}
-			},
-			"400": {
-				"description": "Bad request",
-				"schema": {
-				"$ref": "#/definitions/ErrorResult"
-				}
-			},
-			"422": {
-				"description": "Unprocessable",
-				"schema": {
-				"$ref": "#/definitions/ErrorResult"
-				}
-			}
-			},
-			"deprecated": false
-		  }
 		},
 		"/{version}/adAccounts/{adAccountNo}/creatives/NATIVE_VIDEO": {
 			"post": {
-			  "tags": [
-			  "Creatives"
-			  ],
-			  "summary": "Create a creative in out-stream type of video",
-			  "description": "Creative creation for a out-stream type of `video` is supported.",
-			  "operationId": "createCreativeOfNativeSingleVideoUsingPOST",
-			  "consumes": [
-			  "application/json"
-			  ],
-			  "produces": [
-			  "*/*"
-			  ],
-			  "parameters": [
-			  {
-				  "name": "adAccountNo",
-				  "in": "path",
-				  "description": "adAccountNo",
-				  "required": true,
-				  "type": "integer",
-				  "format": "int64"
-			  },
-			  {
-				  "in": "body",
-				  "name": "params",
-				  "description": "params",
-				  "required": true,
-				  "schema": {
-				  "$ref": "#/definitions/OpenCreativeOfNativeSingleVideoParam"
-				  }
-			  },
-			  {
-				  "name": "version",
-				  "in": "path",
-				  "description": "version",
-				  "required": true,
-				  "type": "number",
-				  "default": 1.0,
-				  "format": "float"
-			  }
-			  ],
-			  "responses": {
-			  "200": {
-				  "description": "Successfully changed.",
-				  "schema": {
-				  "$ref": "#/definitions/OpenCreativeDetail"
-				  }
-			  },
-			  "400": {
-				  "description": "Bad request",
-				  "schema": {
-				  "$ref": "#/definitions/ErrorResult"
-				  }
-			  },
-			  "422": {
-				  "description": "Unprocessable",
-				  "schema": {
-				  "$ref": "#/definitions/ErrorResult"
-				  }
-			  }
-			  },
-			  "deprecated": false
-		  }
+				"tags": [
+					"Creatives"
+				],
+				"summary": "Create a creative in out-stream type of video",
+				"description": "Creative creation for a out-stream type of `video` is supported.",
+				"operationId": "createCreativeOfNativeSingleVideoUsingPOST",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "adAccountNo",
+						"in": "path",
+						"description": "adAccountNo",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"in": "body",
+						"name": "params",
+						"description": "params",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/OpenCreativeOfNativeSingleVideoParam"
+						}
+					},
+					{
+						"name": "version",
+						"in": "path",
+						"description": "version",
+						"required": true,
+						"type": "number",
+						"default": 1.0,
+						"format": "float"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successfully changed.",
+						"schema": {
+							"$ref": "#/definitions/OpenCreativeDetail"
+						}
+					},
+					"400": {
+						"description": "Bad request",
+						"schema": {
+							"$ref": "#/definitions/ErrorResult"
+						}
+					},
+					"422": {
+						"description": "Unprocessable",
+						"schema": {
+							"$ref": "#/definitions/ErrorResult"
+						}
+					}
+				},
+				"deprecated": false
+			}
 		},
 		"/{version}/adAccounts/{adAccountNo}/creatives/SINGLE_IMAGE": {
 			"post": {
-			  "tags": [
-				"Creatives"
-			  ],
-			  "summary": "Create a creative of SINGLE_IMAGE",
-			  "description": "Currently, creative creation for a `SINGLE_IMAGE` type is supported.",
-			  "operationId": "createCreativeOfSingleImageUsingPOST",
-			  "consumes": [
-				"application/json"
-			  ],
-			  "produces": [
-				"*/*"
-			  ],
-			  "parameters": [
-				{
-				  "name": "adAccountNo",
-				  "in": "path",
-				  "description": "adAccountNo",
-				  "required": true,
-				  "type": "integer",
-				  "format": "int64"
+				"tags": [
+					"Creatives"
+				],
+				"summary": "Create a creative (native image)",
+				"description": "Currently, creative creation for a `native image` type is supported.",
+				"operationId": "createCreativeOfSingleImageUsingPOST",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "adAccountNo",
+						"in": "path",
+						"description": "adAccountNo",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"in": "body",
+						"name": "params",
+						"description": "params",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/OpenCreativeOfSingleImageParam"
+						}
+					},
+					{
+						"name": "version",
+						"in": "path",
+						"description": "version",
+						"required": true,
+						"type": "number",
+						"default": 1.0,
+						"format": "float"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successfully changed.",
+						"schema": {
+							"$ref": "#/definitions/OpenCreativeDetail"
+						}
+					},
+					"400": {
+						"description": "Bad request",
+						"schema": {
+							"$ref": "#/definitions/ErrorResult"
+						}
+					},
+					"422": {
+						"description": "Unprocessable",
+						"schema": {
+							"$ref": "#/definitions/ErrorResult"
+						}
+					}
 				},
-				{
-				  "in": "body",
-				  "name": "params",
-				  "description": "params",
-				  "required": true,
-				  "schema": {
-					"$ref": "#/definitions/OpenCreativeOfSingleImageParam"
-				  }
-				},
-				{
-				  "name": "version",
-				  "in": "path",
-				  "description": "version",
-				  "required": true,
-				  "type": "number",
-				  "default": 1.0,
-				  "format": "float"
-				}
-			  ],
-			  "responses": {
-				"200": {
-				  "description": "Successfully changed.",
-				  "schema": {
-					"$ref": "#/definitions/OpenCreativeDetail"
-				  }
-				},
-				"400": {
-				  "description": "Bad request",
-				  "schema": {
-					"$ref": "#/definitions/ErrorResult"
-				  }
-				},
-				"422": {
-				  "description": "Unprocessable",
-				  "schema": {
-					"$ref": "#/definitions/ErrorResult"
-				  }
-				}
-			  },
-			  "deprecated": false
+				"deprecated": false
 			}
 		},
 		"/{version}/adAccounts/{adAccountNo}/creatives/activate": {
@@ -2014,242 +2022,296 @@
 		},
 		"/{version}/adAccounts/{adAccountNo}/creatives/callToActions": {
 			"get": {
-			  "tags": [
-				"Creatives"
-			  ],
-			  "summary": "List of call-to-action ad creatives",
-			  "operationId": "callToActionsUsingGET",
-			  "produces": [
-				"*/*"
-			  ],
-			  "parameters": [
-				{
-				  "name": "AccessManagerAccountNo",
-				  "in": "header",
-				  "description": "Manager account ID that has access to the ad account",
-				  "required": false,
-				  "type": "integer",
-				  "format": "int64"
-				},
-				{
-				  "name": "adAccountNo",
-				  "in": "path",
-				  "description": "adAccountNo",
-				  "required": true,
-				  "type": "integer",
-				  "format": "int64"
-				},
-				{
-				  "name": "adSetNo",
-				  "in": "query",
-				  "description": "Ad group ID",
-				  "required": true,
-				  "type": "integer",
-				  "format": "int64",
-				  "allowEmptyValue": false
-				},
-				{
-				  "name": "version",
-				  "in": "path",
-				  "description": "API version",
-				  "required": true,
-				  "type": "number",
-				  "default": 1.0,
-				  "format": "float"
-				}
-			  ],
-			  "responses": {
-				"200": {
-				  "description": "OK",
-				  "schema": {
-					"type": "array",
-					"items": {
-					  "$ref": "#/definitions/ConstantResponse"
+				"tags": [
+					"Creatives"
+				],
+				"summary": "List of call-to-action ad creatives",
+				"operationId": "callToActionsUsingGET",
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "AccessManagerAccountNo",
+						"in": "header",
+						"description": "Manager account ID that has access to the ad account",
+						"required": false,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "adAccountNo",
+						"in": "path",
+						"description": "adAccountNo",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "adSetNo",
+						"in": "query",
+						"description": "Ad group ID",
+						"required": true,
+						"type": "integer",
+						"format": "int64",
+						"allowEmptyValue": false
+					},
+					{
+						"name": "version",
+						"in": "path",
+						"description": "API version",
+						"required": true,
+						"type": "number",
+						"default": 1.0,
+						"format": "float"
 					}
-				  }
-				}
-			  },
-			  "deprecated": false
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/ConstantResponse"
+							}
+						}
+					}
+				},
+				"deprecated": false
 			}
 		},
 		"/{version}/adAccounts/{adAccountNo}/creatives/image": {
 			"post": {
-			  "tags": [
-				"Creatives"
-			  ],
-			  "summary": "Upload creative images",
-			  "operationId": "uploadImageUsingPOST",
-			  "consumes": [
-				"multipart/form-data"
-			  ],
-			  "produces": [
-				"*/*"
-			  ],
-			  "parameters": [
-				{
-				  "name": "AccessManagerAccountNo",
-				  "in": "header",
-				  "description": "Manager account ID that has access to the ad account",
-				  "required": false,
-				  "type": "integer",
-				  "format": "int64"
+				"tags": [
+					"Creatives"
+				],
+				"summary": "Upload creative images",
+				"operationId": "uploadImageUsingPOST",
+				"consumes": [
+					"multipart/form-data"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "AccessManagerAccountNo",
+						"in": "header",
+						"description": "Manager account ID that has access to the ad account",
+						"required": false,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "adAccountNo",
+						"in": "path",
+						"description": "adAccountNo",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"in": "query",
+						"name": "creativeTemplateCode",
+						"description": "Creative templates",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "file",
+						"in": "formData",
+						"description": "file",
+						"required": true,
+						"type": "file"
+					},
+					{
+						"name": "version",
+						"in": "path",
+						"description": "version",
+						"required": true,
+						"type": "number",
+						"default": 1.0,
+						"format": "float"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successfully changed.",
+						"schema": {
+							"$ref": "#/definitions/Image"
+						}
+					},
+					"400": {
+						"description": "Bad request",
+						"schema": {
+							"$ref": "#/definitions/ErrorResult"
+						}
+					},
+					"422": {
+						"description": "Unprocessable",
+						"schema": {
+							"$ref": "#/definitions/ErrorResult"
+						}
+					}
 				},
-				{
-				  "name": "adAccountNo",
-				  "in": "path",
-				  "description": "adAccountNo",
-				  "required": true,
-				  "type": "integer",
-				  "format": "int64"
-				},
-				{
-				  "in": "query",
-				  "name": "creativeTemplateCode",
-				  "description": "Creative templates",
-				  "required": true,
-				  "schema": {
-					"type": "string"
-				  }
-				},
-				{
-				  "name": "file",
-				  "in": "formData",
-				  "description": "file",
-				  "required": true,
-				  "type": "file"
-				},
-				{
-				  "name": "version",
-				  "in": "path",
-				  "description": "version",
-				  "required": true,
-				  "type": "number",
-				  "default": 1.0,
-				  "format": "float"
-				}
-			  ],
-			  "responses": {
-				"200": {
-				  "description": "Successfully changed.",
-				  "schema": {
-					"$ref": "#/definitions/Image"
-				  }
-				},
-				"400": {
-				  "description": "Bad request",
-				  "schema": {
-					"$ref": "#/definitions/ErrorResult"
-				  }
-				},
-				"422": {
-				  "description": "Unprocessable",
-				  "schema": {
-					"$ref": "#/definitions/ErrorResult"
-				  }
-				}
-			  },
-			  "deprecated": false
+				"deprecated": false
 			}
 		},
 		"/{version}/adAccounts/{adAccountNo}/creatives/video": {
-		  "post": {
-			"tags": [
-			"Creatives"
-			],
-			"summary": "Upload creative videos",
-			"operationId": "uploadVideoUsingPOST",
-			"consumes": [
-			"multipart/form-data"
-			],
-			"produces": [
-			"*/*"
-			],
-			"parameters": [
-			{
-				"name": "AccessManagerAccountNo",
-				"in": "header",
-				"description": "Manager account ID that has access to the ad account",
-				"required": false,
-				"type": "integer",
-				"format": "int64"
-			},
-			{
-				"name": "adAccountNo",
-				"in": "path",
-				"description": "adAccountNo",
-				"required": true,
-				"type": "integer",
-				"format": "int64"
-			},
-			{
-				"in": "query",
-				"name": "callbackUrl",
-				"description": "Callback URL",
-				"required": true,
-				"schema": {
-				"type": "string"
-				}
-			},
-			{
-				"in": "query",
-				"name": "creativeTemplateCode",
-				"description": "Creative templates",
-				"required": true,
-				"schema": {
-				"type": "string"
-				}
-			},
-			{
-				"in": "query",
-				"name": "sizeGroupNo",
-				"description": "Creative media (images and videos) size ID",
-				"required": true,
-				"schema": {
-				"type": "integer",
-				"format": "int32"
-				}
-			},
-			{
-				"name": "file",
-				"in": "formData",
-				"description": "file",
-				"required": true,
-				"type": "file"
-			},
-			{
-				"name": "version",
-				"in": "path",
-				"description": "version",
-				"required": true,
-				"type": "number",
-				"default": 1.0,
-				"format": "float"
+			"post": {
+				"tags": [
+					"Creatives"
+				],
+				"summary": "Upload creative videos",
+				"operationId": "uploadVideoUsingPOST",
+				"consumes": [
+					"multipart/form-data"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "AccessManagerAccountNo",
+						"in": "header",
+						"description": "Manager account ID that has access to the ad account",
+						"required": false,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "adAccountNo",
+						"in": "path",
+						"description": "adAccountNo",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"in": "query",
+						"name": "callbackUrl",
+						"description": "Callback URL",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "creativeTemplateCode",
+						"description": "Creative templates",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "sizeGroupNo",
+						"description": "Creative media (images and videos) size ID",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					},
+					{
+						"name": "file",
+						"in": "formData",
+						"description": "file",
+						"required": true,
+						"type": "file"
+					},
+					{
+						"name": "version",
+						"in": "path",
+						"description": "version",
+						"required": true,
+						"type": "number",
+						"default": 1.0,
+						"format": "float"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successfully changed.",
+						"schema": {
+							"$ref": "#/definitions/UploadVideo"
+						}
+					},
+					"400": {
+						"description": "Bad request",
+						"schema": {
+							"$ref": "#/definitions/ErrorResult"
+						}
+					},
+					"422": {
+						"description": "Unprocessable",
+						"schema": {
+							"$ref": "#/definitions/ErrorResult"
+						}
+					}
+				},
+				"deprecated": false
 			}
-			],
-			"responses": {
-			"200": {
-				"description": "Successfully changed.",
-				"schema": {
-				"$ref": "#/definitions/UploadVideo"
-				}
-			},
-			"400": {
-				"description": "Bad request",
-				"schema": {
-				"$ref": "#/definitions/ErrorResult"
-				}
-			},
-			"422": {
-				"description": "Unprocessable",
-				"schema": {
-				"$ref": "#/definitions/ErrorResult"
-				}
-			}
-			},
-			"deprecated": false
-		  }
 		},
 		"/{version}/adAccounts/{adAccountNo}/creatives/{creativeNo}": {
+			"get": {
+				"tags": [
+					"Creatives"
+				],
+				"summary": "Get a creative",
+				"operationId": "getUsingGET",
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "AccessManagerAccountNo",
+						"in": "header",
+						"description": "Manager account ID that has access to the ad account",
+						"required": false,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "adAccountNo",
+						"in": "path",
+						"description": "adAccountNo",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "creativeNo",
+						"in": "path",
+						"description": "creativeNo",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "version",
+						"in": "path",
+						"description": "version",
+						"required": true,
+						"type": "number",
+						"default": 1.0,
+						"format": "float"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/OpenCreativeDetail"
+						}
+					}
+				},
+				"deprecated": false
+			},
 			"delete": {
 				"tags": [
 					"Creatives"
@@ -2306,343 +2368,343 @@
 				"deprecated": false
 			}
 		},
-		"/{version}/adAccounts/{adAccountNo}/customTargets/adidLibraries":{
-			"get":{
-				"tags":[
+		"/{version}/adAccounts/{adAccountNo}/customTargets/adidLibraries": {
+			"get": {
+				"tags": [
 					"Potential customers"
 				],
-				"summary":"Get a list of customer files",
-				"operationId":"getCustomTargetAdidListUsingGET",
-				"produces":[
+				"summary": "Get a list of customer files",
+				"operationId": "getCustomTargetAdidListUsingGET",
+				"produces": [
 					"*/*"
 				],
-				"parameters":[
+				"parameters": [
 					{
-						"name":"AccessManagerAccountNo",
-						"in":"header",
-						"description":"Manager account ID that has access to the ad account",
-						"required":false,
-						"type":"integer",
-						"format":"int64"
+						"name": "AccessManagerAccountNo",
+						"in": "header",
+						"description": "Manager account ID that has access to the ad account",
+						"required": false,
+						"type": "integer",
+						"format": "int64"
 					},
 					{
-						"name":"adAccountNo",
-						"in":"path",
-						"description":"adAccountNo",
-						"required":true,
-						"type":"integer",
-						"format":"int64"
+						"name": "adAccountNo",
+						"in": "path",
+						"description": "adAccountNo",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
 					},
 					{
-						"name":"onlyAvailableOrPreparing",
-						"in":"query",
-						"description":"When set to true, it indicates retrieving customer files in preparation or availability status. When set to false, it indicates retrieving a list of all files.",
-						"required":false,
-						"type":"boolean",
-						"default":false,
-						"allowEmptyValue":false,
-						"x-example":false
+						"name": "onlyAvailableOrPreparing",
+						"in": "query",
+						"description": "When set to true, it indicates retrieving customer files in preparation or availability status. When set to false, it indicates retrieving a list of all files.",
+						"required": false,
+						"type": "boolean",
+						"default": false,
+						"allowEmptyValue": false,
+						"x-example": false
 					},
 					{
-						"name":"page",
-						"in":"query",
-						"description":"Page number (default: 0)",
-						"required":false,
-						"type":"integer",
-						"format":"int32"
+						"name": "page",
+						"in": "query",
+						"description": "Page number (default: 0)",
+						"required": false,
+						"type": "integer",
+						"format": "int32"
 					},
 					{
-						"name":"size",
-						"in":"query",
-						"description":"Page size (default: 10, max: 100)",
-						"required":false,
-						"type":"integer",
-						"format":"int32"
+						"name": "size",
+						"in": "query",
+						"description": "Page size (default: 10, max: 100)",
+						"required": false,
+						"type": "integer",
+						"format": "int32"
 					},
 					{
-						"name":"version",
-						"in":"path",
-						"description":"API version",
-						"required":true,
-						"type":"number",
-						"default":1.0,
-						"format":"float"
+						"name": "version",
+						"in": "path",
+						"description": "API version",
+						"required": true,
+						"type": "number",
+						"default": 1.0,
+						"format": "float"
 					}
 				],
-				"responses":{
-					"200":{
-						"description":"OK",
-						"schema":{
-							"$ref":"#/definitions/Page«OpenCustomTargetAdidLibraryResponse»"
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Page«OpenCustomTargetAdidLibraryResponse»"
 						}
 					}
 				},
-				"deprecated":false
+				"deprecated": false
 			},
-			"post":{
-				"tags":[
+			"post": {
+				"tags": [
 					"Potential customers"
 				],
-				"summary":"Upload and add customer files",
-				"description":"- A single customer file can be uploaded and added at a time.\n- The upload process has a file size limit of 100 MB and a timeout limit of 20 seconds.\n- Up to 50 customer files per ad account can be added.\n- The length of a target name can be between 1 and 128 characters.\n- Only CSV extensions are supported for customer files.",
-				"operationId":"createCustomTargetAdidUsingPOST",
-				"consumes":[
+				"summary": "Upload and add customer files",
+				"description": "- A single customer file can be uploaded and added at a time.\n- The upload process has a file size limit of 100 MB and a timeout limit of 20 seconds.\n- Up to 50 customer files per ad account can be added.\n- The length of a target name can be between 1 and 128 characters.\n- Only CSV extensions are supported for customer files.",
+				"operationId": "createCustomTargetAdidUsingPOST",
+				"consumes": [
 					"multipart/form-data"
 				],
-				"produces":[
+				"produces": [
 					"*/*"
 				],
-				"parameters":[
+				"parameters": [
 					{
-						"name":"AccessManagerAccountNo",
-						"in":"header",
-						"description":"Manager account ID that has access to the ad account",
-						"required":false,
-						"type":"integer",
-						"format":"int64"
+						"name": "AccessManagerAccountNo",
+						"in": "header",
+						"description": "Manager account ID that has access to the ad account",
+						"required": false,
+						"type": "integer",
+						"format": "int64"
 					},
 					{
-						"name":"adAccountNo",
-						"in":"path",
-						"description":"adAccountNo",
-						"required":true,
-						"type":"integer",
-						"format":"int64"
+						"name": "adAccountNo",
+						"in": "path",
+						"description": "adAccountNo",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
 					},
 					{
-						"name":"file",
-						"in":"formData",
-						"description":"Customer file",
-						"required":false,
-						"type":"file"
+						"name": "file",
+						"in": "formData",
+						"description": "Customer file",
+						"required": false,
+						"type": "file"
 					},
 					{
-						"name":"name",
-						"in":"query",
-						"description":"Customer file target name",
-						"required":false,
-						"type":"string",
-						"maxLength":128,
-						"minLength":1,
-						"allowEmptyValue":false
+						"name": "name",
+						"in": "query",
+						"description": "Customer file target name",
+						"required": false,
+						"type": "string",
+						"maxLength": 128,
+						"minLength": 1,
+						"allowEmptyValue": false
 					},
 					{
-						"name":"version",
-						"in":"path",
-						"description":"API version",
-						"required":true,
-						"type":"number",
-						"default":1.0,
-						"format":"float"
+						"name": "version",
+						"in": "path",
+						"description": "API version",
+						"required": true,
+						"type": "number",
+						"default": 1.0,
+						"format": "float"
 					}
 				],
-				"responses":{
-					"200":{
-						"description":"OK",
-						"schema":{
-							"$ref":"#/definitions/OpenCustomTargetAdidLibraryResponse"
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/OpenCustomTargetAdidLibraryResponse"
 						}
 					},
-					"422":{
-						"description":"Unprocessable",
-						"schema":{
-							"$ref":"#/definitions/ErrorResult"
+					"422": {
+						"description": "Unprocessable",
+						"schema": {
+							"$ref": "#/definitions/ErrorResult"
 						}
 					}
 				},
-				"deprecated":false
+				"deprecated": false
 			}
 		},
-		"/{version}/adAccounts/{adAccountNo}/customTargets/adidLibraries/{adidLibraryNo}":{
-			"get":{
-				"tags":[
+		"/{version}/adAccounts/{adAccountNo}/customTargets/adidLibraries/{adidLibraryNo}": {
+			"get": {
+				"tags": [
 					"Potential customers"
 				],
-				"summary":"Get a customer file",
-				"operationId":"getCustomTargetAdidUsingGET",
-				"produces":[
+				"summary": "Get a customer file",
+				"operationId": "getCustomTargetAdidUsingGET",
+				"produces": [
 					"*/*"
 				],
-				"parameters":[
+				"parameters": [
 					{
-						"name":"AccessManagerAccountNo",
-						"in":"header",
-						"description":"Manager account ID that has access to the ad account",
-						"required":false,
-						"type":"integer",
-						"format":"int64"
+						"name": "AccessManagerAccountNo",
+						"in": "header",
+						"description": "Manager account ID that has access to the ad account",
+						"required": false,
+						"type": "integer",
+						"format": "int64"
 					},
 					{
-						"name":"adAccountNo",
-						"in":"path",
-						"description":"adAccountNo",
-						"required":true,
-						"type":"integer",
-						"format":"int64"
+						"name": "adAccountNo",
+						"in": "path",
+						"description": "adAccountNo",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
 					},
 					{
-						"name":"adidLibraryNo",
-						"in":"path",
-						"description":"adidLibraryNo",
-						"required":true,
-						"type":"integer",
-						"format":"int64"
+						"name": "adidLibraryNo",
+						"in": "path",
+						"description": "adidLibraryNo",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
 					},
 					{
-						"name":"version",
-						"in":"path",
-						"description":"API version",
-						"required":true,
-						"type":"number",
-						"default":1.0,
-						"format":"float"
+						"name": "version",
+						"in": "path",
+						"description": "API version",
+						"required": true,
+						"type": "number",
+						"default": 1.0,
+						"format": "float"
 					}
 				],
-				"responses":{
-					"200":{
-						"description":"OK",
-						"schema":{
-							"$ref":"#/definitions/OpenCustomTargetAdidLibraryDetailResponse"
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/OpenCustomTargetAdidLibraryDetailResponse"
 						}
 					},
-					"422":{
-						"description":"Unprocessable",
-						"schema":{
-							"$ref":"#/definitions/ErrorResult"
+					"422": {
+						"description": "Unprocessable",
+						"schema": {
+							"$ref": "#/definitions/ErrorResult"
 						}
 					}
 				},
-				"deprecated":false
+				"deprecated": false
 			},
-			"put":{
-				"tags":[
+			"put": {
+				"tags": [
 					"Potential customers"
 				],
-				"summary":"Update customer files",
-				"description":"- The length of a target name can be between 1 and 128 characters.",
-				"operationId":"updateCustomTargetAdidUsingPUT",
-				"consumes":[
+				"summary": "Update customer files",
+				"description": "- The length of a target name can be between 1 and 128 characters.",
+				"operationId": "updateCustomTargetAdidUsingPUT",
+				"consumes": [
 					"application/json"
 				],
-				"produces":[
+				"produces": [
 					"*/*"
 				],
-				"parameters":[
+				"parameters": [
 					{
-						"name":"AccessManagerAccountNo",
-						"in":"header",
-						"description":"Manager account ID that has access to the ad account",
-						"required":false,
-						"type":"integer",
-						"format":"int64"
+						"name": "AccessManagerAccountNo",
+						"in": "header",
+						"description": "Manager account ID that has access to the ad account",
+						"required": false,
+						"type": "integer",
+						"format": "int64"
 					},
 					{
-						"name":"adAccountNo",
-						"in":"path",
-						"description":"adAccountNo",
-						"required":true,
-						"type":"integer",
-						"format":"int64"
+						"name": "adAccountNo",
+						"in": "path",
+						"description": "adAccountNo",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
 					},
 					{
-						"name":"adidLibraryNo",
-						"in":"path",
-						"description":"adidLibraryNo",
-						"required":true,
-						"type":"integer",
-						"format":"int64"
+						"name": "adidLibraryNo",
+						"in": "path",
+						"description": "adidLibraryNo",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
 					},
 					{
-						"name":"name",
-						"in":"query",
-						"description":"name",
-						"required":true,
-						"type":"string",
-						"maxLength":128,
-						"minLength":1
+						"name": "name",
+						"in": "query",
+						"description": "name",
+						"required": true,
+						"type": "string",
+						"maxLength": 128,
+						"minLength": 1
 					},
 					{
-						"name":"version",
-						"in":"path",
-						"description":"API version",
-						"required":true,
-						"type":"number",
-						"default":1.0,
-						"format":"float"
+						"name": "version",
+						"in": "path",
+						"description": "API version",
+						"required": true,
+						"type": "number",
+						"default": 1.0,
+						"format": "float"
 					}
 				],
-				"responses":{
-					"200":{
-						"description":"OK",
-						"schema":{
-							"$ref":"#/definitions/OpenCustomTargetAdidUpdateResponse"
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/OpenCustomTargetAdidUpdateResponse"
 						}
 					},
-					"403":{
-						"description":"FORBIDDEN",
-						"schema":{
-							"$ref":"#/definitions/ErrorResult"
+					"403": {
+						"description": "FORBIDDEN",
+						"schema": {
+							"$ref": "#/definitions/ErrorResult"
 						}
 					},
-					"422":{
-						"description":"Unprocessable",
-						"schema":{
-							"$ref":"#/definitions/ErrorResult"
+					"422": {
+						"description": "Unprocessable",
+						"schema": {
+							"$ref": "#/definitions/ErrorResult"
 						}
 					}
 				},
-				"deprecated":false
+				"deprecated": false
 			},
-			"delete":{
-				"tags":[
+			"delete": {
+				"tags": [
 					"Potential customers"
 				],
-				"summary":"Delete customer files",
-				"operationId":"deleteCustomTargetAdidUsingDELETE",
-				"produces":[
+				"summary": "Delete customer files",
+				"operationId": "deleteCustomTargetAdidUsingDELETE",
+				"produces": [
 					"*/*"
 				],
-				"parameters":[
+				"parameters": [
 					{
-						"name":"AccessManagerAccountNo",
-						"in":"header",
-						"description":"Manager account ID that has access to the ad account",
-						"required":false,
-						"type":"integer",
-						"format":"int64"
+						"name": "AccessManagerAccountNo",
+						"in": "header",
+						"description": "Manager account ID that has access to the ad account",
+						"required": false,
+						"type": "integer",
+						"format": "int64"
 					},
 					{
-						"name":"adAccountNo",
-						"in":"path",
-						"description":"adAccountNo",
-						"required":true,
-						"type":"integer",
-						"format":"int64"
+						"name": "adAccountNo",
+						"in": "path",
+						"description": "adAccountNo",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
 					},
 					{
-						"name":"adidLibraryNo",
-						"in":"path",
-						"description":"adidLibraryNo",
-						"required":true,
-						"type":"integer",
-						"format":"int64"
+						"name": "adidLibraryNo",
+						"in": "path",
+						"description": "adidLibraryNo",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
 					},
 					{
-						"name":"version",
-						"in":"path",
-						"description":"API version",
-						"required":true,
-						"type":"number",
-						"default":1.0,
-						"format":"float"
+						"name": "version",
+						"in": "path",
+						"description": "API version",
+						"required": true,
+						"type": "number",
+						"default": 1.0,
+						"format": "float"
 					}
 				],
-				"responses":{
-					"200":{
-						"description":"OK"
+				"responses": {
+					"200": {
+						"description": "OK"
 					}
 				},
-				"deprecated":false
+				"deprecated": false
 			}
 		},
 		"/{version}/constants": {
@@ -3943,33 +4005,49 @@
 			},
 			"title": "ConversionUrlResponse"
 		},
-		"CreateCustomizedTargetingAdidLibrariesRequest":{
-			"type":"object",
-			"properties":{
-				"adidLibraryList":{
-					"type":"array",
-					"description":"Customer file target",
-					"items":{
-						"$ref":"#/definitions/CustomTargetParam"
+		"CreateCustomizedTargetingAdidLibrariesRequest": {
+			"type": "object",
+			"properties": {
+				"adidLibraryList": {
+					"type": "array",
+					"description": "Customer file target",
+					"items": {
+						"$ref": "#/definitions/CustomTargetParam"
 					}
 				}
 			},
-			"title":"CreateCustomizedTargetingAdidLibrariesRequest"
+			"title": "CreateCustomizedTargetingAdidLibrariesRequest"
 		},
-		"CustomTargetParam":{
-			"type":"object",
-			"properties":{
-				"included":{
-					"type":"boolean",
-					"description":"Indicates whether to include customer file target"
+		"CustomCta": {
+			"type": "object",
+			"properties": {
+				"name": {
+					"type": "string",
+					"description": "Call-to-action message",
+					"minLength": 1,
+					"maxLength": 15
 				},
-				"no":{
-					"type":"integer",
-					"format":"int64",
-					"description":"Customer file target number"
+				"url": {
+					"type": "string",
+					"description": "Call-to-action URL"
 				}
 			},
-			"title":"CustomTargetParam"
+			"title": "CustomCta"
+		},
+		"CustomTargetParam": {
+			"type": "object",
+			"properties": {
+				"included": {
+					"type": "boolean",
+					"description": "Indicates whether to include customer file target"
+				},
+				"no": {
+					"type": "integer",
+					"format": "int64",
+					"description": "Customer file target number"
+				}
+			},
+			"title": "CustomTargetParam"
 		},
 		"Duration": {
 			"type": "object",
@@ -4047,72 +4125,72 @@
 			},
 			"title": "ErrorResult"
 		},
-		"File":{
-			"type":"object",
-			"properties":{
-				"absolute":{
-					"type":"boolean"
+		"File": {
+			"type": "object",
+			"properties": {
+				"absolute": {
+					"type": "boolean"
 				},
-				"absoluteFile":{
-					"$ref":"#/definitions/File"
+				"absoluteFile": {
+					"$ref": "#/definitions/File"
 				},
-				"absolutePath":{
-					"type":"string"
+				"absolutePath": {
+					"type": "string"
 				},
-				"canonicalFile":{
-					"$ref":"#/definitions/File"
+				"canonicalFile": {
+					"$ref": "#/definitions/File"
 				},
-				"canonicalPath":{
-					"type":"string"
+				"canonicalPath": {
+					"type": "string"
 				},
-				"directory":{
-					"type":"boolean"
+				"directory": {
+					"type": "boolean"
 				},
-				"executable":{
-					"type":"boolean"
+				"executable": {
+					"type": "boolean"
 				},
-				"file":{
-					"type":"boolean"
+				"file": {
+					"type": "boolean"
 				},
-				"freeSpace":{
-					"type":"integer",
-					"format":"int64"
+				"freeSpace": {
+					"type": "integer",
+					"format": "int64"
 				},
-				"hidden":{
-					"type":"boolean"
+				"hidden": {
+					"type": "boolean"
 				},
-				"lastModified":{
-					"type":"integer",
-					"format":"int64"
+				"lastModified": {
+					"type": "integer",
+					"format": "int64"
 				},
-				"name":{
-					"type":"string"
+				"name": {
+					"type": "string"
 				},
-				"parent":{
-					"type":"string"
+				"parent": {
+					"type": "string"
 				},
-				"parentFile":{
-					"$ref":"#/definitions/File"
+				"parentFile": {
+					"$ref": "#/definitions/File"
 				},
-				"path":{
-					"type":"string"
+				"path": {
+					"type": "string"
 				},
-				"readable":{
-					"type":"boolean"
+				"readable": {
+					"type": "boolean"
 				},
-				"totalSpace":{
-					"type":"integer",
-					"format":"int64"
+				"totalSpace": {
+					"type": "integer",
+					"format": "int64"
 				},
-				"usableSpace":{
-					"type":"integer",
-					"format":"int64"
+				"usableSpace": {
+					"type": "integer",
+					"format": "int64"
 				},
-				"writable":{
-					"type":"boolean"
+				"writable": {
+					"type": "boolean"
 				}
 			},
-			"title":"File"
+			"title": "File"
 		},
 		"INSTALL_APP": {
 			"title": "INSTALL_APP",
@@ -4254,9 +4332,9 @@
 			},
 			"title": "IndustryCategorySecond"
 		},
-		"InputStream":{
-			"type":"object",
-			"title":"InputStream"
+		"InputStream": {
+			"type": "object",
+			"title": "InputStream"
 		},
 		"InterestKeywordResponse": {
 			"type": "object",
@@ -4328,11 +4406,11 @@
 					"type": "boolean",
 					"description": "Delivery method indicating whether to accelerate ad delivery."
 				},
-				"adidLibraryParams":{
-					"type":"array",
-					"description":"Customer file target",
-					"items":{
-						"$ref":"#/definitions/CustomTargetParam"
+				"adidLibraryParams": {
+					"type": "array",
+					"description": "Customer file target",
+					"items": {
+						"$ref": "#/definitions/CustomTargetParam"
 					}
 				},
 				"ageRanges": {
@@ -4712,7 +4790,7 @@
 					"type": "array",
 					"description": "Creative template information",
 					"items": {
-					  "$ref": "#/definitions/OpenCreativeTemplateView"
+						"$ref": "#/definitions/OpenCreativeTemplateView"
 					}
 				},
 				"devices": {
@@ -4828,10 +4906,10 @@
 						"$ref": "#/definitions/ScheduleTimeSlotParam"
 					}
 				},
-				"searchKeywordTargetParams":{
-					"type":"array",
-					"items":{
-						"$ref":"#/definitions/OpenCustomTargetView"
+				"searchKeywordTargetParams": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/OpenCustomTargetView"
 					}
 				},
 				"shoppingNewsTargetParams": {
@@ -4861,10 +4939,10 @@
 						"LEARNING_LIMITED"
 					]
 				},
-				"websiteTargetParams":{
-					"type":"array",
-					"items":{
-						"$ref":"#/definitions/OpenCustomTargetView"
+				"websiteTargetParams": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/OpenCustomTargetView"
 					}
 				}
 			},
@@ -5075,6 +5153,20 @@
 			},
 			"title": "OpenCampaignView"
 		},
+		"OpenCatalog": {
+			"type": "object",
+			"properties": {
+				"catalogItemSetAvailable": {
+					"type": "boolean",
+					"description": "Indicates whether to enable the Shopping catalog item set"
+				},
+				"catalogItemSetId": {
+					"type": "string",
+					"description": "Shopping catalog item set ID"
+				}
+			},
+			"title": "OpenCatalog"
+		},
 		"OpenCreative": {
 			"type": "object",
 			"required": [
@@ -5145,376 +5237,425 @@
 			"title": "OpenCreative"
 		},
 		"OpenCreativeDetail": {
-		  "type": "object",
-		  "properties": {
-			"activated": {
-			"type": "boolean",
-			"description": "Indicates whether to turn creatives on."
+			"type": "object",
+			"properties": {
+				"activated": {
+					"type": "boolean",
+					"description": "Indicates whether to turn creatives on."
+				},
+				"catalog": {
+					"description": "Catalog information about shopping creatives",
+					"$ref": "#/definitions/OpenCatalog"
+				},
+				"creativeTemplateCode": {
+					"type": "string",
+					"description": "Creative templates"
+				},
+				"creativeType": {
+					"type": "string",
+					"description": "Creative type:\r\n `SINGLE_IMAGE`,`MULTIPLE_IMAGE`,`SINGLE_VIDEO`,`IMAGE_BANNER`,`CATALOG`",
+					"enum": [
+						"SINGLE_IMAGE",
+						"MULTIPLE_IMAGE",
+						"SINGLE_VIDEO",
+						"IMAGE_BANNER",
+						"CATALOG"
+					]
+				},
+				"medias": {
+					"type": "array",
+					"description": "Creative media information",
+					"items": {
+						"$ref": "#/definitions/OpenMedia"
+					}
+				},
+				"message": {
+					"type": "string"
+				},
+				"name": {
+					"type": "string",
+					"description": "Creative name"
+				},
+				"no": {
+					"type": "integer",
+					"format": "int64",
+					"description": "Creative ID"
+				},
+				"profile": {
+					"description": "Creative profile information",
+					"$ref": "#/definitions/OpenProfile"
+				},
+				"searchKeywords": {
+					"type": "array",
+					"description": "Information about keywords to search for the creative",
+					"items": {
+						"$ref": "#/definitions/OpenSearchKeyword"
+					}
+				},
+				"shopping": {
+					"description": "Information about shopping creatives",
+					"$ref": "#/definitions/OpenShopping"
+				},
+				"status": {
+					"type": "string",
+					"description": "Creative states:\r\n `PENDING','REJECT','ACCEPT','PENDING_IN_OPERATION','REJECT_IN_OPERATION','DELETED`"
+				}
 			},
-			"creativeTemplateCode": {
-			"type": "string",
-			"description": "Creative templates"
-			},
-			"creativeType": {
-			"type": "string",
-			"description": "Creative type:\r\n `SINGLE_IMAGE`,`MULTIPLE_IMAGE`,`SINGLE_VIDEO`,`IMAGE_BANNER`,`CATALOG`",
-			"enum": [
-				"SINGLE_IMAGE",
-				"MULTIPLE_IMAGE",
-				"SINGLE_VIDEO",
-				"IMAGE_BANNER",
-				"CATALOG"
-			]
-			},
-			"medias": {
-			"type": "array",
-			"description": "Creative media information",
-			"items": {
-				"$ref": "#/definitions/OpenMedia"
-			}
-			},
-			"message": {
-			"type": "string"
-			},
-			"name": {
-			"type": "string",
-			"description": "Creative name"
-			},
-			"no": {
-			"type": "integer",
-			"format": "int64",
-			"description": "Creative ID"
-			},
-			"profile": {
-			  "description": "Creative profile information",
-			  "$ref": "#/definitions/OpenProfile"
-			  },
-			"status": {
-			"type": "string",
-			"description": "Creative states:\r\n `PENDING','REJECT','ACCEPT','PENDING_IN_OPERATION','REJECT_IN_OPERATION','DELETED`"
-			}
-		  },
-		  "title": "OpenCreativeDetail"
+			"title": "OpenCreativeDetail"
 		},
 		"OpenCreativeOfImageBannerParam": {
 			"type": "object",
 			"required": [
-			  "adSetNo",
-			  "altMessage",
-			  "creativeTemplateCode",
-			  "imageNo",
-			  "name",
-			  "url"
+				"adSetNo",
+				"altMessage",
+				"creativeTemplateCode",
+				"imageNo",
+				"name",
+				"url"
 			],
 			"properties": {
-			  "adSetNo": {
-				"type": "integer",
-				"format": "int64",
-				"description": "Ad group ID"
-			  },
-			  "altMessage": {
-				"type": "string",
-				"description": "Ad message",
-				"minLength": 2,
-				"maxLength": 100
-			  },
-			  "creativeTemplateCode": {
-				"type": "string",
-				"description": "Creative templates:\r\n `BANNER_750`, `BANNER_750X200`, `BANNER_1250`, `BANNER_1250X560`"
-			  },
-			  "imageNo": {
-				"type": "integer",
-				"format": "int64",
-				"description": "Creative image ID"
-			  },
-			  "name": {
-				"type": "string",
-				"description": "Creative name",
-				"minLength": 2,
-				"maxLength": 128
-			  },
-			  "url": {
-				"type": "string",
-				"description": "Landing URL"
-			  }
+				"adSetNo": {
+					"type": "integer",
+					"format": "int64",
+					"description": "Ad group ID"
+				},
+				"altMessage": {
+					"type": "string",
+					"description": "Ad message",
+					"minLength": 2,
+					"maxLength": 100
+				},
+				"creativeTemplateCode": {
+					"type": "string",
+					"description": "Creative templates:\r\n `BANNER_750`, `BANNER_750X200`, `BANNER_1250`, `BANNER_1250X560`"
+				},
+				"imageNo": {
+					"type": "integer",
+					"format": "int64",
+					"description": "Creative image ID"
+				},
+				"name": {
+					"type": "string",
+					"description": "Creative name",
+					"minLength": 2,
+					"maxLength": 128
+				},
+				"url": {
+					"type": "string",
+					"description": "Landing URL"
+				}
 			},
 			"title": "OpenCreativeOfImageBannerParam"
 		},
 		"OpenCreativeOfInstreamVideoParam": {
 			"type": "object",
 			"required": [
-			  "adSetNo"             , "creativeTemplateCode", "linkUrl"             ,
-			  "name"                , "videoNo"
+				"adSetNo",
+				"creativeTemplateCode",
+				"linkUrl",
+				"name",
+				"videoNo"
 			],
 			"properties": {
-			  "adSetNo": {
-				"type"       : "integer" ,
-				"format"     : "int64"   ,
-				"description": "Ad group ID"
-			  },
-			  "creativeTemplateCode": {
-				"type"       : "string"                      ,
-				"description": "Creative templates:\r\n `INSTREAM_VIDEO`"
-			  },
-			  "linkUrl": {"type": "string", "description": "Landing URL"},
-			  "name": {
-				"type": "string",
-				"description": "Creative name",
-				"minLength": 2,
-				"maxLength": 128
-			  },
-			  "videoNo": {
-				"type"       : "integer"  ,
-				"format"     : "int64"    ,
-				"description": "Creative video ID"
-			  }
+				"adSetNo": {
+					"type": "integer",
+					"format": "int64",
+					"description": "Ad group ID"
+				},
+				"creativeTemplateCode": {
+					"type": "string",
+					"description": "Creative templates:\r\n `INSTREAM_VIDEO`"
+				},
+				"linkUrl": {
+					"type": "string",
+					"description": "Landing URL"
+				},
+				"name": {
+					"type": "string",
+					"description": "Creative name",
+					"minLength": 2,
+					"maxLength": 128
+				},
+				"videoNo": {
+					"type": "integer",
+					"format": "int64",
+					"description": "Creative video ID"
+				}
 			},
 			"title": "OpenCreativeOfInstreamVideoParam"
 		},
 		"OpenCreativeOfMultipleImageParam": {
 			"type": "object",
 			"required": [
-			  "adSetNo"             , "creativeTemplateCode", "ctaCode"             ,
-			  "imageMedias"         , "message"             , "name"
+				"adSetNo",
+				"creativeTemplateCode",
+				"ctaCode",
+				"imageMedias",
+				"message",
+				"name"
 			],
 			"properties": {
-			  "adSetNo": {
-				"type"       : "integer" ,
-				"format"     : "int64"   ,
-				"description": "Ad group ID"
-			  },
-			  "creativeTemplateCode": {"type": "string", "description": "Creative templates:\r\n `FEED_MULTIPLE_IMAGE`"},
-			  "ctaCode": {"type": "string"},
-			  "imageMedias": {
-				"type": "array",
-				"items": {"$ref": "#/definitions/OpenImageMedia"}
-			  },
-			  "message": {"type": "string", "minLength": 2, "maxLength": 120},
-			  "name": {
-				"type": "string",
-				"description": "Creative name",
-				"minLength": 2,
-				"maxLength": 128
-			  }
+				"adSetNo": {
+					"type": "integer",
+					"format": "int64",
+					"description": "Ad group ID"
+				},
+				"creativeTemplateCode": {
+					"type": "string",
+					"description": "Creative templates:\r\n `FEED_MULTIPLE_IMAGE`"
+				},
+				"ctaCode": {
+					"type": "string"
+				},
+				"imageMedias": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/OpenImageMedia"
+					}
+				},
+				"message": {
+					"type": "string",
+					"minLength": 2,
+					"maxLength": 120
+				},
+				"name": {
+					"type": "string",
+					"description": "Creative name",
+					"minLength": 2,
+					"maxLength": 128
+				}
 			},
 			"title": "OpenCreativeOfMultipleImageParam"
 		},
 		"OpenCreativeOfNativeSingleVideoParam": {
 			"type": "object",
 			"required": [
-			  "adSetNo"             , "creativeTemplateCode", "disableInducement"   ,
-			  "thumbnailImageNo"		, "message"             ,
-			  "name"                , "videoNo"
+				"adSetNo",
+				"creativeTemplateCode",
+				"disableInducement",
+				"thumbnailImageNo",
+				"message",
+				"name",
+				"videoNo"
 			],
 			"properties": {
-			  "adSetNo": {
-				"type"       : "integer" ,
-				"format"     : "int64"   ,
-				"description": "Ad group ID"
-			  },
-			  "creativeTemplateCode": {
-				"type": "string",
-				"description": "Creative templates:\r\n `NATIVE_SINGLE_VIDEO`, `FEED_SINGLE_VIDEO`, `FEED_SHORTFORM_VIDEO`"
-			  },
-			  "ctaCode": {"type": "string", "description": "Call-to-action"},
-			  "disableInducement": {"type": "boolean", "description": "Indicates whether to enable call-to-action"},
-			  "linkDescription": {
-				"type": "string",
-				"description": "Description 2",
-				"minLength": 2,
-				"maxLength": 2147483647
-			  },
-			  "linkTitle": {
-				"type": "string",
-				"description": "Description 1",
-				"minLength": 2,
-				"maxLength": 2147483647
-			  },
-			  "linkUrl": {"type": "string", "description": "Landing URL"},
-			  "message": {
-				"type": "string",
-				"description": "Ad message",
-				"minLength": 2,
-				"maxLength": 120
-			  },
-			  "name": {
-				"type": "string",
-				"description": "Creative name",
-				"minLength": 2,
-				"maxLength": 128
-			  },
-			  "thumbnailImageNo": {
-				"type"       : "integer"      ,
-				"format"     : "int64"        ,
-				"description": "Creative video thumbnail ID"
-			  },
-			  "videoNo": {
-				"type"       : "integer"  ,
-				"format"     : "int64"    ,
-				"description": "Creative video ID"
-			  }
+				"adSetNo": {
+					"type": "integer",
+					"format": "int64",
+					"description": "Ad group ID"
+				},
+				"creativeTemplateCode": {
+					"type": "string",
+					"description": "Creative templates:\r\n `NATIVE_SINGLE_VIDEO`, `FEED_SINGLE_VIDEO`, `FEED_SHORTFORM_VIDEO`"
+				},
+				"ctaCode": {
+					"type": "string",
+					"description": "Call-to-action"
+				},
+				"disableInducement": {
+					"type": "boolean",
+					"description": "Indicates whether to enable call-to-action"
+				},
+				"linkDescription": {
+					"type": "string",
+					"description": "Description 2",
+					"minLength": 2,
+					"maxLength": 2147483647
+				},
+				"linkTitle": {
+					"type": "string",
+					"description": "Description 1",
+					"minLength": 2,
+					"maxLength": 2147483647
+				},
+				"linkUrl": {
+					"type": "string",
+					"description": "Landing URL"
+				},
+				"message": {
+					"type": "string",
+					"description": "Ad message",
+					"minLength": 2,
+					"maxLength": 120
+				},
+				"name": {
+					"type": "string",
+					"description": "Creative name",
+					"minLength": 2,
+					"maxLength": 128
+				},
+				"thumbnailImageNo": {
+					"type": "integer",
+					"format": "int64",
+					"description": "Creative video thumbnail ID"
+				},
+				"videoNo": {
+					"type": "integer",
+					"format": "int64",
+					"description": "Creative video ID"
+				}
 			},
 			"title": "OpenCreativeOfNativeSingleVideoParam"
 		},
 		"OpenCreativeOfSingleImageParam": {
 			"type": "object",
 			"required": [
-			  "adSetNo",
-			  "creativeTemplateCode",
-			  "ctaCode",
-			  "imageNo",
-			  "linkTitle",
-			  "linkUrl",
-			  "message",
-			  "name"
+				"adSetNo",
+				"creativeTemplateCode",
+				"ctaCode",
+				"imageNo",
+				"linkTitle",
+				"linkUrl",
+				"message",
+				"name"
 			],
 			"properties": {
-			  "adSetNo": {
-				"type": "integer",
-				"format": "int64",
-				"description": "Ad group ID"
-			  },
-			  "adviceMessage": {
-				"type": "string",
-				"description": "Notice message",
-				"minLength": 0,
-				"maxLength": 45
-			  },
-			  "creativeTemplateCode": {
-				"type": "string",
-				"description": "Creative templates:\r\n `NATIVE_SINGLE_IMAGE_V2`, `NATIVE_SINGLE_IMAGE_PC`, `FEED_SINGLE_IMAGE`, `FEED_SINGLE_IMAGE_SQUARE`"
-			  },
-			  "ctaCode": {
-				"type": "string",
-				"description": "Call-to-action"
-			  },
-			  "imageNo": {
-				"type": "integer",
-				"format": "int64",
-				"description": "Creative image ID"
-			  },
-			  "linkDescription": {
-				"type": "string",
-				"description": "Description 2",
-				"minLength": 2
-			  },
-			  "linkText3rd": {
-				"type": "string",
-				"description": "Description 3",
-				"minLength": 2
-			  },
-			  "linkText4th": {
-				"type": "string",
-				"description": "Long description 1 for the desktop banner type",
-				"minLength": 2
-			  },
-			  "linkText5th": {
-				"type": "string",
-				"description": "Long description 2 for the desktop banner type",
-				"minLength": 2
-			  },
-			  "linkTitle": {
-				"type": "string",
-				"description": "Description 1",
-				"minLength": 2
-			  },
-			  "linkUrl": {
-				"type": "string",
-				"description": "Landing URL"
-			  },
-			  "message": {
-				"type": "string",
-				"description": "Ad message",
-				"minLength": 2,
-				"maxLength": 120
-			  },
-			  "name": {
-				"type": "string",
-				"description": "Creative name",
-				"minLength": 2,
-				"maxLength": 128
-			  }
+				"adSetNo": {
+					"type": "integer",
+					"format": "int64",
+					"description": "Ad group ID"
+				},
+				"adviceMessage": {
+					"type": "string",
+					"description": "Notice message",
+					"minLength": 0,
+					"maxLength": 45
+				},
+				"creativeTemplateCode": {
+					"type": "string",
+					"description": "Creative templates:\r\n `NATIVE_SINGLE_IMAGE_V2`, `NATIVE_SINGLE_IMAGE_PC`, `FEED_SINGLE_IMAGE`, `FEED_SINGLE_IMAGE_SQUARE`"
+				},
+				"ctaCode": {
+					"type": "string",
+					"description": "Call-to-action"
+				},
+				"imageNo": {
+					"type": "integer",
+					"format": "int64",
+					"description": "Creative image ID"
+				},
+				"linkDescription": {
+					"type": "string",
+					"description": "Description 2",
+					"minLength": 2
+				},
+				"linkText3rd": {
+					"type": "string",
+					"description": "Description 3",
+					"minLength": 2
+				},
+				"linkText4th": {
+					"type": "string",
+					"description": "Long description 1 for the desktop banner type",
+					"minLength": 2
+				},
+				"linkText5th": {
+					"type": "string",
+					"description": "Long description 2 for the desktop banner type",
+					"minLength": 2
+				},
+				"linkTitle": {
+					"type": "string",
+					"description": "Description 1",
+					"minLength": 2
+				},
+				"linkUrl": {
+					"type": "string",
+					"description": "Landing URL"
+				},
+				"message": {
+					"type": "string",
+					"description": "Ad message",
+					"minLength": 2,
+					"maxLength": 120
+				},
+				"name": {
+					"type": "string",
+					"description": "Creative name",
+					"minLength": 2,
+					"maxLength": 128
+				}
 			},
 			"title": "OpenCreativeOfSingleImageParam"
 		},
 		"OpenCreativeTemplateView": {
 			"type": "object",
 			"properties": {
-			  "code": {
-				"type": "string",
-				"description": "Creative templates:\r\n `BANNER_750`, `BANNER_750X200`, `BANNER_1250`, `BANNER_1250X560`"
-			  },
-			  "creativeType": {
-				"type": "string",
-				"description": "Creative type",
-				"enum": [
-				  "SINGLE_IMAGE",
-				  "MULTIPLE_IMAGE",
-				  "SINGLE_VIDEO",
-				  "IMAGE_BANNER",
-				  "CATALOG"
-				]
-			  },
-			  "sizeGroups": {
-				"type": "array",
-				"description": "Creative media (images and videos) size",
-				"items": {
-				  "$ref": "#/definitions/SizeGroup"
+				"code": {
+					"type": "string",
+					"description": "Creative templates"
+				},
+				"creativeType": {
+					"type": "string",
+					"description": "Creative type",
+					"enum": [
+						"SINGLE_IMAGE",
+						"MULTIPLE_IMAGE",
+						"SINGLE_VIDEO",
+						"IMAGE_BANNER",
+						"CATALOG"
+					]
+				},
+				"sizeGroups": {
+					"type": "array",
+					"description": "Creative media (images and videos) size",
+					"items": {
+						"$ref": "#/definitions/SizeGroup"
+					}
 				}
-			  }
 			},
 			"title": "OpenCreativeTemplateView"
 		},
 		"SizeGroup": {
 			"type": "object",
 			"properties": {
-			  "height": {
-				"type": "integer",
-				"format": "int32",
-				"description": "Height or height ratio"
-			  },
-			  "maxFileSize": {
-				"type": "integer",
-				"format": "int64",
-				"description": "Maximum file size"
-			  },
-			  "no": {
-				"type": "integer",
-				"format": "int32",
-				"description": "SizeGroup ID"
-			  },
-			  "ratioBased": {
-				"type": "boolean",
-				"description": "Indicates whether it is ratio based information."
-			  },
-			  "width": {
-				"type": "integer",
-				"format": "int32",
-				"description": "Width or width ratio"
-			  }
+				"height": {
+					"type": "integer",
+					"format": "int32",
+					"description": "Height or height ratio"
+				},
+				"maxFileSize": {
+					"type": "integer",
+					"format": "int64",
+					"description": "Maximum file size"
+				},
+				"no": {
+					"type": "integer",
+					"format": "int32",
+					"description": "SizeGroup ID"
+				},
+				"ratioBased": {
+					"type": "boolean",
+					"description": "Indicates whether it is ratio based information."
+				},
+				"width": {
+					"type": "integer",
+					"format": "int32",
+					"description": "Width or width ratio"
+				}
 			},
 			"title": "SizeGroup"
 		},
-		"OpenCustomTargetAdSetResponse":{
-			"type":"object",
-			"properties":{
-				"adSetName":{
-					"type":"string"
+		"OpenCustomTargetAdSetResponse": {
+			"type": "object",
+			"properties": {
+				"adSetName": {
+					"type": "string"
 				},
-				"adSetNo":{
-					"type":"integer",
-					"format":"int64"
+				"adSetNo": {
+					"type": "integer",
+					"format": "int64"
 				},
-				"campaignName":{
-					"type":"string"
+				"campaignName": {
+					"type": "string"
 				},
-				"campaignNo":{
-					"type":"integer",
-					"format":"int64"
+				"campaignNo": {
+					"type": "integer",
+					"format": "int64"
 				},
-				"status":{
-					"type":"string",
-					"enum":[
+				"status": {
+					"type": "string",
+					"enum": [
 						"RUNNABLE",
 						"BEFORE_STARTING",
 						"TERMINATED",
@@ -5527,105 +5668,105 @@
 					]
 				}
 			},
-			"title":"OpenCustomTargetAdSetResponse"
+			"title": "OpenCustomTargetAdSetResponse"
 		},
-		"OpenCustomTargetAdidLibraryDetailResponse":{
-			"type":"object",
-			"properties":{
-				"adSetList":{
-					"type":"array",
-					"items":{
-						"$ref":"#/definitions/OpenCustomTargetAdSetResponse"
+		"OpenCustomTargetAdidLibraryDetailResponse": {
+			"type": "object",
+			"properties": {
+				"adSetList": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/OpenCustomTargetAdSetResponse"
 					}
 				},
-				"customTargetAdidLibrary":{
-					"$ref":"#/definitions/OpenCustomTargetAdidLibraryResponse"
+				"customTargetAdidLibrary": {
+					"$ref": "#/definitions/OpenCustomTargetAdidLibraryResponse"
 				},
-				"lookalikeAudienceList":{
-					"type":"array",
-					"items":{
-						"$ref":"#/definitions/OpenCustomTargetLookalikeAudienceResponse"
+				"lookalikeAudienceList": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/OpenCustomTargetLookalikeAudienceResponse"
 					}
 				}
 			},
-			"title":"OpenCustomTargetAdidLibraryDetailResponse"
+			"title": "OpenCustomTargetAdidLibraryDetailResponse"
 		},
-		"OpenCustomTargetAdidLibraryResponse":{
-			"type":"object",
-			"properties":{
-				"count":{
-					"type":"integer",
-					"format":"int64"
+		"OpenCustomTargetAdidLibraryResponse": {
+			"type": "object",
+			"properties": {
+				"count": {
+					"type": "integer",
+					"format": "int64"
 				},
-				"countUpdatedAt":{
-          			"$ref":"#/definitions/Timestamp"
+				"countUpdatedAt": {
+					"$ref": "#/definitions/Timestamp"
 				},
-				"createdAt":{
-          			"$ref":"#/definitions/Timestamp"
+				"createdAt": {
+					"$ref": "#/definitions/Timestamp"
 				},
-				"deleted":{
-					"type":"boolean"
+				"deleted": {
+					"type": "boolean"
 				},
-				"name":{
-					"type":"string"
+				"name": {
+					"type": "string"
 				},
-				"no":{
-					"type":"integer",
-					"format":"int64"
+				"no": {
+					"type": "integer",
+					"format": "int64"
 				},
-				"serviceActivated":{
-					"type":"boolean"
+				"serviceActivated": {
+					"type": "boolean"
 				},
-				"status":{
-					"type":"string",
-					"enum":[
+				"status": {
+					"type": "string",
+					"enum": [
 						"PREPARING",
 						"AVAILABLE",
 						"DISABLED"
 					]
 				},
-				"totalNumber":{
-					"type":"integer",
-					"format":"int64"
+				"totalNumber": {
+					"type": "integer",
+					"format": "int64"
 				}
 			},
-			"title":"OpenCustomTargetAdidLibraryResponse"
+			"title": "OpenCustomTargetAdidLibraryResponse"
 		},
-		"OpenCustomTargetAdidUpdateResponse":{
-			"type":"object",
-			"properties":{
-				"name":{
-					"type":"string",
-					"description":"Target name"
+		"OpenCustomTargetAdidUpdateResponse": {
+			"type": "object",
+			"properties": {
+				"name": {
+					"type": "string",
+					"description": "Target name"
 				},
-				"no":{
-					"type":"integer",
-					"format":"int64",
-					"description":"Target number"
+				"no": {
+					"type": "integer",
+					"format": "int64",
+					"description": "Target number"
 				}
 			},
-			"title":"OpenCustomTargetAdidUpdateResponse"
+			"title": "OpenCustomTargetAdidUpdateResponse"
 		},
-		"OpenCustomTargetLookalikeAudienceResponse":{
-			"type":"object",
-			"properties":{
-				"name":{
-					"type":"string"
+		"OpenCustomTargetLookalikeAudienceResponse": {
+			"type": "object",
+			"properties": {
+				"name": {
+					"type": "string"
 				},
-				"no":{
-					"type":"integer",
-					"format":"int64"
+				"no": {
+					"type": "integer",
+					"format": "int64"
 				},
-				"status":{
-					"type":"string",
-					"enum":[
+				"status": {
+					"type": "string",
+					"enum": [
 						"PREPARING",
 						"AVAILABLE",
 						"DISABLED"
 					]
 				}
 			},
-			"title":"OpenCustomTargetLookalikeAudienceResponse"
+			"title": "OpenCustomTargetLookalikeAudienceResponse"
 		},
 		"OpenCustomTargetView": {
 			"type": "object",
@@ -5646,163 +5787,283 @@
 		"OpenImage": {
 			"type": "object",
 			"properties": {
-			  "createdAt": {
-				"type": "string",
-				"format": "date-time",
-				"description": "Date and time when the creative image was created."
-			  },
-			  "fileSize": {
-				"type": "integer",
-				"format": "int64",
-				"description": "Creative image file size"
-			  },
-			  "height": {
-				"type": "integer",
-				"format": "int32",
-				"description": "Creative image height"
-			  },
-			  "imageUrl": {
-				"type": "string",
-				"description": "Creative image URL"
-			  },
-			  "no": {
-				"type": "integer",
-				"format": "int64",
-				"description": "Creative image ID"
-			  },
-			  "width": {
-				"type": "integer",
-				"format": "int32",
-				"description": "Creative image width"
-			  }
+				"createdAt": {
+					"type": "string",
+					"format": "date-time",
+					"description": "Date and time when the creative image was created."
+				},
+				"fileSize": {
+					"type": "integer",
+					"format": "int64",
+					"description": "Creative image file size"
+				},
+				"height": {
+					"type": "integer",
+					"format": "int32",
+					"description": "Creative image height"
+				},
+				"imageUrl": {
+					"type": "string",
+					"description": "Creative image URL"
+				},
+				"no": {
+					"type": "integer",
+					"format": "int64",
+					"description": "Creative image ID"
+				},
+				"width": {
+					"type": "integer",
+					"format": "int32",
+					"description": "Creative image width"
+				}
 			},
 			"title": "OpenImage"
 		},
 		"OpenImageMedia": {
 			"type": "object",
 			"required": [
-			  "imageNo",
-			  "linkTitle",
-			  "linkUrl"
+				"imageNo",
+				"linkTitle",
+				"linkUrl"
 			],
 			"properties": {
-			  "imageNo": {
-				"type": "integer",
-				"format": "int64"
-			  },
-			  "linkDescription": {
-				"type": "string",
-				"minLength": 2,
-				"maxLength": 19
-			  },
-			  "linkTitle": {
-				"type": "string",
-				"minLength": 2,
-				"maxLength": 28
-			  },
-			  "linkUrl": {
-				"type": "string"
-			  }
+				"imageNo": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"linkDescription": {
+					"type": "string",
+					"minLength": 2,
+					"maxLength": 19
+				},
+				"linkTitle": {
+					"type": "string",
+					"minLength": 2,
+					"maxLength": 28
+				},
+				"linkUrl": {
+					"type": "string"
+				}
 			},
 			"title": "OpenImageMedia"
 		},
 		"OpenMedia": {
 			"type": "object",
 			"properties": {
-			  "content": {
-				"description": "소재 컨텐츠 정보"                     ,
-				"$ref"       : "#/definitions/OpenMediaContent"
-			  },
-			  "image": {
-				"description": "소재 이미지 정보"              ,
-				"$ref"       : "#/definitions/OpenImage"
-			  },
-			  "video": {"description": "소재 동영상 정보", "$ref": "#/definitions/OpenVideo"}
+				"content": {
+					"description": "Creative content information",
+					"$ref": "#/definitions/OpenMediaContent"
+				},
+				"image": {
+					"description": "Creative image information",
+					"$ref": "#/definitions/OpenImage"
+				},
+				"video": {
+					"description": "Creative video information",
+					"$ref": "#/definitions/OpenVideo"
+				}
 			},
 			"title": "OpenMedia"
 		},
 		"OpenMediaContent": {
 			"type": "object",
 			"properties": {
-			  "adviceMessage": {
-				"type": "string",
-				"description": "Notice message"
-			  },
-			  "altMessage": {
-				"type": "string",
-				"description": "Ad message"
-			  },
-			  "callToAction": {
-				"type": "string",
-				"description": "Call-to-action"
-			  },
-			  "linkDescription": {
-				"type": "string",
-				"description": "Description 2"
-			  },
-			  "linkText3rd": {
-				"type": "string",
-				"description": "Description 3"
-			  },
-			  "linkText4th": {
-				"type": "string",
-				"description": "Long description 1 for the desktop banner type"
-			  },
-			  "linkText5th": {
-				"type": "string",
-				"description": "Long description 2 for the desktop banner type"
-			  },
-			  "linkTitle": {
-				"type": "string",
-				"description": "Description 1"
-			  },
-			  "linkUrl": {
-				"type": "string",
-				"description": "Landing URL"
-			  }
+				"adviceMessage": {
+					"type": "string",
+					"description": "Notice message"
+				},
+				"altMessage": {
+					"type": "string",
+					"description": "Ad message"
+				},
+				"callToAction": {
+					"type": "string",
+					"description": "Call-to-action"
+				},
+				"customCtas": {
+					"type": "array",
+					"description": "(Image banners) Call-to-action list",
+					"items": {
+						"$ref": "#/definitions/CustomCta"
+					}
+				},
+				"linkDescription": {
+					"type": "string",
+					"description": "Description 2"
+				},
+				"linkText3rd": {
+					"type": "string",
+					"description": "Description 3"
+				},
+				"linkText4th": {
+					"type": "string",
+					"description": "Long description 1 for the desktop banner type"
+				},
+				"linkText5th": {
+					"type": "string",
+					"description": "Long description 2 for the desktop banner type"
+				},
+				"linkTitle": {
+					"type": "string",
+					"description": "Description 1"
+				},
+				"linkUrl": {
+					"type": "string",
+					"description": "Landing URL"
+				}
 			},
 			"title": "OpenMediaContent"
 		},
 		"OpenProfile": {
 			"type": "object",
 			"properties": {
-			  "image": {
-				"description": "프로필 이미지 정보",
-				"$ref": "#/definitions/OpenImage"
-			  },
-			  "linkUrl": {
-				"type": "string",
-				"description": "프로필 URL"
-			  },
-			  "name": {
-				"type": "string",
-				"description": "프로필 이름"
-			  }
+				"image": {
+					"description": "Profile image information",
+					"$ref": "#/definitions/OpenImage"
+				},
+				"linkUrl": {
+					"type": "string",
+					"description": "Profile URL"
+				},
+				"name": {
+					"type": "string",
+					"description": "Profile name"
+				}
 			},
 			"title": "OpenProfile"
+		},
+		"OpenSearchKeyword": {
+			"type": "object",
+			"properties": {
+				"deleted": {
+					"type": "boolean",
+					"description": "Indicates whether the campaign is deleted."
+				},
+				"inspectionStatus": {
+					"type": "string",
+					"description": "Inspection status",
+					"enum": [
+						"PENDING",
+						"APPROVED",
+						"REJECTED"
+					]
+				},
+				"keyword": {
+					"type": "string",
+					"description": "Keyword"
+				},
+				"no": {
+					"type": "integer",
+					"format": "int64",
+					"description": "Keyword ID"
+				},
+				"updatedAt": {
+					"type": "string",
+					"format": "date-time",
+					"description": "Last updated date and time"
+				}
+			},
+			"title": "OpenSearchKeyword"
+		},
+		"OpenShopping": {
+			"type": "object",
+			"properties": {
+				"shoppingBenefit": {
+					"description": "Customer benefit information about shopping creatives",
+					"$ref": "#/definitions/OpenShoppingBenefit"
+				},
+				"shoppingPromotion": {
+					"description": "Promotion information about shopping creatives",
+					"$ref": "#/definitions/OpenShoppingPromotion"
+				}
+			},
+			"title": "OpenShopping"
+		},
+		"OpenShoppingBenefit": {
+			"type": "object",
+			"properties": {
+				"no": {
+					"type": "integer",
+					"format": "int64",
+					"description": "Benefit resource ID: \r\n 1) My Store coupons, 2) N Pay earnings"
+				},
+				"policyEndedAt": {
+					"type": "string",
+					"format": "date-time",
+					"description": "Benefit end date and time"
+				},
+				"policyName": {
+					"type": "string",
+					"description": "Benefit name"
+				},
+				"policyNo": {
+					"type": "integer",
+					"format": "int64",
+					"description": "Benefit ID"
+				},
+				"policyStartedAt": {
+					"type": "string",
+					"format": "date-time",
+					"description": "Benefit start date and time"
+				},
+				"policyText": {
+					"type": "string",
+					"description": "Benefit message"
+				}
+			},
+			"title": "OpenShoppingBenefit"
+		},
+		"OpenShoppingPromotion": {
+			"type": "object",
+			"properties": {
+				"image": {
+					"description": "Promotion image",
+					"$ref": "#/definitions/OpenImage"
+				},
+				"no": {
+					"type": "integer",
+					"format": "int64",
+					"description": "Promotion ID"
+				},
+				"text": {
+					"type": "string",
+					"description": "Promotion message"
+				},
+				"type": {
+					"type": "string",
+					"description": "Promotion type",
+					"enum": [
+						"IMAGE",
+						"VIDEO",
+						"FILE",
+						"TEXT"
+					]
+				}
+			},
+			"title": "OpenShoppingPromotion"
 		},
 		"OpenVideo": {
 			"type": "object",
 			"properties": {
-			  "createdAt": {
-				"type"       : "string"     ,
-				"format"     : "date-time"  ,
-				"description": "소재 동영상 생성일시"
-			  },
-			  "no": {
-				"type"       : "integer"  ,
-				"format"     : "int64"    ,
-				"description": "소재 동영상 ID"
-			  },
-			  "sizeGroupNo": {
-				"type"       : "integer"             ,
-				"format"     : "int32"               ,
-				"description": "소재 미디어(이미지/동영상) 규격ID"
-			  },
-			  "thumbnailImage": {
-				"description": "소재 동영상 썸네일 정보"          ,
-				"$ref"       : "#/definitions/OpenImage"
-			  }
+				"createdAt": {
+					"type": "string",
+					"format": "date-time",
+					"description": "Creation time of creative video"
+				},
+				"no": {
+					"type": "integer",
+					"format": "int64",
+					"description": "Creative video ID"
+				},
+				"sizeGroupNo": {
+					"type": "integer",
+					"format": "int32",
+					"description": "Creative media (images and videos) size ID"
+				},
+				"thumbnailImage": {
+					"description": "Creative video thumbnail information",
+					"$ref": "#/definitions/OpenImage"
+				}
 			},
 			"title": "OpenVideo"
 		},
@@ -5994,52 +6255,52 @@
 			},
 			"title": "Page«OpenCreative»"
 		},
-		"Page«OpenCustomTargetAdidLibraryResponse»":{
-			"type":"object",
-			"properties":{
-				"content":{
-					"type":"array",
-					"items":{
-						"$ref":"#/definitions/OpenCustomTargetAdidLibraryResponse"
+		"Page«OpenCustomTargetAdidLibraryResponse»": {
+			"type": "object",
+			"properties": {
+				"content": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/OpenCustomTargetAdidLibraryResponse"
 					}
 				},
-				"empty":{
-					"type":"boolean"
+				"empty": {
+					"type": "boolean"
 				},
-				"first":{
-					"type":"boolean"
+				"first": {
+					"type": "boolean"
 				},
-				"last":{
-					"type":"boolean"
+				"last": {
+					"type": "boolean"
 				},
-				"number":{
-					"type":"integer",
-					"format":"int32"
+				"number": {
+					"type": "integer",
+					"format": "int32"
 				},
-				"numberOfElements":{
-					"type":"integer",
-					"format":"int32"
+				"numberOfElements": {
+					"type": "integer",
+					"format": "int32"
 				},
-				"pageable":{
-					"$ref":"#/definitions/OpenApiPageable"
+				"pageable": {
+					"$ref": "#/definitions/OpenApiPageable"
 				},
-				"size":{
-					"type":"integer",
-					"format":"int32"
+				"size": {
+					"type": "integer",
+					"format": "int32"
 				},
-				"sort":{
-					"$ref":"#/definitions/Sort"
+				"sort": {
+					"$ref": "#/definitions/Sort"
 				},
-				"totalElements":{
-					"type":"integer",
-					"format":"int64"
+				"totalElements": {
+					"type": "integer",
+					"format": "int64"
 				},
-				"totalPages":{
-					"type":"integer",
-					"format":"int32"
+				"totalPages": {
+					"type": "integer",
+					"format": "int32"
 				}
 			},
-			"title":"Page«OpenCustomTargetAdidLibraryResponse»"
+			"title": "Page«OpenCustomTargetAdidLibraryResponse»"
 		},
 		"Page«Url»": {
 			"type": "object",
@@ -6336,36 +6597,36 @@
 			"title": "Timestamp"
 		},
 		"UploadVideo": {
-      "type": "object",
-      "properties": {
-        "createdAt": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "failMessage": {
-          "type": "string"
-        },
-        "no": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "sizeGroupNo": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "status": {
-          "type": "string",
-          "enum": [
-            "READY",
-            "ONGOING",
-            "COMPLETED",
-            "FAILED",
-            "NOT_AVAILABLE"
-          ]
-        }
-      },
-      "title": "UploadVideo"
-    },
+			"type": "object",
+			"properties": {
+				"createdAt": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"failMessage": {
+					"type": "string"
+				},
+				"no": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"sizeGroupNo": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"status": {
+					"type": "string",
+					"enum": [
+						"READY",
+						"ONGOING",
+						"COMPLETED",
+						"FAILED",
+						"NOT_AVAILABLE"
+					]
+				}
+			},
+			"title": "UploadVideo"
+		},
 		"Url": {
 			"type": "object",
 			"properties": {

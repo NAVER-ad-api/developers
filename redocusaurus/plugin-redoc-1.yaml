@@ -1203,7 +1203,7 @@ paths:
     post:
       tags:
         - Creatives
-      summary: Create a creative of IMAGE_BANNER
+      summary: Create a creative (image banner)
       description: Creates an `IMAGE_BANNER` type creative.
       operationId: createCreativeOfImageBannerUsingPOST
       consumes:
@@ -1293,8 +1293,8 @@ paths:
     post:
       tags:
         - Creatives
-      summary: Create a creative with image slides(carousel format)
-      description: Creative creation with image slides(carousel format) is supported.
+      summary: Create a creative with image slides (carousel format)
+      description: Creative creation with image slides (carousel format) is supported.
       operationId: createCreativeOfMultipleImageUsingPOST
       consumes:
         - application/json
@@ -1383,8 +1383,8 @@ paths:
     post:
       tags:
         - Creatives
-      summary: Create a creative of SINGLE_IMAGE
-      description: Currently, creative creation for a `SINGLE_IMAGE` type is supported.
+      summary: Create a creative (native image)
+      description: Currently, creative creation for a `native image` type is supported.
       operationId: createCreativeOfSingleImageUsingPOST
       consumes:
         - application/json
@@ -1651,6 +1651,45 @@ paths:
             $ref: '#/definitions/ErrorResult'
       deprecated: false
   /{version}/adAccounts/{adAccountNo}/creatives/{creativeNo}:
+    get:
+      tags:
+        - Creatives
+      summary: Get a creative
+      operationId: getUsingGET
+      produces:
+        - '*/*'
+      parameters:
+        - name: AccessManagerAccountNo
+          in: header
+          description: Manager account ID that has access to the ad account
+          required: false
+          type: integer
+          format: int64
+        - name: adAccountNo
+          in: path
+          description: adAccountNo
+          required: true
+          type: integer
+          format: int64
+        - name: creativeNo
+          in: path
+          description: creativeNo
+          required: true
+          type: integer
+          format: int64
+        - name: version
+          in: path
+          description: version
+          required: true
+          type: number
+          default: 1
+          format: float
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/OpenCreativeDetail'
+      deprecated: false
     delete:
       tags:
         - Creatives
@@ -2873,6 +2912,18 @@ definitions:
         items:
           $ref: '#/definitions/CustomTargetParam'
     title: CreateCustomizedTargetingAdidLibrariesRequest
+  CustomCta:
+    type: object
+    properties:
+      name:
+        type: string
+        description: Call-to-action message
+        minLength: 1
+        maxLength: 15
+      url:
+        type: string
+        description: Call-to-action URL
+    title: CustomCta
   CustomTargetParam:
     type: object
     properties:
@@ -3703,6 +3754,16 @@ definitions:
         format: int64
         description: URL ID
     title: OpenCampaignView
+  OpenCatalog:
+    type: object
+    properties:
+      catalogItemSetAvailable:
+        type: boolean
+        description: Indicates whether to enable the Shopping catalog item set
+      catalogItemSetId:
+        type: string
+        description: Shopping catalog item set ID
+    title: OpenCatalog
   OpenCreative:
     type: object
     required:
@@ -3763,6 +3824,9 @@ definitions:
       activated:
         type: boolean
         description: Indicates whether to turn creatives on.
+      catalog:
+        description: Catalog information about shopping creatives
+        $ref: '#/definitions/OpenCatalog'
       creativeTemplateCode:
         type: string
         description: Creative templates
@@ -3792,6 +3856,14 @@ definitions:
       profile:
         description: Creative profile information
         $ref: '#/definitions/OpenProfile'
+      searchKeywords:
+        type: array
+        description: Information about keywords to search for the creative
+        items:
+          $ref: '#/definitions/OpenSearchKeyword'
+      shopping:
+        description: Information about shopping creatives
+        $ref: '#/definitions/OpenShopping'
       status:
         type: string
         description: "Creative states:\r\n `PENDING','REJECT','ACCEPT','PENDING_IN_OPERATION','REJECT_IN_OPERATION','DELETED`"
@@ -4019,7 +4091,7 @@ definitions:
     properties:
       code:
         type: string
-        description: "Creative templates:\r\n `BANNER_750`, `BANNER_750X200`, `BANNER_1250`, `BANNER_1250X560`"
+        description: Creative templates
       creativeType:
         type: string
         description: Creative type
@@ -4216,13 +4288,13 @@ definitions:
     type: object
     properties:
       content:
-        description: 소재 컨텐츠 정보
+        description: Creative content information
         $ref: '#/definitions/OpenMediaContent'
       image:
-        description: 소재 이미지 정보
+        description: Creative image information
         $ref: '#/definitions/OpenImage'
       video:
-        description: 소재 동영상 정보
+        description: Creative video information
         $ref: '#/definitions/OpenVideo'
     title: OpenMedia
   OpenMediaContent:
@@ -4237,6 +4309,11 @@ definitions:
       callToAction:
         type: string
         description: Call-to-action
+      customCtas:
+        type: array
+        description: (Image banners) Call-to-action list
+        items:
+          $ref: '#/definitions/CustomCta'
       linkDescription:
         type: string
         description: Description 2
@@ -4260,32 +4337,115 @@ definitions:
     type: object
     properties:
       image:
-        description: 프로필 이미지 정보
+        description: Profile image information
         $ref: '#/definitions/OpenImage'
       linkUrl:
         type: string
-        description: 프로필 URL
+        description: Profile URL
       name:
         type: string
-        description: 프로필 이름
+        description: Profile name
     title: OpenProfile
+  OpenSearchKeyword:
+    type: object
+    properties:
+      deleted:
+        type: boolean
+        description: Indicates whether the campaign is deleted.
+      inspectionStatus:
+        type: string
+        description: Inspection status
+        enum:
+          - PENDING
+          - APPROVED
+          - REJECTED
+      keyword:
+        type: string
+        description: Keyword
+      'no':
+        type: integer
+        format: int64
+        description: Keyword ID
+      updatedAt:
+        type: string
+        format: date-time
+        description: Last updated date and time
+    title: OpenSearchKeyword
+  OpenShopping:
+    type: object
+    properties:
+      shoppingBenefit:
+        description: Customer benefit information about shopping creatives
+        $ref: '#/definitions/OpenShoppingBenefit'
+      shoppingPromotion:
+        description: Promotion information about shopping creatives
+        $ref: '#/definitions/OpenShoppingPromotion'
+    title: OpenShopping
+  OpenShoppingBenefit:
+    type: object
+    properties:
+      'no':
+        type: integer
+        format: int64
+        description: "Benefit resource ID: \r\n 1) My Store coupons, 2) N Pay earnings"
+      policyEndedAt:
+        type: string
+        format: date-time
+        description: Benefit end date and time
+      policyName:
+        type: string
+        description: Benefit name
+      policyNo:
+        type: integer
+        format: int64
+        description: Benefit ID
+      policyStartedAt:
+        type: string
+        format: date-time
+        description: Benefit start date and time
+      policyText:
+        type: string
+        description: Benefit message
+    title: OpenShoppingBenefit
+  OpenShoppingPromotion:
+    type: object
+    properties:
+      image:
+        description: Promotion image
+        $ref: '#/definitions/OpenImage'
+      'no':
+        type: integer
+        format: int64
+        description: Promotion ID
+      text:
+        type: string
+        description: Promotion message
+      type:
+        type: string
+        description: Promotion type
+        enum:
+          - IMAGE
+          - VIDEO
+          - FILE
+          - TEXT
+    title: OpenShoppingPromotion
   OpenVideo:
     type: object
     properties:
       createdAt:
         type: string
         format: date-time
-        description: 소재 동영상 생성일시
+        description: Creation time of creative video
       'no':
         type: integer
         format: int64
-        description: 소재 동영상 ID
+        description: Creative video ID
       sizeGroupNo:
         type: integer
         format: int32
-        description: 소재 미디어(이미지/동영상) 규격ID
+        description: Creative media (images and videos) size ID
       thumbnailImage:
-        description: 소재 동영상 썸네일 정보
+        description: Creative video thumbnail information
         $ref: '#/definitions/OpenImage'
     title: OpenVideo
   Page«BrandListResponse»:
