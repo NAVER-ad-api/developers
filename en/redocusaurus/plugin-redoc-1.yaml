@@ -250,7 +250,7 @@ paths:
       tags:
         - Ad groups
       summary: Change budgets, bids and costs for ad groups
-      operationId: editAdSetUsingPOST
+      operationId: editAdSetBidAndBudgetUsingPOST
       consumes:
         - application/json
       produces:
@@ -273,7 +273,7 @@ paths:
           description: editParam
           required: true
           schema:
-            $ref: '#/definitions/AdSetEditParam'
+            $ref: '#/definitions/AdSetBidAndBudgetEditParam'
         - name: version
           in: path
           description: version
@@ -516,7 +516,7 @@ paths:
 
         - You can select up to 30 targets that are available, and a target
         cannot be chosen if the target population is less than 1,000.
-      operationId: createCustomizedTargetingAdidLibraryUsingPUT
+      operationId: editCustomizedTargetingAdidLibraryUsingPUT
       consumes:
         - application/json
       produces:
@@ -560,6 +560,174 @@ paths:
             type: array
             items:
               $ref: '#/definitions/CustomTargetParam'
+        '400':
+          description: Bad request
+          schema:
+            $ref: '#/definitions/ErrorResult'
+        '422':
+          description: Unprocessable
+          schema:
+            $ref: '#/definitions/ErrorResult'
+      deprecated: false
+  /{version}/adAccounts/{adAccountNo}/adSets/{adSetNo}/demographic:
+    put:
+      tags:
+        - Ad groups
+      summary: Update demographics
+      operationId: editDemographicUsingPUT
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - name: AccessManagerAccountNo
+          in: header
+          description: Manager account ID that has access to the ad account
+          required: false
+          type: integer
+          format: int64
+        - name: adAccountNo
+          in: path
+          description: adAccountNo
+          required: true
+          type: integer
+          format: int64
+        - name: adSetNo
+          in: path
+          description: adSetNo
+          required: true
+          type: integer
+          format: int64
+        - in: body
+          name: editParam
+          description: editParam
+          required: true
+          schema:
+            $ref: '#/definitions/AdSetDemographicParam'
+        - name: version
+          in: path
+          description: API version
+          required: true
+          type: number
+          default: 1
+          format: float
+      responses:
+        '200':
+          description: Successfully changed.
+          schema:
+            $ref: '#/definitions/AdSetDemographicParam'
+        '400':
+          description: Bad request
+          schema:
+            $ref: '#/definitions/ErrorResult'
+        '422':
+          description: Unprocessable
+          schema:
+            $ref: '#/definitions/ErrorResult'
+      deprecated: false
+  /{version}/adAccounts/{adAccountNo}/adSets/{adSetNo}/deviceAndPlacementGroup:
+    put:
+      tags:
+        - Ad groups
+      summary: Update device/placement
+      operationId: editDeviceAndPlacementGroupUsingPUT
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - name: AccessManagerAccountNo
+          in: header
+          description: Manager account ID that has access to the ad account
+          required: false
+          type: integer
+          format: int64
+        - name: adAccountNo
+          in: path
+          description: adAccountNo
+          required: true
+          type: integer
+          format: int64
+        - name: adSetNo
+          in: path
+          description: adSetNo
+          required: true
+          type: integer
+          format: int64
+        - in: body
+          name: editParam
+          description: editParam
+          required: true
+          schema:
+            $ref: '#/definitions/AdSetDeviceAndPlacementGroupParam'
+        - name: version
+          in: path
+          description: version
+          required: false
+          type: number
+          default: 1
+          format: float
+      responses:
+        '200':
+          description: Successfully changed.
+          schema:
+            $ref: '#/definitions/AdSetDeviceAndPlacementGroupParam'
+        '400':
+          description: Bad request
+          schema:
+            $ref: '#/definitions/ErrorResult'
+        '422':
+          description: Unprocessable
+          schema:
+            $ref: '#/definitions/ErrorResult'
+      deprecated: false
+  /{version}/adAccounts/{adAccountNo}/adSets/{adSetNo}/interest:
+    put:
+      tags:
+        - Ad groups
+      summary: Update interests/buying intent
+      operationId: editInterestUsingPUT
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - name: AccessManagerAccountNo
+          in: header
+          description: Manager account ID that has access to the ad account
+          required: false
+          type: integer
+          format: int64
+        - name: adAccountNo
+          in: path
+          description: adAccountNo
+          required: true
+          type: integer
+          format: int64
+        - name: adSetNo
+          in: path
+          description: adSetNo
+          required: true
+          type: integer
+          format: int64
+        - in: body
+          name: editParam
+          description: editParam
+          required: true
+          schema:
+            $ref: '#/definitions/AdSetInterestParam'
+        - name: version
+          in: path
+          description: version
+          required: false
+          type: number
+          default: 1
+          format: float
+      responses:
+        '200':
+          description: Successfully changed.
+          schema:
+            $ref: '#/definitions/AdSetInterestParam'
         '400':
           description: Bad request
           schema:
@@ -934,10 +1102,8 @@ paths:
     post:
       tags:
         - Campaigns
-      summary: Change campaign budgets
-      description: >-
-        - This API is used to update campaign spending limit. Please note that
-        we do not currently support an API for campaign budget optimization.
+      summary: Update campaign spending limits (deprecated)
+      description: ''
       operationId: editBudgetUsingPOST
       consumes:
         - application/json
@@ -958,7 +1124,62 @@ paths:
           format: int64
         - name: campaignBudget
           in: query
-          description: Campaign budget
+          description: Campaign spending limit
+          required: false
+          type: number
+          allowEmptyValue: false
+        - name: campaignNos
+          in: query
+          description: List of campaign IDs
+          required: false
+          type: array
+          items:
+            type: integer
+            format: int64
+          collectionFormat: multi
+          maximum: 100
+          minimum: 1
+          allowEmptyValue: false
+        - name: version
+          in: path
+          description: API version
+          required: true
+          type: number
+          default: 1
+          format: float
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: boolean
+      deprecated: true
+  /{version}/adAccounts/{adAccountNo}/campaigns/editSpendLimit:
+    post:
+      tags:
+        - Campaigns
+      summary: Update campaign spending limits
+      description: ''
+      operationId: editSpendLimitUsingPOST
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - name: AccessManagerAccountNo
+          in: header
+          description: Manager account ID that has access to the ad account
+          required: false
+          type: integer
+          format: int64
+        - name: adAccountNo
+          in: path
+          description: adAccountNo
+          required: true
+          type: integer
+          format: int64
+        - name: campaignSpendLimit
+          in: query
+          description: Campaign spending limit
           required: false
           type: number
           allowEmptyValue: false
@@ -1072,6 +1293,41 @@ paths:
           description: OK
           schema:
             type: boolean
+      deprecated: false
+  /{version}/adAccounts/{adAccountNo}/campaigns/{campaignNo}/optimization:
+    put:
+      tags:
+        - Campaigns
+      summary: Update CBO settings
+      description: ''
+      operationId: editCampaignOptimizationUsingPUT
+      parameters:
+        - name: AccessManagerAccountNo
+          in: header
+          description: Manager account ID that has access to the ad account
+          required: false
+          type: integer
+          format: int64
+        - name: adAccountNo
+          in: path
+          required: true
+          type: integer
+          format: int64
+        - name: campaignNo
+          in: path
+          required: true
+          type: integer
+          format: int64
+        - in: body
+          name: body
+          required: false
+          schema:
+            $ref: '#/definitions/OpenCampaignOptimizationEditParam'
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/OpenCampaignView'
       deprecated: false
   /{version}/adAccounts/{adAccountNo}/creatives:
     get:
@@ -1991,6 +2247,145 @@ paths:
         '200':
           description: OK
       deprecated: false
+  /{version}/adAccounts/{adAccountNo}/customTargets/adidLibraries/{adidLibraryNo}/addAdid:
+    post:
+      tags:
+        - Potential customers
+      summary: Add customer file target
+      description: >-
+        - Only one file can be uploaded at a time.
+
+        - The upload process has a file size limit of 100 MB and a timeout limit
+        of 20 seconds.
+
+        - Only CSV files can be uploaded.
+      operationId: addCustomTargetAdidUsingPOST
+      consumes:
+        - multipart/form-data
+      produces:
+        - '*/*'
+      parameters:
+        - name: AccessManagerAccountNo
+          in: header
+          description: Manager account ID that has access to the ad account
+          required: false
+          type: integer
+          format: int64
+        - name: adAccountNo
+          in: path
+          description: adAccountNo
+          required: true
+          type: integer
+          format: int64
+        - name: adidLibraryNo
+          in: path
+          description: adidLibraryNo
+          required: true
+          type: integer
+          format: int64
+        - name: callbackUrl
+          in: query
+          description: callback url
+          required: false
+          type: string
+          allowEmptyValue: false
+        - name: file
+          in: formData
+          description: Customer file
+          required: true
+          type: file
+        - name: version
+          in: path
+          description: API version
+          required: true
+          type: number
+          default: 1
+          format: float
+      responses:
+        '200':
+          description: Successfully changed.
+          schema:
+            type: boolean
+        '403':
+          description: FORBIDDEN
+          schema:
+            $ref: '#/definitions/ErrorResult'
+        '422':
+          description: Unprocessable
+          schema:
+            $ref: '#/definitions/ErrorResult'
+      deprecated: false
+  /{version}/adAccounts/{adAccountNo}/customTargets/adidLibraries/{adidLibraryNo}/removeAdid:
+    post:
+      tags:
+        - Potential customers
+      summary: Delete customer file target
+      description: >-
+        - Only one file can be uploaded at a time.
+
+        - The upload process has a file size limit of 100 MB and a timeout limit
+        of 20 seconds.
+
+        - Only CSV files can be uploaded.
+
+        - A request will fail if it attempts to delete all existing adid. The
+        request will only succeed if at least one adid remains in the target.
+      operationId: removeCustomTargetAdidUsingPOST
+      consumes:
+        - multipart/form-data
+      produces:
+        - '*/*'
+      parameters:
+        - name: AccessManagerAccountNo
+          in: header
+          description: Manager account ID that has access to the ad account
+          required: false
+          type: integer
+          format: int64
+        - name: adAccountNo
+          in: path
+          description: adAccountNo
+          required: true
+          type: integer
+          format: int64
+        - name: adidLibraryNo
+          in: path
+          description: adidLibraryNo
+          required: true
+          type: integer
+          format: int64
+        - name: callbackUrl
+          in: query
+          description: callback url
+          required: false
+          type: string
+          allowEmptyValue: false
+        - name: file
+          in: formData
+          description: Customer file
+          required: true
+          type: file
+        - name: version
+          in: path
+          description: API version
+          required: true
+          type: number
+          default: 1
+          format: float
+      responses:
+        '200':
+          description: Successfully changed.
+          schema:
+            type: boolean
+        '403':
+          description: FORBIDDEN
+          schema:
+            $ref: '#/definitions/ErrorResult'
+        '422':
+          description: Unprocessable
+          schema:
+            $ref: '#/definitions/ErrorResult'
+      deprecated: false
   /{version}/constants:
     get:
       tags:
@@ -2388,10 +2783,120 @@ paths:
               $ref: '#/definitions/InterestKeywordResponse'
       deprecated: false
 definitions:
+  AdSetBidAndBudgetEditParam:
+    type: object
+    required:
+      - adSetNos
+      - editType
+    discriminator: editType
+    properties:
+      adSetNos:
+        type: array
+        description: List of ad group numbers
+        items:
+          type: integer
+          format: int64
+          minimum: 1
+          maximum: 100
+      editType:
+        type: string
+        description: Parameter to edit
+    title: AdSetBidAndBudgetEditParam
+  AdSetDemographicParam:
+    type: object
+    properties:
+      adultOnly:
+        type: boolean
+        description: Indicates that its target demographic is adults.
+      ageRanges:
+        type: array
+        description: Age range
+        items:
+          type: string
+          enum:
+            - AGE_14_18
+            - AGE_19_24
+            - AGE_25_29
+            - AGE_30_34
+            - AGE_35_39
+            - AGE_40_44
+            - AGE_45_49
+            - AGE_50_54
+            - AGE_55_59
+            - OVER_60
+            - UNKNOWN
+      extensionDemos:
+        type: array
+        description: Extended demo
+        items:
+          type: integer
+          format: int32
+      genders:
+        type: array
+        description: "Gender\r\n- Available values: `M`,`F`,`U`"
+        items:
+          type: string
+          enum:
+            - M
+            - F
+            - U
+      includeUnknownLocation:
+        type: boolean
+        description: 'Location: Indicates whether to include non-qualified individuals.'
+      locations:
+        type: array
+        description: Location
+        items:
+          type: string
+    title: AdSetDemographicParam
+  AdSetDeviceAndPlacementGroupParam:
+    type: object
+    properties:
+      allDevice:
+        type: boolean
+        description: Indicates whether to select all eligible devices.
+      allPlacementGroup:
+        type: boolean
+        description: Indicates whether to select all eligible ad placement.
+      devices:
+        type: array
+        description: "Device type\r\n- Available values: `DESKTOP`,`MOBILE`"
+        items:
+          type: string
+          enum:
+            - DESKTOP
+            - MOBILE
+      placementGroupCodes:
+        type: array
+        description: Ad placement
+        items:
+          type: string
+          enum:
+            - M_SMARTCHANNEL
+            - M_MAIN
+            - M_BANNER
+            - M_FEED
+            - N_INSTREAM
+            - N_SHOPPING
+            - N_COMMUNICATION
+            - F_SMARTCHANNEL
+            - F_BANNER
+            - BAND
+            - NW_SMARTCHANNEL
+            - NW_BANNER
+      platforms:
+        type: array
+        description: "Operating system\r\n- Available values: `ANDROID`,`IOS`"
+        items:
+          type: string
+          enum:
+            - ANDROID
+            - IOS
+    title: AdSetDeviceAndPlacementGroupParam
   AdSetEditBidPriceParam:
     title: AdSetEditBidPriceParam
     allOf:
-      - $ref: '#/definitions/AdSetEditParam'
+      - $ref: '#/definitions/AdSetBidAndBudgetEditParam'
       - type: object
         required:
           - adSetNos
@@ -2410,6 +2915,13 @@ definitions:
             type: number
             example: 10000
             description: Bid amount
+          bidType:
+            type: string
+            description: "Billing type\r\n- Available values: `CPC`,`CPM`,`CPV`"
+            enum:
+              - CPC
+              - CPM
+              - CPV
           editType:
             type: string
             description: Parameter to edit
@@ -2417,11 +2929,10 @@ definitions:
   AdSetEditBidStrategyValueParam:
     title: AdSetEditBidStrategyValueParam
     allOf:
-      - $ref: '#/definitions/AdSetEditParam'
+      - $ref: '#/definitions/AdSetBidAndBudgetEditParam'
       - type: object
         required:
           - adSetNos
-          - bidStrategyValue
           - editType
         properties:
           adSetNos:
@@ -2432,6 +2943,20 @@ definitions:
               format: int64
               minimum: 1
               maximum: 100
+          bidGoal:
+            type: string
+            description: "Bid strategy\r\n- Available values: `MAX_CONV`,`MAX_CLICK`"
+            enum:
+              - MAX_CLICK
+              - MAX_CONV
+          bidStrategy:
+            type: string
+            description: "How to manage costs\r\n- Available values: `BID_CAP`,`COST_CAP`,`NO_CAP`"
+            enum:
+              - BID_CAP
+              - COST_CAP
+              - NO_CAP
+              - TARGET_COST
           bidStrategyValue:
             type: number
             example: 100000
@@ -2443,7 +2968,7 @@ definitions:
   AdSetEditBudgetParam:
     title: AdSetEditBudgetParam
     allOf:
-      - $ref: '#/definitions/AdSetEditParam'
+      - $ref: '#/definitions/AdSetBidAndBudgetEditParam'
       - type: object
         required:
           - adSetNos
@@ -2462,29 +2987,34 @@ definitions:
             type: number
             example: 100000
             description: Budget
+          budgetType:
+            type: string
+            description: Budget type
+            enum:
+              - DAILY
+              - TOTAL
           editType:
             type: string
             description: Parameter to edit
         title: AdSetEditBudgetParam
-  AdSetEditParam:
+  AdSetInterestParam:
     type: object
-    required:
-      - adSetNos
-      - editType
-    discriminator: editType
     properties:
-      adSetNos:
+      interestCodes:
         type: array
-        description: List of ad group numbers
+        description: Interests
+        items:
+          $ref: '#/definitions/InterestTargetParam'
+      interestIntersection:
+        type: boolean
+        description: Indicates how the target is configured.
+      purchaseIntentCodes:
+        type: array
+        description: Buying intent
         items:
           type: integer
-          format: int64
-          minimum: 1
-          maximum: 100
-      editType:
-        type: string
-        description: Parameter to edit
-    title: AdSetEditParam
+          format: int32
+    title: AdSetInterestParam
   AgeRange:
     type: object
     properties:
@@ -2675,7 +3205,11 @@ definitions:
           budgetAmount:
             type: number
             example: 100000
-            description: Budget
+            description: Spending limit (deprecated)
+          spendLimit:
+            type: number
+            example: 100000
+            description: Spending limit
           catalogId:
             type: string
             description: Catalog ID
@@ -2717,7 +3251,11 @@ definitions:
           budgetAmount:
             type: number
             example: 100000
-            description: Budget
+            description: Spending limit (deprecated)
+          spendLimit:
+            type: number
+            example: 100000
+            description: Spending limit
           conversionType:
             type: string
             description: "Optimized conversion type\r\n- Available values: `PURCHASE`,`CART`"
@@ -2740,6 +3278,8 @@ definitions:
             type: integer
             format: int64
             description: Canonical URL ID
+          optimization:
+            $ref: '#/definitions/OpenCampaignOptimizationParam'
         title: CONVERSION
   CampaignSearchKeyword:
     type: object
@@ -2906,9 +3446,14 @@ definitions:
   CreateCustomizedTargetingAdidLibrariesRequest:
     type: object
     properties:
+      adidLibraries:
+        type: array
+        description: 고객파일 타겟
+        items:
+          $ref: '#/definitions/CustomTargetParam'
       adidLibraryList:
         type: array
-        description: Customer file target
+        description: Customer file target (deprecated)
         items:
           $ref: '#/definitions/CustomTargetParam'
     title: CreateCustomizedTargetingAdidLibrariesRequest
@@ -3056,7 +3601,11 @@ definitions:
           budgetAmount:
             type: number
             example: 100000
-            description: Budget
+            description: Spending limit (deprecated)
+          spendLimit:
+            type: number
+            example: 100000
+            description: Spending limit
           conversionType:
             type: string
             description: "Optimized conversion type\r\n- Available values: `INSTALL`"
@@ -3079,6 +3628,8 @@ definitions:
             type: integer
             format: int64
             description: Canonical URL ID
+          optimization:
+            $ref: '#/definitions/OpenCampaignOptimizationParam'
         title: INSTALL_APP
   Image:
     type: object
@@ -3192,9 +3743,14 @@ definitions:
       accelerated:
         type: boolean
         description: Delivery method indicating whether to accelerate ad delivery.
+      adidLibraries:
+        type: array
+        description: 고객파일 타겟
+        items:
+          $ref: '#/definitions/CustomTargetParam'
       adidLibraryParams:
         type: array
-        description: Customer file target
+        description: Customer file target (deprecated)
         items:
           $ref: '#/definitions/CustomTargetParam'
       ageRanges:
@@ -3211,18 +3767,32 @@ definitions:
       bidGoal:
         type: string
         description: "Bid strategy\r\n- Available values: `MAX_CONV`,`MAX_CLICK`,`NONE`"
+        enum:
+          - MAX_CLICK
+          - MAX_CONV
+          - NONE
       bidPrice:
         type: number
         description: Bid amount
       bidStrategy:
         type: string
         description: "How to manage costs\r\n- Available values: `FIXED_BID`,`BID_CAP`,`COST_CAP`,`NO_CAP`"
+        enum:
+          - FIXED_BID
+          - BID_CAP
+          - COST_CAP
+          - NO_CAP
+          - TARGET_COST
       bidStrategyValue:
         type: number
         description: Bid limit
       bidType:
         type: string
         description: "Billing type\r\n- Available values: `CPC`,`CPM`,`CPV`"
+        enum:
+          - CPC
+          - CPM
+          - CPV
       budgetAmount:
         type: number
         description: Budget amount
@@ -3248,6 +3818,9 @@ definitions:
         description: "Device type\r\n- Available values: `DESKTOP`,`MOBILE`"
         items:
           type: string
+          enum:
+            - DESKTOP
+            - MOBILE
       endTime:
         type: string
         description: End time
@@ -3268,6 +3841,10 @@ definitions:
         description: "Gender\r\n- Available values: `M`,`F`,`U`"
         items:
           type: string
+          enum:
+            - M
+            - F
+            - U
       interestCodes:
         type: array
         description: Interests
@@ -3296,6 +3873,9 @@ definitions:
         description: "Operating system\r\n- Available values: `ANDROID`,`IOS`"
         items:
           type: string
+          enum:
+            - ANDROID
+            - IOS
       purchaseIntentCodes:
         type: array
         description: Buying intent
@@ -3318,6 +3898,11 @@ definitions:
       startTime:
         type: string
         description: Start time
+      targetingType:
+        type: string
+        description: Targeting type
+        enum:
+          - AUDIENCE
     title: OpenAdSetCreationParam
   OpenAdSetListView:
     type: object
@@ -3592,6 +4177,11 @@ definitions:
           - TARGET_DISABLED
           - LEARNING
           - LEARNING_LIMITED
+      targetingType:
+        type: string
+        description: Targeting type
+        enum:
+          - AUDIENCE
       websiteTargetParams:
         type: array
         items:
@@ -3625,7 +4215,11 @@ definitions:
       budgetAmount:
         type: number
         example: 100000
-        description: Budget
+        description: Spending limit (deprecated)
+      spendLimit:
+        type: number
+        example: 100000
+        description: Spending limit
       conversionUrlNo:
         type: integer
         format: int64
@@ -3671,12 +4265,12 @@ definitions:
         type: integer
         format: int64
         description: Brand ID
-      budgetAmount:
+      spendLimit:
         type: number
-        description: Campaign budget limit
+        description: Campaign spending limit
       budgetExhausted:
         type: boolean
-        description: Indicates whether the budget limit is reached.
+        description: Indicates whether the campaign spending limit is reached.
       campaignSearchKeywords:
         type: array
         description: Keyword objects
@@ -3753,6 +4347,28 @@ definitions:
         type: integer
         format: int64
         description: URL ID
+      cboActivated:
+        type: boolean
+        description: Indicates whether CBO is enabled.
+      bidGoal:
+        type: string
+        description: CBO bid strategy
+        enum:
+          - MAX_CLICK
+          - MAX_CONV
+      bidStrategy:
+        type: string
+        description: CBO cost management
+        enum:
+          - BID_CAP
+          - COST_CAP
+          - NO_CAP
+      bidStrategyValue:
+        type: number
+        description: CBO bid and cost limit
+      budget:
+        type: number
+        description: CBO budget
     title: OpenCampaignView
   OpenCatalog:
     type: object
@@ -3764,6 +4380,73 @@ definitions:
         type: string
         description: Shopping catalog item set ID
     title: OpenCatalog
+  OpenCampaignOptimizationEditParam:
+    type: object
+    required:
+      - activated
+    properties:
+      activated:
+        type: boolean
+        description: Indicates whether CBO is enabled.
+      bidGoal:
+        type: string
+        description: The bid strategy to use for budget optimization
+        enum:
+          - MAX_CLICK
+          - MAX_CONV
+      bidStrategy:
+        type: string
+        description: The cost management option to use for budget optimization
+        enum:
+          - BID_CAP
+          - COST_CAP
+          - NO_CAP
+      bidStrategyValue:
+        type: number
+        description: The bid and cost limit for budget optimization
+      budget:
+        type: number
+        description: CBO's total budget
+      overwriteAllAdSets:
+        type: boolean
+        description: Indicates whether the child ad groups are updated all at once.
+      defaultBudgetAmountForAdSets:
+        type: number
+        description: >-
+          Budget to be allocated to all child ad groups at once. Default:
+          (campaign budget) / (number of ad groups)
+    title: OpenCampaignOptimizationEditParam
+  OpenCampaignOptimizationParam:
+    type: object
+    required:
+      - activated
+    properties:
+      activated:
+        type: boolean
+        description: Indicates whether CBO is enabled.
+      bidGoal:
+        type: string
+        description: The bid strategy to use for budget optimization
+        enum:
+          - MAX_CLICK
+          - MAX_CONV
+      bidStrategy:
+        type: string
+        description: The cost management option to use for budget optimization
+        enum:
+          - BID_CAP
+          - COST_CAP
+          - NO_CAP
+      bidStrategyValue:
+        type: number
+        description: The bid and cost limit to use for budget optimization
+      budget:
+        type: number
+        description: CBO's total budget
+      overwriteAllAdSets:
+        type: boolean
+        description: Indicates whether the child ad groups are updated all at once.
+    title: OpenCampaignOptimizationParam
   OpenCreative:
     type: object
     required:
@@ -4721,7 +5404,11 @@ definitions:
           budgetAmount:
             type: number
             example: 100000
-            description: Budget
+            description: Spending limit (deprecated)
+          spendLimit:
+            type: number
+            example: 100000
+            description: Spending limit
           conversionType:
             type: string
             description: "Optimized conversion type\r\n- Available values: `PURCHASE`,`CART`"
@@ -4741,6 +5428,8 @@ definitions:
             type: integer
             format: int64
             description: Canonical URL ID
+          optimization:
+            $ref: '#/definitions/OpenCampaignOptimizationParam'
         title: SHOPPING
   ScheduleTimeSlotParam:
     type: object
@@ -4914,7 +5603,11 @@ definitions:
           budgetAmount:
             type: number
             example: 100000
-            description: Budget
+            description: Spending limit (deprecated)
+          spendLimit:
+            type: number
+            example: 100000
+            description: Spending limit
           conversionUrlNo:
             type: integer
             format: int64
@@ -4953,7 +5646,11 @@ definitions:
           budgetAmount:
             type: number
             example: 100000
-            description: Budget
+            description: Spending limit (deprecated)
+          spendLimit:
+            type: number
+            example: 100000
+            description: Spending limit
           conversionUrlNo:
             type: integer
             format: int64
@@ -4973,6 +5670,8 @@ definitions:
             type: integer
             format: int64
             description: Canonical URL ID
+          optimization:
+            $ref: '#/definitions/OpenCampaignOptimizationParam'
         title: WEB_SITE_TRAFFIC
   ZoneId:
     type: object
