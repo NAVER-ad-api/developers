@@ -2119,8 +2119,8 @@
 				"tags": [
 					"Creatives"
 				],
-				"summary": "Create a creative with image slides (carousel format)",
-				"description": "Creative creation with image slides (carousel format) is supported.",
+				"summary": "Create a creative with Collections",
+				"description": "Creative creation with Collections is supported.",
 				"operationId": "createCreativeOfMultipleImageUsingPOST",
 				"consumes": [
 					"application/json"
@@ -6296,7 +6296,12 @@
 					"description": "Creative templates:\r\n `FEED_MULTIPLE_IMAGE`"
 				},
 				"ctaCode": {
-					"type": "string"
+					"type": "string",
+					"description": "CTA"
+				},
+				"ctaUrl": {
+					"type": "string",
+					"description": "CTA URL"
 				},
 				"imageMedias": {
 					"type": "array",
@@ -6307,7 +6312,7 @@
 				"message": {
 					"type": "string",
 					"minLength": 2,
-					"maxLength": 120
+					"maxLength": 65
 				},
 				"name": {
 					"type": "string",
@@ -6458,7 +6463,7 @@
 					"type": "string",
 					"description": "Ad message",
 					"minLength": 2,
-					"maxLength": 120
+					"maxLength": 65
 				},
 				"name": {
 					"type": "string",
@@ -6722,11 +6727,6 @@
 					"type": "integer",
 					"format": "int64"
 				},
-				"linkDescription": {
-					"type": "string",
-					"minLength": 2,
-					"maxLength": 19
-				},
 				"linkTitle": {
 					"type": "string",
 					"minLength": 2,
@@ -6770,6 +6770,10 @@
 				"callToAction": {
 					"type": "string",
 					"description": "Call-to-action"
+				},
+				"callToActionUrl": {
+					"type": "string",
+					"description": "Call-to-action URL"
 				},
 				"customCtas": {
 					"type": "array",
