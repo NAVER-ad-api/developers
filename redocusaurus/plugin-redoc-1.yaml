@@ -4621,6 +4621,7 @@ definitions:
       - adSetNo
       - creativeTemplateCode
       - ctaCode
+      - ctaUrl
       - imageMedias
       - message
       - name
