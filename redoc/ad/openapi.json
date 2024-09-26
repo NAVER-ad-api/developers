@@ -1869,15 +1869,6 @@
 						"allowEmptyValue": false
 					},
 					{
-						"name": "campaignNo",
-						"in": "query",
-						"description": "Campaign ID",
-						"required": false,
-						"type": "integer",
-						"format": "int64",
-						"allowEmptyValue": false
-					},
-					{
 						"name": "deleteOnly",
 						"in": "query",
 						"description": "Indicates whether to get only the deleted creatives. If true, it gets only the deleted creatives.",
@@ -6062,10 +6053,7 @@
 			"type": "object",
 			"required": [
 				"activated",
-				"adSetName",
 				"adSetNo",
-				"campaignName",
-				"campaignNo",
 				"name",
 				"no"
 			],
@@ -6074,23 +6062,10 @@
 					"type": "boolean",
 					"description": "Indicates whether to turn creatives on."
 				},
-				"adSetName": {
-					"type": "string",
-					"description": "Ad group name"
-				},
 				"adSetNo": {
 					"type": "integer",
 					"format": "int64",
 					"description": "Ad group ID"
-				},
-				"campaignName": {
-					"type": "string",
-					"description": "Campaign name"
-				},
-				"campaignNo": {
-					"type": "integer",
-					"format": "int64",
-					"description": "Campaign ID"
 				},
 				"creativeType": {
 					"type": "string",

@@ -4,10 +4,19 @@
         <title>네이버 성과형 디스플레이 광고 API (Beta) Blog</title>
         <link>https://naver-ad-api.github.io/developers/en/blog</link>
         <description>네이버 성과형 디스플레이 광고 API (Beta) Blog</description>
-        <lastBuildDate>Fri, 03 Feb 2023 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 26 Sep 2024 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
+        <item>
+            <title><![CDATA[Platform Update Notice – September 2024 (effective date of September 26)]]></title>
+            <link>https://naver-ad-api.github.io/developers/en/blog/2024-09-26-update</link>
+            <guid>2024-09-26-update</guid>
+            <pubDate>Thu, 26 Sep 2024 00:00:00 GMT</pubDate>
+            <description><![CDATA[Dear users,]]></description>
+            <content:encoded><![CDATA[<p>Dear users,</p><p>We are excited to announce a new update to the NAVER Performance DA platform in September 2024.</p><p>This update includes the following:</p><p>■ Changes</p><p>[1]<!-- --> How the Open API integrates</p><p>■ Details</p><p>[1]<!-- --> Location</p><p>API &gt; Ad API &gt; Creatives &gt; Changes to parameters/responses within the List of Creatives API</p><ul><li><p>Effective Date</p><p>Thursday, September 26, 2024</p></li><li><p>Changes Made</p><ul><li>The ‘campaignNo’ field is deleted upon retrieval of the List of Creatives API</li><li>The 'adSetName’, ‘campaignName’, and ‘campaignNo' are deleted within the response of the List of Creatives API</li></ul></li></ul><p>If you have any questions, feel free to contact us at <a href="https://gfa.naver.com/loginAccount/qna" target="_blank" rel="noopener noreferrer">https://gfa.naver.com/loginAccount/qna</a>.</p><p>Thank you!</p><p>Best regards,
+The NAVER Performance DA Open API Team</p>]]></content:encoded>
+        </item>
         <item>
             <title><![CDATA[Welcome!]]></title>
             <link>https://naver-ad-api.github.io/developers/en/blog/welcome</link>
