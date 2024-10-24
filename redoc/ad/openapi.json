@@ -6193,7 +6193,7 @@
 				},
 				"creativeTemplateCode": {
 					"type": "string",
-					"description": "Creative templates:\r\n `BANNER_750`, `BANNER_750X200`, `BANNER_1250`, `BANNER_1250X560`"
+					"description": "Creative templates:\r\n `BANNER_750`, `BANNER_750X200`, `BANNER_1250X560`"
 				},
 				"imageNo": {
 					"type": "integer",
