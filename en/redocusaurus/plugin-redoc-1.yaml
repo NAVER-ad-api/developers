@@ -3154,20 +3154,6 @@ definitions:
         type: integer
         format: int64
         description: Brand ID
-      categoryFirstId:
-        type: integer
-        format: int64
-        description: Category ID
-      categoryFirstName:
-        type: string
-        description: Category name
-      categorySecondId:
-        type: integer
-        format: int64
-        description: Subcategory ID
-      categorySecondName:
-        type: string
-        description: Subcategory name
       explanation:
         type: string
         description: Description
