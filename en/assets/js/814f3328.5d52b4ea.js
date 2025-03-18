@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkpa_openapi_docs=self.webpackChunkpa_openapi_docs||[]).push([[2535],{5641:e=>{e.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"Platform Update Notice \u2013 September 2024 (effective date of September 26)","permalink":"/developers/en/blog/2024-09-26-update"},{"title":"Welcome!","permalink":"/developers/en/blog/welcome"}]}')}}]);
