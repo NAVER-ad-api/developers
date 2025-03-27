@@ -4435,7 +4435,7 @@
             },
             "conversionType": {
               "type": "string",
-              "description": "Optimized conversion type\r\n- Available values: `PURCHASE`,`CART`"
+              "description": "Optimized conversion type\r\n- Available values: `null`,`PURCHASE`,`CART`"
             },
             "conversionUrlNo": {
               "type": "integer",
@@ -4922,7 +4922,7 @@
             },
             "conversionType": {
               "type": "string",
-              "description": "Optimized conversion type\r\n- Available values: `INSTALL`"
+              "description": "Optimized conversion type\r\n- Available values: `null`,`INSTALL`,`PURCHASE`,`CART`"
             },
             "conversionUrlNo": {
               "type": "integer",
@@ -5988,12 +5988,13 @@
         },
         "conversionType": {
           "type": "string",
-          "description": "Optimized conversion type\r\n- Available values: `PURCHASE`,`CART`",
+          "description": "Optimized conversion type\r\n- Available values: `null`,`PURCHASE`,`CART`,`INSTALL`",
           "enum": [
             "PURCHASE",
             "MEMBERSHIP",
             "CART",
             "RESERVATION",
+            "INSTALL",
             "ETC"
           ]
         },
@@ -7454,7 +7455,7 @@
             },
             "conversionType": {
               "type": "string",
-              "description": "Optimized conversion type\r\n- Available values: `PURCHASE`,`CART`"
+              "description": "Optimized conversion type\r\n- Available values: `null`,`PURCHASE`,`CART`"
             },
             "conversionUrlNo": {
               "type": "integer",
