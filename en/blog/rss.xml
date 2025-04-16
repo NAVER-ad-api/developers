@@ -4,10 +4,20 @@
         <title>네이버 성과형 디스플레이 광고 API (Beta) Blog</title>
         <link>https://naver-ad-api.github.io/developers/en/blog</link>
         <description>네이버 성과형 디스플레이 광고 API (Beta) Blog</description>
-        <lastBuildDate>Fri, 14 Mar 2025 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 24 Apr 2025 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
+        <item>
+            <title><![CDATA[Platform Update Notice – April 2025 (effective date of April 24)]]></title>
+            <link>https://naver-ad-api.github.io/developers/en/blog/2025-04-24-update</link>
+            <guid>2025-04-24-update</guid>
+            <pubDate>Thu, 24 Apr 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[Dear users,]]></description>
+            <content:encoded><![CDATA[<p>Dear users,
+We would like to announce a new update to the NAVER Performance DA platform in April 2025.</p><p>This update includes the following:</p><p><strong>■ Changes</strong></p><p>[1]<!-- --> Removal of the 'convPartner' field in the Performance API responses</p><p><strong>■ Details</strong></p><p>[1]<!-- --> Removal of the 'convPartner' field in the Performance API responses</p><p>It was previously provided as one of the response fields in both the Past Conversion Data and Real-Time Conversion Data reports. However, due to difficulties in maintaining clear contextual distinction, it will no longer be provided.</p><p><strong>Effective Date</strong></p><p>Thursday, April 24, 2025</p><p><strong>Changes Made</strong></p><ul><li>Removal of the 'convPartner' field from the responses of Get past conversion data</li><li>Removal of the 'convPartner' field from the responses of Get real-time conversion data</li></ul><p>If you have any questions, feel free to contact us at&nbsp;<a href="https://gfa.naver.com/loginAccount/qna" target="_blank" rel="noopener noreferrer">https://gfa.naver.com/loginAccount/qna</a>.</p><p>Thank you!</p><p>Best regards, The NAVER Performance DA Open API Team</p>]]></content:encoded>
+            <category>patch</category>
+        </item>
         <item>
             <title><![CDATA[Platform Update Notice – March 2025 (effective date of March 14)]]></title>
             <link>https://naver-ad-api.github.io/developers/en/blog/2025-03-14-update</link>
