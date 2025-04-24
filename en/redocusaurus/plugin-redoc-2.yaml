@@ -79,8 +79,8 @@ tags:
       Note that performance data retrieval supports only daily intervals; hourly
       intervals are not supported.
 
-      For details about convType and convPartner response fields, go to
-      **Getting Started > Performance > Get conversion data**.
+      For details about convType response fields, go to **Getting Started >
+      Performance > Get conversion data**.
   - name: Get real-time conversion data
     description: >
       Gets real-time conversion performance data for a specific ad account,
@@ -100,8 +100,8 @@ tags:
       consistency verification and correction after the API request is made.
 
 
-      For details about convType and convPartner response fields, go to
-      **Getting Started > Performance > Get conversion data**.
+      For details about convType response fields, go to **Getting Started >
+      Performance > Get conversion data**.
 paths:
   /v1/ad-api/{version}/adAccounts/{adAccountNo}/performance/realtime/creatives:
     get:
@@ -1576,9 +1576,6 @@ components:
           type: string
           description: Last update time
           format: date-time
-        convPartner:
-          type: string
-          description: Conversion integration partner
         convType:
           type: string
           description: Conversion type

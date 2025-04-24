@@ -3942,6 +3942,7 @@
               "F_BANNER",
               "BAND",
               "NW_SMARTCHANNEL",
+              "NW_FEED",
               "NW_BANNER"
             ]
           }

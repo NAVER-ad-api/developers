@@ -20,11 +20,11 @@
 		},
 		{
 			"name": "Get past conversion data",
-			"description": "Gets past conversion performance data for a specific ad account, campaign, ad group, or creative.\n\nIt returns performance data aggregated for child elements of the specified ad account, campaign, ad group, or creative,\nwith the results sorted in ascending order based on dates, advertisers, campaigns, ad groups, and creative numbers.\n\nThe date range can be up to 31 days, starting from 2 years ago and ending as recently as yesterday.\n(The data from yesterday can be retrieved starting from 2 AM today.)\n\nThe API returns up to 1,000 rows at a time. If there are more rows, the results are paginated.\nInclude the value of the “next” field in the response as the “next” parameter of the next request, then you can get the next page; the token will be valid for 10 minutes.\n\nNote that performance data retrieval supports only daily intervals; hourly intervals are not supported.\nFor details about convType and convPartner response fields, go to **Getting Started > Performance > Get conversion data**.\n"
+			"description": "Gets past conversion performance data for a specific ad account, campaign, ad group, or creative.\n\nIt returns performance data aggregated for child elements of the specified ad account, campaign, ad group, or creative,\nwith the results sorted in ascending order based on dates, advertisers, campaigns, ad groups, and creative numbers.\n\nThe date range can be up to 31 days, starting from 2 years ago and ending as recently as yesterday.\n(The data from yesterday can be retrieved starting from 2 AM today.)\n\nThe API returns up to 1,000 rows at a time. If there are more rows, the results are paginated.\nInclude the value of the “next” field in the response as the “next” parameter of the next request, then you can get the next page; the token will be valid for 10 minutes.\n\nNote that performance data retrieval supports only daily intervals; hourly intervals are not supported.\nFor details about convType response fields, go to **Getting Started > Performance > Get conversion data**.\n"
 		},
 		{
 			"name": "Get real-time conversion data",
-			"description": "Gets real-time conversion performance data for a specific ad account, campaign, ad group, or creative, aggregated by creative.\n\nIt returns performance data from today or yesterday, with the results sorted in ascending order based on update dates.\n\nInclude the value of the “until” field in the response as the “since” parameter of the next request, then you can get only the creatives that have been updated after the previous request.\n\nNote that the real-time performance data may change for further consistency verification and correction after the API request is made.\n\nFor details about convType and convPartner response fields, go to **Getting Started > Performance > Get conversion data**.\n"
+			"description": "Gets real-time conversion performance data for a specific ad account, campaign, ad group, or creative, aggregated by creative.\n\nIt returns performance data from today or yesterday, with the results sorted in ascending order based on update dates.\n\nInclude the value of the “until” field in the response as the “since” parameter of the next request, then you can get only the creatives that have been updated after the previous request.\n\nNote that the real-time performance data may change for further consistency verification and correction after the API request is made.\n\nFor details about convType response fields, go to **Getting Started > Performance > Get conversion data**.\n"
 		}
 	],
 	"paths": {
@@ -2034,10 +2034,6 @@
 						"type": "string",
 						"description": "Last update time",
 						"format": "date-time"
-					},
-					"convPartner": {
-						"type": "string",
-						"description": "Conversion integration partner"
 					},
 					"convType": {
 						"type": "string",
