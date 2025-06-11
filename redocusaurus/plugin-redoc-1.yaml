@@ -4569,7 +4569,7 @@ definitions:
         maxLength: 100
       creativeTemplateCode:
         type: string
-        description: "Creative templates:\r\n `BANNER_750`, `BANNER_750X200`, `BANNER_1250X560`"
+        description: "Creative templates:\r\n `BANNER_750`, `BANNER_750X200`, `BANNER_750X280`, `BANNER_1250X560`"
       imageNo:
         type: integer
         format: int64
