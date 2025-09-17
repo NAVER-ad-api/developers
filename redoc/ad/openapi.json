@@ -6443,7 +6443,7 @@
         },
         "creativeTemplateCode": {
           "type": "string",
-          "description": "Creative templates:\r\n `NATIVE_SINGLE_IMAGE_V2`, `NATIVE_SINGLE_IMAGE_PC`, `FEED_SINGLE_IMAGE`, `FEED_SINGLE_IMAGE_SQUARE`"
+          "description": "Creative templates:\r\n `NATIVE_SINGLE_IMAGE_V2`, `NATIVE_SINGLE_IMAGE_PC`, `FEED_SINGLE_IMAGE`, `FEED_SINGLE_IMAGE_2TO3`, `FEED_SINGLE_IMAGE_SQUARE`"
         },
         "ctaCode": {
           "type": "string",
