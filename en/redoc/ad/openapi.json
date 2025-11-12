@@ -6352,11 +6352,12 @@
       "required": [
         "adSetNo",
         "creativeTemplateCode",
-        "disableInducement",
         "thumbnailImageNo",
         "message",
         "name",
-        "videoNo"
+        "videoNo",
+        "linkUrl",
+        "ctaCode"
       ],
       "properties": {
         "adSetNo": {
@@ -6371,10 +6372,6 @@
         "ctaCode": {
           "type": "string",
           "description": "Call-to-action"
-        },
-        "disableInducement": {
-          "type": "boolean",
-          "description": "Indicates whether to enable call-to-action"
         },
         "linkDescription": {
           "type": "string",

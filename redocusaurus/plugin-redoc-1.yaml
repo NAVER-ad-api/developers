@@ -4659,11 +4659,12 @@ definitions:
     required:
       - adSetNo
       - creativeTemplateCode
-      - disableInducement
       - thumbnailImageNo
       - message
       - name
       - videoNo
+      - linkUrl
+      - ctaCode
     properties:
       adSetNo:
         type: integer
@@ -4675,9 +4676,6 @@ definitions:
       ctaCode:
         type: string
         description: Call-to-action
-      disableInducement:
-        type: boolean
-        description: Indicates whether to enable call-to-action
       linkDescription:
         type: string
         description: Description 2
