@@ -4,31 +4,10 @@
         <title>네이버 성과형 디스플레이 광고 API (Beta) Blog</title>
         <link>https://naver-ad-api.github.io/developers/en/blog</link>
         <description>네이버 성과형 디스플레이 광고 API (Beta) Blog</description>
-        <lastBuildDate>Wed, 10 Dec 2025 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 24 Apr 2025 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
-        <item>
-            <title><![CDATA[Platform Update Notice – December 2025 (effective date of December 10)]]></title>
-            <link>https://naver-ad-api.github.io/developers/en/blog/2025-12-10-update</link>
-            <guid>2025-12-10-update</guid>
-            <pubDate>Wed, 10 Dec 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[Dear users,]]></description>
-            <content:encoded><![CDATA[<p>Dear users,
-We would like to announce a new update to the NAVER Performance DA platform in December 2025.</p><p>This update includes the following:</p><p><strong>■ Changes</strong></p><p>[1]<!-- --> Addition of a new ad creative type: "Video+Image Collections"</p><p><strong>■ Details</strong></p><p>[1]<!-- --> "Video+Image Collections" creative type added
-A combination of a video media asset in the main area + slide images in the sub-area.</p><p><strong>Effective Date</strong></p><p>Wednesday, December 10, 2025</p><p><strong>Changes Made</strong></p><ul><li>Addition of new creativeTemplateCode: "FEED_MULTIPLE_IMAGE_WITH_VIDEO"</li><li>New fields added for the Video+Image Collections type: "videoNo", "thumbnailImageNo"</li></ul><p>If you have any questions, feel free to contact us at <a href="mailto:agency_cs@navercorp.com" target="_blank" rel="noopener noreferrer">agency_cs@navercorp.com</a></p><p>Thank you!</p><p>Best regards, The NAVER Performance DA Open API Team</p>]]></content:encoded>
-            <category>patch</category>
-        </item>
-        <item>
-            <title><![CDATA[Platform Update Notice – November 2025 (effective date of November 12)]]></title>
-            <link>https://naver-ad-api.github.io/developers/en/blog/2025-11-12-update</link>
-            <guid>2025-11-12-update</guid>
-            <pubDate>Wed, 12 Nov 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[Dear users,]]></description>
-            <content:encoded><![CDATA[<p>Dear users,
-We would like to announce a new update to the NAVER Performance DA platform in November 2025.</p><p>This update includes the following:</p><p><strong>■ Changes</strong></p><p>[1]<!-- --> Removal of the 'disableInducement' parameter when creating video-type creatives.</p><p><strong>■ Details</strong></p><p>[1]<!-- --> Removal of the 'disableInducement' parameter when creating video-type creatives.</p><p>[2]<!-- --> Following the removal of the 'disableInducement' parameter, the parameters 'linkUrl' and 'ctaCode' are now required fields for the 'FEED_SINGLE_VIDEO' template.</p><p><strong>Effective Date</strong></p><p>Wednesday, November 12, 2025</p><p><strong>Changes Made</strong></p><ul><li>Removal of the 'disableInducement' parameter for video-type creative creation.</li><li>For the 'FEED_SINGLE_VIDEO' template, the parameters 'linkUrl' and 'ctaCode' are now required fields.</li></ul><p>If you have any questions, feel free to contact us at <a href="mailto:agency_cs@navercorp.com" target="_blank" rel="noopener noreferrer">agency_cs@navercorp.com</a></p><p>Thank you!</p><p>Best regards, The NAVER Performance DA Open API Team</p>]]></content:encoded>
-            <category>patch</category>
-        </item>
         <item>
             <title><![CDATA[Platform Update Notice – April 2025 (effective date of April 24)]]></title>
             <link>https://naver-ad-api.github.io/developers/en/blog/2025-04-24-update</link>
