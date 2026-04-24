@@ -116,7 +116,7 @@ paths:
           description: >-
             Manager account number that has access to the performance data of
             the ad account
-          required: true
+          required: false
           schema:
             type: integer
             format: int64
@@ -193,7 +193,7 @@ paths:
           description: >-
             Manager account number that has access to the performance data of
             the ad account
-          required: true
+          required: false
           schema:
             type: integer
             format: int64
@@ -270,7 +270,7 @@ paths:
           description: >-
             Manager account number that has access to the performance data of
             the ad account
-          required: true
+          required: false
           schema:
             type: integer
             format: int64
@@ -347,7 +347,7 @@ paths:
           description: >-
             Manager account number that has access to the performance data of
             the ad account
-          required: true
+          required: false
           schema:
             type: integer
             format: int64
@@ -430,7 +430,7 @@ paths:
           description: >-
             Manager account number that has access to the performance data of
             the ad account
-          required: true
+          required: false
           schema:
             type: integer
             format: int64
@@ -525,7 +525,7 @@ paths:
           description: >-
             Manager account number that has access to the performance data of
             the ad account
-          required: true
+          required: false
           schema:
             type: integer
             format: int64
@@ -625,7 +625,7 @@ paths:
           description: >-
             Manager account number that has access to the performance data of
             the ad account
-          required: true
+          required: false
           schema:
             type: integer
             format: int64
@@ -722,7 +722,7 @@ paths:
           description: >-
             Manager account number that has access to the performance data of
             the ad account
-          required: true
+          required: false
           schema:
             type: integer
             format: int64
@@ -810,7 +810,7 @@ paths:
           description: >-
             Manager account number that has access to the performance data of
             the ad account
-          required: true
+          required: false
           schema:
             type: integer
             format: int64
@@ -886,7 +886,7 @@ paths:
           description: >-
             Manager account number that has access to the performance data of
             the ad account
-          required: true
+          required: false
           schema:
             type: integer
             format: int64
@@ -962,7 +962,7 @@ paths:
           description: >-
             Manager account number that has access to the performance data of
             the ad account
-          required: true
+          required: false
           schema:
             type: integer
             format: int64
@@ -1038,7 +1038,7 @@ paths:
           description: >-
             Manager account number that has access to the performance data of
             the ad account
-          required: true
+          required: false
           schema:
             type: integer
             format: int64
@@ -1120,7 +1120,7 @@ paths:
           description: >-
             Manager account number that has access to the performance data of
             the ad account
-          required: true
+          required: false
           schema:
             type: integer
             format: int64
@@ -1214,7 +1214,7 @@ paths:
           description: >-
             Manager account number that has access to the performance data of
             the ad account
-          required: true
+          required: false
           schema:
             type: integer
             format: int64
@@ -1313,7 +1313,7 @@ paths:
           description: >-
             Manager account number that has access to the performance data of
             the ad account
-          required: true
+          required: false
           schema:
             type: integer
             format: int64
@@ -1409,7 +1409,7 @@ paths:
           description: >-
             Manager account number that has access to the performance data of
             the ad account
-          required: true
+          required: false
           schema:
             type: integer
             format: int64
