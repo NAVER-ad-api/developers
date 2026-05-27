@@ -1977,6 +1977,396 @@
         "deprecated": false
       }
     },
+    "/{version}/adAccounts/{adAccountNo}/creatives/IMAGE_BANNER": {
+      "post": {
+        "tags": [
+          "Creatives"
+        ],
+        "summary": "Create a creative (image banner)",
+        "description": "Creates an `IMAGE_BANNER` type creative.",
+        "operationId": "createCreativeOfImageBannerUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "adAccountNo",
+            "in": "path",
+            "description": "adAccountNo",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "params",
+            "description": "params",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/OpenCreativeOfImageBannerParam"
+            }
+          },
+          {
+            "name": "version",
+            "in": "path",
+            "description": "version",
+            "required": true,
+            "type": "number",
+            "default": 1.0,
+            "format": "float"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully changed.",
+            "schema": {
+              "$ref": "#/definitions/OpenCreativeDetail"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/ErrorResult"
+            }
+          },
+          "422": {
+            "description": "Unprocessable",
+            "schema": {
+              "$ref": "#/definitions/ErrorResult"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/{version}/adAccounts/{adAccountNo}/creatives/INSTREAM_VIDEO": {
+      "post": {
+        "tags": [
+          "Creatives"
+        ],
+        "summary": "Create a creative in in-stream type of video",
+        "description": "Creative creation for an in-steam type of `video` is supported.",
+        "operationId": "createCreativeOfInstreamVideoUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "adAccountNo",
+            "in": "path",
+            "description": "adAccountNo",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "params",
+            "description": "params",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/OpenCreativeOfInstreamVideoParam"
+            }
+          },
+          {
+            "name": "version",
+            "in": "path",
+            "description": "version",
+            "required": true,
+            "type": "number",
+            "default": 1.0,
+            "format": "float"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully changed.",
+            "schema": {
+              "$ref": "#/definitions/OpenCreativeDetail"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/ErrorResult"
+            }
+          },
+          "422": {
+            "description": "Unprocessable",
+            "schema": {
+              "$ref": "#/definitions/ErrorResult"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/{version}/adAccounts/{adAccountNo}/creatives/MULTIPLE_IMAGE": {
+      "post": {
+        "tags": [
+          "Creatives"
+        ],
+        "summary": "Create a creative with Image Collections",
+        "description": "Creative creation with Collections is supported.",
+        "operationId": "createCreativeOfMultipleImageUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "adAccountNo",
+            "in": "path",
+            "description": "adAccountNo",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "params",
+            "description": "params",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/OpenCreativeOfMultipleImageParam"
+            }
+          },
+          {
+            "name": "version",
+            "in": "path",
+            "description": "version",
+            "required": true,
+            "type": "number",
+            "default": 1.0,
+            "format": "float"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully changed.",
+            "schema": {
+              "$ref": "#/definitions/OpenCreativeDetail"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/ErrorResult"
+            }
+          },
+          "422": {
+            "description": "Unprocessable",
+            "schema": {
+              "$ref": "#/definitions/ErrorResult"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/{version}/adAccounts/{adAccountNo}/creatives/MULTIPLE_IMAGE_WITH_VIDEO": {
+      "post": {
+        "tags": [
+          "Creatives"
+        ],
+        "summary": "Create a creative with Video + Image Collections",
+        "description": "Creative creation with Video + Image Collections is supported.",
+        "operationId": "createCreativeOfMultipleImageWithVideoUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "adAccountNo",
+            "in": "path",
+            "description": "adAccountNo",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "params",
+            "description": "params",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/OpenCreativeOfMultipleImageWithVideoParam"
+            }
+          },
+          {
+            "name": "version",
+            "in": "path",
+            "description": "version",
+            "required": true,
+            "type": "number",
+            "default": 1.0,
+            "format": "float"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully changed.",
+            "schema": {
+              "$ref": "#/definitions/OpenCreativeDetail"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/ErrorResult"
+            }
+          },
+          "422": {
+            "description": "Unprocessable",
+            "schema": {
+              "$ref": "#/definitions/ErrorResult"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/{version}/adAccounts/{adAccountNo}/creatives/NATIVE_VIDEO": {
+      "post": {
+        "tags": [
+          "Creatives"
+        ],
+        "summary": "Create a creative in out-stream type of video",
+        "description": "Creative creation for a out-stream type of `video` is supported.",
+        "operationId": "createCreativeOfNativeSingleVideoUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "adAccountNo",
+            "in": "path",
+            "description": "adAccountNo",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "params",
+            "description": "params",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/OpenCreativeOfNativeSingleVideoParam"
+            }
+          },
+          {
+            "name": "version",
+            "in": "path",
+            "description": "version",
+            "required": true,
+            "type": "number",
+            "default": 1.0,
+            "format": "float"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully changed.",
+            "schema": {
+              "$ref": "#/definitions/OpenCreativeDetail"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/ErrorResult"
+            }
+          },
+          "422": {
+            "description": "Unprocessable",
+            "schema": {
+              "$ref": "#/definitions/ErrorResult"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/{version}/adAccounts/{adAccountNo}/creatives/SINGLE_IMAGE": {
+      "post": {
+        "tags": [
+          "Creatives"
+        ],
+        "summary": "Create a creative (native image)",
+        "description": "Currently, creative creation for a `native image` type is supported.",
+        "operationId": "createCreativeOfSingleImageUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "adAccountNo",
+            "in": "path",
+            "description": "adAccountNo",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "params",
+            "description": "params",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/OpenCreativeOfSingleImageParam"
+            }
+          },
+          {
+            "name": "version",
+            "in": "path",
+            "description": "version",
+            "required": true,
+            "type": "number",
+            "default": 1.0,
+            "format": "float"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully changed.",
+            "schema": {
+              "$ref": "#/definitions/OpenCreativeDetail"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/ErrorResult"
+            }
+          },
+          "422": {
+            "description": "Unprocessable",
+            "schema": {
+              "$ref": "#/definitions/ErrorResult"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
     "/{version}/adAccounts/{adAccountNo}/creatives/activate": {
       "post": {
         "tags": [
@@ -2046,6 +2436,243 @@
             "description": "OK",
             "schema": {
               "$ref": "#/definitions/SuccessResponse"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/{version}/adAccounts/{adAccountNo}/creatives/callToActions": {
+      "get": {
+        "tags": [
+          "Creatives"
+        ],
+        "summary": "List of call-to-action ad creatives",
+        "operationId": "callToActionsUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "AccessManagerAccountNo",
+            "in": "header",
+            "description": "Manager account ID that has access to the ad account",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "adAccountNo",
+            "in": "path",
+            "description": "adAccountNo",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "adSetNo",
+            "in": "query",
+            "description": "Ad group ID",
+            "required": true,
+            "type": "integer",
+            "format": "int64",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "version",
+            "in": "path",
+            "description": "API version",
+            "required": true,
+            "type": "number",
+            "default": 1.0,
+            "format": "float"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ConstantResponse"
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/{version}/adAccounts/{adAccountNo}/creatives/image": {
+      "post": {
+        "tags": [
+          "Creatives"
+        ],
+        "summary": "Upload creative images",
+        "operationId": "uploadImageUsingPOST",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "AccessManagerAccountNo",
+            "in": "header",
+            "description": "Manager account ID that has access to the ad account",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "adAccountNo",
+            "in": "path",
+            "description": "adAccountNo",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "query",
+            "name": "creativeTemplateCode",
+            "description": "Creative templates",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "file",
+            "in": "formData",
+            "description": "file",
+            "required": true,
+            "type": "file"
+          },
+          {
+            "name": "version",
+            "in": "path",
+            "description": "version",
+            "required": true,
+            "type": "number",
+            "default": 1.0,
+            "format": "float"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully changed.",
+            "schema": {
+              "$ref": "#/definitions/Image"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/ErrorResult"
+            }
+          },
+          "422": {
+            "description": "Unprocessable",
+            "schema": {
+              "$ref": "#/definitions/ErrorResult"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/{version}/adAccounts/{adAccountNo}/creatives/video": {
+      "post": {
+        "tags": [
+          "Creatives"
+        ],
+        "summary": "Upload creative videos",
+        "operationId": "uploadVideoUsingPOST",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "AccessManagerAccountNo",
+            "in": "header",
+            "description": "Manager account ID that has access to the ad account",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "adAccountNo",
+            "in": "path",
+            "description": "adAccountNo",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "query",
+            "name": "callbackUrl",
+            "description": "Callback URL",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "creativeTemplateCode",
+            "description": "Creative templates",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "sizeGroupNo",
+            "description": "Creative media (images and videos) size ID",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "file",
+            "in": "formData",
+            "description": "file",
+            "required": true,
+            "type": "file"
+          },
+          {
+            "name": "version",
+            "in": "path",
+            "description": "version",
+            "required": true,
+            "type": "number",
+            "default": 1.0,
+            "format": "float"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully changed.",
+            "schema": {
+              "$ref": "#/definitions/UploadVideo"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/ErrorResult"
+            }
+          },
+          "422": {
+            "description": "Unprocessable",
+            "schema": {
+              "$ref": "#/definitions/ErrorResult"
             }
           }
         },
@@ -5675,7 +6302,7 @@
         },
         "creativeTemplateCode": {
           "type": "string",
-          "description": "Creative templates:\r\n `BANNER_750`, `BANNER_750X200`, `BANNER_750X280`, `BANNER_1250X560`"
+          "description": "Creative templates:\r\n `BANNER_750`, `BANNER_750X200`, `BANNER_750X280`, `BANNER_1250X560`, `BANNER_1200X1200`"
         },
         "imageNo": {
           "type": "integer",
@@ -5923,9 +6550,7 @@
         "creativeTemplateCode",
         "ctaCode",
         "imageNo",
-        "linkTitle",
         "linkUrl",
-        "message",
         "name"
       ],
       "properties": {
@@ -5942,7 +6567,7 @@
         },
         "creativeTemplateCode": {
           "type": "string",
-          "description": "Creative templates:\r\n `NATIVE_SINGLE_IMAGE_V2`, `NATIVE_SINGLE_IMAGE_PC`, `FEED_SINGLE_IMAGE`, `FEED_SINGLE_IMAGE_2TO3`, `FEED_SINGLE_IMAGE_SQUARE`"
+          "description": "Creative templates:\r\n `NATIVE_SINGLE_IMAGE_V2`, `NATIVE_SINGLE_IMAGE_PC`, `FEED_SINGLE_IMAGE`, `FEED_SINGLE_IMAGE_2TO3`, `FEED_SINGLE_IMAGE_SQUARE`, `NATIVE_SINGLE_IMAGE_COMMUNICATION`"
         },
         "ctaCode": {
           "type": "string",
