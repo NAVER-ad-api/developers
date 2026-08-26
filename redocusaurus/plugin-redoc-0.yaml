@@ -1,349 +1,357 @@
-swagger: '2.0'
+openapi: 3.0.1
 info:
-  title: Account API
-host: openapi.naver.com
-basePath: /v1/ad-api
+  title: 계정 API
+  description: 광고 계정과 관리 계정 정보를 조회할 수 있습니다.
+  version: '1.0'
+servers:
+  - url: https://openapi.naver.com/v1/ad-api
 tags:
-  - name: Ad accounts
-  - name: Manager accounts
+  - name: 광고 계정
+    description: 광고 계정 목록과 상세 정보를 조회합니다.
+  - name: 관리 계정
+    description: 관리 계정 목록과 상세 정보를 조회합니다.
 paths:
   /{version}/adAccounts:
     get:
       tags:
-        - Ad accounts
-      summary: List of my ad accounts
+        - 광고 계정
+      summary: 내 광고 계정 목록
       operationId: listUsingGET
-      produces:
-        - '*/*'
-      parameters:
-        - name: page
-          in: query
-          description: 'Page number (default: 0)'
-          required: false
-          type: string
-        - name: size
-          in: query
-          description: 'Page size (default: 10, max: 100)'
-          required: false
-          type: string
-        - name: version
-          in: path
-          description: API version
-          required: true
-          type: number
-          default: 1
-          format: float
       responses:
         '200':
           description: OK
-          schema:
-            $ref: '#/definitions/Page«OpenAdAccount»'
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PageOpenAdAccount'
       deprecated: false
+      parameters:
+        - name: page
+          in: query
+          description: '페이지 번호 (기본값: 0)'
+          schema:
+            type: integer
+        - name: size
+          in: query
+          description: '페이지 크기 (기본값: 10, 최대: 100)'
+          schema:
+            type: integer
+        - name: version
+          in: path
+          description: API 버전
+          required: true
+          schema:
+            type: number
+            format: float
+            default: 1
   /{version}/adAccounts/{adAccountNo}:
     get:
       tags:
-        - Ad accounts
-      summary: Get an ad account
+        - 광고 계정
+      summary: 광고 계정 조회
       operationId: getUsingGET
-      produces:
-        - '*/*'
-      parameters:
-        - name: AccessManagerAccountNo
-          in: header
-          description: Manager account ID that has access to the ad account
-          required: false
-          type: integer
-          format: int64
-        - name: adAccountNo
-          in: path
-          description: adAccountNo
-          required: true
-          type: integer
-          format: int64
-        - name: version
-          in: path
-          description: API version
-          required: true
-          type: number
-          default: 1
-          format: float
       responses:
         '200':
           description: OK
-          schema:
-            $ref: '#/definitions/OpenAdAccount'
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OpenAdAccount'
       deprecated: false
-  _comment: >-
-    #################### /Separate line for the manager account
-    ####################
+      parameters:
+        - name: AccessManagerAccountNo
+          in: header
+          description: 해당 광고 계정에 대한 접근 권한이 있는 관리 계정 ID
+          required: false
+          schema:
+            type: integer
+            format: int64
+        - name: adAccountNo
+          in: path
+          description: 광고 계정 ID
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: version
+          in: path
+          description: API 버전
+          required: true
+          schema:
+            type: number
+            format: float
+            default: 1
   /{version}/managerAccounts:
     get:
       tags:
-        - Manager accounts
-      summary: List of my manager accounts
+        - 관리 계정
+      summary: 내 관리 계정 목록
       operationId: listUsingGET_1
-      produces:
-        - '*/*'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PageOpenMyManagerAccount'
+      deprecated: false
       parameters:
         - name: page
           in: query
-          description: 'Page number (default: 0)'
-          required: false
-          type: string
+          description: '페이지 번호 (기본값: 0)'
+          schema:
+            type: integer
         - name: size
           in: query
-          description: 'Page size (default: 10, max: 100)'
-          required: false
-          type: string
+          description: '페이지 크기 (기본값: 10, 최대: 100)'
+          schema:
+            type: integer
         - name: version
           in: path
-          description: api version
-          required: false
-          type: number
-          default: 1
-          format: float
-      responses:
-        '200':
-          description: OK
+          description: API 버전
+          required: true
           schema:
-            $ref: '#/definitions/Page«OpenMyManagerAccount»'
-      deprecated: false
+            type: number
+            format: float
+            default: 1
   /{version}/managerAccounts/{managerAccountNo}:
     get:
       tags:
-        - Manager accounts
-      summary: Get a manager account
-      description: >-
-        Returns manager account information including its child manager accounts
-        and ad account numbers.
+        - 관리 계정
+      summary: 관리계정 조회
+      description: 응답 결과에는 관리 계정 정보와 하위의 모든 depth의 관리 계정/광고 계정NO 정보를 포함하고 있습니다.
       operationId: getUsingGET
-      produces:
-        - '*/*'
-      parameters:
-        - name: AccessManagerAccountNo
-          in: header
-          description: Manager account ID that has access to the manager account
-          required: true
-          type: integer
-          format: int64
-        - name: managerAccountNo
-          in: path
-          description: managerAccountNo
-          required: true
-          type: integer
-          format: int64
-        - name: version
-          in: path
-          description: API version
-          required: true
-          type: number
-          default: 1
-          format: float
       responses:
         '200':
           description: OK
-          schema:
-            $ref: '#/definitions/OpenManagerAccount'
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OpenManagerAccount'
       deprecated: false
-definitions:
-  OpenAdAccount:
-    type: object
-    properties:
-      createdAt:
-        type: string
-        format: date-time
-        description: Creation time
-      disabled:
-        type: boolean
-        description: Indicates whether the account is disabled.
-      name:
-        type: string
-        description: Ad account name
-      'no':
-        type: integer
-        format: int64
-        description: Ad account ID
-      role:
-        type: string
-        description: Permission level
-        enum:
-          - OWNER
-          - MASTER
-          - READ_ONLY
-      updatedAt:
-        type: string
-        format: date-time
-        description: Last update time
-    title: OpenAdAccount
-  OpenApiPageable:
-    type: object
-    properties:
-      page:
-        type: integer
-        format: int32
-        description: 'Page number (default: 0)'
-      size:
-        type: integer
-        format: int32
-        description: 'Page size (default: 10, max: 100)'
-    title: OpenApiPageable
-  Page«OpenAdAccount»:
-    type: object
-    properties:
-      content:
-        type: array
-        items:
-          $ref: '#/definitions/OpenAdAccount'
-      empty:
-        type: boolean
-      first:
-        type: boolean
-      last:
-        type: boolean
-      number:
-        type: integer
-        format: int32
-      numberOfElements:
-        type: integer
-        format: int32
-      pageable:
-        $ref: '#/definitions/OpenApiPageable'
-      size:
-        type: integer
-        format: int32
-      sort:
-        $ref: '#/definitions/Sort'
-      totalElements:
-        type: integer
-        format: int64
-      totalPages:
-        type: integer
-        format: int32
-    title: Page«OpenAdAccount»
-  Sort:
-    type: object
-    properties:
-      empty:
-        type: boolean
-      sorted:
-        type: boolean
-      unsorted:
-        type: boolean
-    title: Sort
-  _comment: >-
-    #################### Separate line for the ad/manager accounts
-    ####################
-  OpenManagerAccount:
-    type: object
-    properties:
-      childAdAccountNos:
-        type: array
-        description: Child ad account IDs
-        items:
+      parameters:
+        - name: AccessManagerAccountNo
+          in: header
+          description: 해당 관리 계정에 대한 접근 권한이 있는 관리 계정 ID
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: managerAccountNo
+          in: path
+          description: 관리 계정 ID
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: version
+          in: path
+          description: API 버전
+          required: true
+          schema:
+            type: number
+            format: float
+            default: 1
+components:
+  schemas:
+    Pageable:
+      type: object
+      properties:
+        page:
+          minimum: 0
+          type: integer
+          format: int32
+        size:
+          minimum: 1
+          type: integer
+          format: int32
+        sort:
+          type: array
+          items:
+            type: string
+    OpenAdAccount:
+      type: object
+      properties:
+        'no':
+          type: integer
+          description: 광고 계정 ID
+          format: int64
+        name:
+          type: string
+          description: 광고 계정 이름
+        disabled:
+          type: boolean
+          description: 비활성화 여부
+        role:
+          type: string
+          description: 권한 레벨 정보
+          enum:
+            - OWNER
+            - MASTER
+            - STANDARD
+            - READ_ONLY
+            - PERFORMANCE_MANAGEMENT
+        createdAt:
+          type: string
+          description: 생성 일시
+          format: date-time
+        updatedAt:
+          type: string
+          description: 최종 수정 일시
+          format: date-time
+      description: OpenAPI 광고 계정 응답
+    PageOpenAdAccount:
+      type: object
+      properties:
+        totalPages:
+          type: integer
+          format: int32
+        totalElements:
           type: integer
           format: int64
-      childManagerAccounts:
-        type: array
-        description: Child manager accounts
-        items:
-          $ref: '#/definitions/OpenManagerAccount'
-      createdAt:
-        type: string
-        format: date-time
-        description: Creation time
-      disabled:
-        type: boolean
-        description: Indicates whether the account is disabled.
-      name:
-        type: string
-        description: Manager account name
-      'no':
-        type: integer
-        format: int64
-        description: Manager account ID
-      updatedAt:
-        type: string
-        format: date-time
-        description: Last update time
-    title: OpenManagerAccount
-  OpenMyManagerAccount:
-    type: object
-    properties:
-      createdAt:
-        type: string
-        format: date-time
-        description: Creation time
-      disabled:
-        type: boolean
-        description: Indicates whether the account is disabled.
-      name:
-        type: string
-        description: Manager account name
-      'no':
-        type: integer
-        format: int64
-        description: Manager account ID
-      role:
-        type: string
-        description: Permission level
-        enum:
-          - OWNER
-          - MASTER
-          - READ_ONLY
-      updatedAt:
-        type: string
-        format: date-time
-        description: Last update time
-    title: OpenMyManagerAccount
-  Pageable:
-    type: object
-    properties:
-      offset:
-        type: integer
-        format: int64
-      pageNumber:
-        type: integer
-        format: int32
-      pageSize:
-        type: integer
-        format: int32
-      paged:
-        type: boolean
-      sort:
-        $ref: '#/definitions/Sort'
-      unpaged:
-        type: boolean
-    title: Pageable
-  Page«OpenMyManagerAccount»:
-    type: object
-    properties:
-      content:
-        type: array
-        items:
-          $ref: '#/definitions/OpenMyManagerAccount'
-      empty:
-        type: boolean
-      first:
-        type: boolean
-      last:
-        type: boolean
-      number:
-        type: integer
-        format: int32
-      numberOfElements:
-        type: integer
-        format: int32
-      pageable:
-        $ref: '#/definitions/OpenApiPageable'
-      size:
-        type: integer
-        format: int32
-      sort:
-        $ref: '#/definitions/Sort'
-      totalElements:
-        type: integer
-        format: int64
-      totalPages:
-        type: integer
-        format: int32
-    title: Page«OpenMyManagerAccount»
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
+        number:
+          type: integer
+          format: int32
+        sort:
+          $ref: '#/components/schemas/SortObject'
+        first:
+          type: boolean
+        last:
+          type: boolean
+        numberOfElements:
+          type: integer
+          format: int32
+        size:
+          type: integer
+          format: int32
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/OpenAdAccount'
+        empty:
+          type: boolean
+    PageableObject:
+      type: object
+      properties:
+        pageNumber:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        sort:
+          $ref: '#/components/schemas/SortObject'
+        paged:
+          type: boolean
+        unpaged:
+          type: boolean
+        offset:
+          type: integer
+          format: int64
+    SortObject:
+      type: object
+      properties:
+        sorted:
+          type: boolean
+        unsorted:
+          type: boolean
+        empty:
+          type: boolean
+    OpenMyManagerAccount:
+      type: object
+      properties:
+        'no':
+          type: integer
+          format: int64
+          description: 관리 계정 ID
+        name:
+          type: string
+          description: 관리 계정 이름
+        disabled:
+          type: boolean
+          description: 비활성화 여부
+        createdAt:
+          type: string
+          format: date-time
+          description: 생성 일시
+        updatedAt:
+          type: string
+          format: date-time
+          description: 최종 수정 일시
+        role:
+          type: string
+          description: 권한 레벨 정보
+          enum:
+            - OWNER
+            - MASTER
+            - STANDARD
+            - READ_ONLY
+            - PERFORMANCE_MANAGEMENT
+    PageOpenMyManagerAccount:
+      type: object
+      properties:
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
+        first:
+          type: boolean
+        last:
+          type: boolean
+        sort:
+          $ref: '#/components/schemas/SortObject'
+        number:
+          type: integer
+          format: int32
+        numberOfElements:
+          type: integer
+          format: int32
+        size:
+          type: integer
+          format: int32
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/OpenMyManagerAccount'
+        empty:
+          type: boolean
+    OpenManagerAccount:
+      type: object
+      properties:
+        childAdAccountNos:
+          type: array
+          description: 하위의 광고 계정 ID
+          items:
+            type: integer
+            format: int64
+            description: 하위의 광고 계정 ID
+        childManagerAccounts:
+          type: array
+          description: 하위의 관리 계정
+          items:
+            $ref: '#/components/schemas/OpenManagerAccount'
+        createdAt:
+          type: string
+          format: date-time
+          description: 생성 일시
+        disabled:
+          type: boolean
+          description: 비활성화 여부
+        name:
+          type: string
+          description: 관리 계정 이름
+        'no':
+          type: integer
+          format: int64
+          description: 관리 계정 ID
+        updatedAt:
+          type: string
+          format: date-time
+          description: 최종 수정 일시
+      title: OpenManagerAccount

@@ -1,114 +1,143 @@
 openapi: 3.0.1
 info:
   title: Performance API
-  description: >
-    Gets past or real-time performance data by GFA ad account, campaign, ad
-    group, or creative.
+  description: >-
+    External performance retrieval is divided into the following two lookup
+    hierarchies.
+
+    - Creative hierarchy: ad account → campaign → ad group → creative
+
+    - Asset group hierarchy: ad account → campaign → asset group
+  version: '1.0'
 servers:
   - url: https://openapi.naver.com
 tags:
   - name: Get past data
-    description: >
-      Gets past performance data for a specific ad account, campaign, ad group,
-      or creative.
+    description: >-
+      Past performance is retrieved using the following two lookup hierarchies.
+
+      - Creative hierarchy: ad account → campaign → ad group → creative
+
+      - Asset group hierarchy: ad account → campaign → asset group
 
 
-      It returns performance data aggregated for child elements of the specified
-      ad account, campaign, ad group, or creative,
+      Results are aggregated from elements lower than the lookup unit,
 
-      with the results sorted in ascending order based on dates, advertisers,
-      campaigns, ad groups, and creative numbers.
-
-
-      The date range can be up to 31 days, starting from 2 years ago and ending
-      as recently as yesterday.
-
-      (The data from yesterday can be retrieved starting from 2 AM today.)
+      and performance is provided sorted in ascending order by date, by hour
+      when retrieved hourly, and by the requested aggregation unit number.
 
 
-      The API returns up to 1,000 rows at a time. If there are more rows, the
-      results are paginated.
+      The lookup period is up to 31 days, and data can be retrieved from 2 years
+      ago up to the previous day.
 
-      Include the value of the “next” field in the response as the “next”
-      parameter of the next request, then you can get the next page; the token
-      will be valid for 10 minutes.
+      (Previous day's data becomes available from 02:00 today.)
+
+
+      Up to 1000 items can be retrieved at once, and paging is applied if the
+      count exceeds this.
+
+      Including the response's next field value as the next parameter in the
+      next request retrieves the next page; this token is valid for 10 minutes.
+
+
+      When retrieving by asset group (assetGroups) unit, vplayCount is always 0.
   - name: Get real-time data
-    description: >
-      Gets real-time performance data for a specific ad account, campaign, ad
-      group, or creative, aggregated by creative.
+    description: >-
+      Real-time performance is retrieved using the following two lookup
+      hierarchies.
+
+      - Creative hierarchy: ad account → campaign → ad group → creative
+
+      - Asset group hierarchy: ad account → campaign → asset group
 
 
-      It returns performance data from today or yesterday, with the results
-      sorted in ascending order based on update dates.
+      Today's or yesterday's data can be retrieved, and performance is provided
+      sorted in ascending order based on the update time.
 
 
-      Include the value of the “until” field in the response as the “since”
-      parameter of the next request, then you can get only the creatives that
-      have been updated after the previous request.
+      Including the response's until field value as the since parameter in the
+      next request retrieves only performance updated after the previous
+      response's until.
 
 
-      Note that the real-time performance data may change for further
-      consistency verification and correction after the API request is made.
+      Even after the lookup time, real-time performance may change due to
+      consistency verification and correction work.
+
+
+      When retrieving by asset group (assetGroups) unit, vplayCount is always 0.
   - name: Get past conversion data
-    description: >
-      Gets past conversion performance data for a specific ad account, campaign,
-      ad group, or creative.
+    description: >-
+      Past conversion performance is retrieved using the following two lookup
+      hierarchies.
+
+      - Creative hierarchy: ad account → campaign → ad group → creative
+
+      - Asset group hierarchy: ad account → campaign → asset group
 
 
-      It returns performance data aggregated for child elements of the specified
-      ad account, campaign, ad group, or creative,
+      Results are aggregated from elements lower than the lookup unit,
 
-      with the results sorted in ascending order based on dates, advertisers,
-      campaigns, ad groups, and creative numbers.
-
-
-      The date range can be up to 31 days, starting from 2 years ago and ending
-      as recently as yesterday.
-
-      (The data from yesterday can be retrieved starting from 2 AM today.)
+      and performance is provided sorted in ascending order by date, by the
+      requested aggregation unit number, and by conversion type.
 
 
-      The API returns up to 1,000 rows at a time. If there are more rows, the
-      results are paginated.
+      The lookup period is up to 31 days, and data can be retrieved from 2 years
+      ago up to the previous day.
 
-      Include the value of the “next” field in the response as the “next”
-      parameter of the next request, then you can get the next page; the token
-      will be valid for 10 minutes.
+      (Previous day's data becomes available from 02:00 today.)
 
 
-      Note that performance data retrieval supports only daily intervals; hourly
-      intervals are not supported.
+      Up to 1000 items can be retrieved at once, and paging is applied if the
+      count exceeds this.
 
-      For details about convType response fields, go to **Getting Started >
-      Performance > Get conversion data**.
+      Including the response's next field value as the next parameter in the
+      next request retrieves the next page; this token is valid for 10 minutes.
+
+
+      Conversion performance does not support hourly lookup and is only
+      available on a daily basis.
+
+      For a description of the response's convType field, please refer to the
+      'Getting Started > Performance Management > Conversion Performance Lookup'
+      page.
   - name: Get real-time conversion data
-    description: >
-      Gets real-time conversion performance data for a specific ad account,
-      campaign, ad group, or creative, aggregated by creative.
+    description: >-
+      Real-time conversion performance is retrieved using the following two
+      lookup hierarchies.
+
+      - Creative hierarchy: ad account → campaign → ad group → creative
+
+      - Asset group hierarchy: ad account → campaign → asset group
 
 
-      It returns performance data from today or yesterday, with the results
-      sorted in ascending order based on update dates.
+      Today's or yesterday's data can be retrieved, and performance is provided
+      sorted in ascending order based on the update time.
 
 
-      Include the value of the “until” field in the response as the “since”
-      parameter of the next request, then you can get only the creatives that
-      have been updated after the previous request.
+      Including the response's until field value as the since parameter in the
+      next request retrieves only performance updated after the previous
+      response's until.
 
 
-      Note that the real-time performance data may change for further
-      consistency verification and correction after the API request is made.
+      Even after the lookup time, real-time performance may change due to
+      consistency verification and correction work.
 
 
-      For details about convType response fields, go to **Getting Started >
-      Performance > Get conversion data**.
+      Conversion performance does not support hourly lookup and is only
+      available on a daily basis.
+
+      For a description of the response's convType field, please refer to the
+      'Getting Started > Performance Management > Conversion Performance Lookup'
+      page.
 paths:
   /v1/ad-api/{version}/adAccounts/{adAccountNo}/performance/realtime/creatives:
     get:
       tags:
         - Get real-time data
       summary: Get real-time data of an ad account
-      description: Gets real-time performance data for a specific ad account.
+      description: >-
+        Retrieves the real-time performance of a specific ad account by creative
+        unit.
       operationId: adAccountRealtimePerformance
       parameters:
         - name: AccessManagerAccountNo
@@ -125,8 +154,8 @@ paths:
           description: API version
           required: true
           schema:
-            type: float
-            default: '1.0'
+            type: number
+            default: 1
         - name: adAccountNo
           in: path
           description: Ad account number
@@ -148,13 +177,13 @@ paths:
         - name: since
           in: query
           description: >-
-            Timestamp used to get only the creatives whose performance data has
-            been updated after a specific point of time
+            Millisecond-unit timestamp for retrieving only performance updated
+            after a specific point in time
           required: false
           schema:
             type: integer
             format: int64
-          example: 1675907423
+          example: 1675907423000
         - name: timeUnit
           in: query
           description: 'Interval for retrieving data (By day: daily, By hour: hourly)'
@@ -180,14 +209,6 @@ paths:
       description: Gets real-time performance data for a specific creative.
       operationId: creativeRealtimePerformance
       parameters:
-        - name: creativeNo
-          in: path
-          description: Creative number
-          required: true
-          schema:
-            type: integer
-            format: int64
-          example: 5678
         - name: AccessManagerAccountNo
           in: header
           description: >-
@@ -197,13 +218,21 @@ paths:
           schema:
             type: integer
             format: int64
+        - name: creativeNo
+          in: path
+          description: Creative number
+          required: true
+          schema:
+            type: integer
+            format: int64
+          example: 5678
         - name: version
           in: path
           description: API version
           required: true
           schema:
-            type: float
-            default: '1.0'
+            type: number
+            default: 1
         - name: adAccountNo
           in: path
           description: Ad account number
@@ -225,13 +254,13 @@ paths:
         - name: since
           in: query
           description: >-
-            Timestamp used to get only the creatives whose performance data has
-            been updated after a specific point of time
+            Millisecond-unit timestamp for retrieving only performance updated
+            after a specific point in time
           required: false
           schema:
             type: integer
             format: int64
-          example: 1675907423
+          example: 1675907423000
         - name: timeUnit
           in: query
           description: 'Interval for retrieving data (By day: daily, By hour: hourly)'
@@ -254,17 +283,11 @@ paths:
       tags:
         - Get real-time data
       summary: Get real-time data of a campaign
-      description: Gets real-time performance data for a specific campaign.
+      description: >-
+        Retrieves the real-time performance of a specific campaign by creative
+        unit.
       operationId: campaignRealtimePerformance
       parameters:
-        - name: campaignNo
-          in: path
-          description: Campaign number
-          required: true
-          schema:
-            type: integer
-            format: int64
-          example: 5678
         - name: AccessManagerAccountNo
           in: header
           description: >-
@@ -274,13 +297,21 @@ paths:
           schema:
             type: integer
             format: int64
+        - name: campaignNo
+          in: path
+          description: Campaign number
+          required: true
+          schema:
+            type: integer
+            format: int64
+          example: 5678
         - name: version
           in: path
           description: API version
           required: true
           schema:
-            type: float
-            default: '1.0'
+            type: number
+            default: 1
         - name: adAccountNo
           in: path
           description: Ad account number
@@ -302,13 +333,13 @@ paths:
         - name: since
           in: query
           description: >-
-            Timestamp used to get only the creatives whose performance data has
-            been updated after a specific point of time
+            Millisecond-unit timestamp for retrieving only performance updated
+            after a specific point in time
           required: false
           schema:
             type: integer
             format: int64
-          example: 1675907423
+          example: 1675907423000
         - name: timeUnit
           in: query
           description: 'Interval for retrieving data (By day: daily, By hour: hourly)'
@@ -331,17 +362,11 @@ paths:
       tags:
         - Get real-time data
       summary: Get real-time data of an ad group
-      description: Gets real-time performance data for a specific ad group.
+      description: >-
+        Retrieves the real-time performance of a specific ad group by creative
+        unit.
       operationId: adSetRealtimePerformance
       parameters:
-        - name: adSetNo
-          in: path
-          description: Ad group number
-          required: true
-          schema:
-            type: integer
-            format: int64
-          example: 5678
         - name: AccessManagerAccountNo
           in: header
           description: >-
@@ -351,13 +376,21 @@ paths:
           schema:
             type: integer
             format: int64
+        - name: adSetNo
+          in: path
+          description: Ad group number
+          required: true
+          schema:
+            type: integer
+            format: int64
+          example: 5678
         - name: version
           in: path
           description: API version
           required: true
           schema:
-            type: float
-            default: '1.0'
+            type: number
+            default: 1
         - name: adAccountNo
           in: path
           description: Ad account number
@@ -379,13 +412,13 @@ paths:
         - name: since
           in: query
           description: >-
-            Timestamp used to get only the creatives whose performance data has
-            been updated after a specific point of time
+            Millisecond-unit timestamp for retrieving only performance updated
+            after a specific point in time
           required: false
           schema:
             type: integer
             format: int64
-          example: 1675907423
+          example: 1675907423000
         - name: timeUnit
           in: query
           description: 'Interval for retrieving data (By day: daily, By hour: hourly)'
@@ -409,22 +442,10 @@ paths:
         - Get past data
       summary: Get past data of an ad account
       description: >-
-        Gets past performance data for a specific ad account, aggregated by
-        campaign, ad group, or creative.
+        Retrieves the past performance of a specific ad account, aggregated by
+        campaign, ad group, creative, or asset group unit.
       operationId: adAccountPastPerformance
       parameters:
-        - name: aggregationType
-          in: path
-          description: >-
-            Performance data aggregation type (campaigns: by campaign, adSets:
-            by ad group, creatives: by creative)
-          required: true
-          schema:
-            type: string
-            enum:
-              - campaigns
-              - adSets
-              - creatives
         - name: AccessManagerAccountNo
           in: header
           description: >-
@@ -434,13 +455,26 @@ paths:
           schema:
             type: integer
             format: int64
+        - name: aggregationType
+          in: path
+          description: >-
+            Performance aggregation unit (campaign: campaigns, ad group: adSets,
+            creative: creatives, asset group: assetGroups)
+          required: true
+          schema:
+            type: string
+            enum:
+              - campaigns
+              - adSets
+              - creatives
+              - assetGroups
         - name: version
           in: path
           description: API version
           required: true
           schema:
-            type: float
-            default: '1.0'
+            type: number
+            default: 1
         - name: adAccountNo
           in: path
           description: Ad account number
@@ -504,6 +538,15 @@ paths:
       description: Gets past performance data for a specific creative.
       operationId: creativePastPerformance
       parameters:
+        - name: AccessManagerAccountNo
+          in: header
+          description: >-
+            Manager account number that has access to the performance data of
+            the ad account
+          required: false
+          schema:
+            type: integer
+            format: int64
         - name: creativeNo
           in: path
           description: Creative number
@@ -520,22 +563,13 @@ paths:
             type: string
             enum:
               - creatives
-        - name: AccessManagerAccountNo
-          in: header
-          description: >-
-            Manager account number that has access to the performance data of
-            the ad account
-          required: false
-          schema:
-            type: integer
-            format: int64
         - name: version
           in: path
           description: API version
           required: true
           schema:
-            type: float
-            default: '1.0'
+            type: number
+            default: 1
         - name: adAccountNo
           in: path
           description: Ad account number
@@ -597,10 +631,19 @@ paths:
         - Get past data
       summary: Get past data of a campaign
       description: >-
-        Gets past performance data for a specific campaign, aggregated by ad
-        group or creative.
+        Retrieves the past performance of a specific campaign, aggregated by ad
+        group, creative, or asset group unit.
       operationId: campaignPastPerformance
       parameters:
+        - name: AccessManagerAccountNo
+          in: header
+          description: >-
+            Manager account number that has access to the performance data of
+            the ad account
+          required: false
+          schema:
+            type: integer
+            format: int64
         - name: campaignNo
           in: path
           description: Campaign number
@@ -612,30 +655,22 @@ paths:
         - name: aggregationType
           in: path
           description: >-
-            Performance data aggregation type (adSets: by ad group, creatives:
-            by creative)
+            Performance aggregation unit (ad group: adSets, creative: creatives,
+            asset group: assetGroups)
           required: true
           schema:
             type: string
             enum:
               - adSets
               - creatives
-        - name: AccessManagerAccountNo
-          in: header
-          description: >-
-            Manager account number that has access to the performance data of
-            the ad account
-          required: false
-          schema:
-            type: integer
-            format: int64
+              - assetGroups
         - name: version
           in: path
           description: API version
           required: true
           schema:
-            type: float
-            default: '1.0'
+            type: number
+            default: 1
         - name: adAccountNo
           in: path
           description: Ad account number
@@ -701,6 +736,15 @@ paths:
         creative.
       operationId: adSetPastPerformance
       parameters:
+        - name: AccessManagerAccountNo
+          in: header
+          description: >-
+            Manager account number that has access to the performance data of
+            the ad account
+          required: false
+          schema:
+            type: integer
+            format: int64
         - name: adSetNo
           in: path
           description: Ad group number
@@ -717,22 +761,13 @@ paths:
             type: string
             enum:
               - creatives
-        - name: AccessManagerAccountNo
-          in: header
-          description: >-
-            Manager account number that has access to the performance data of
-            the ad account
-          required: false
-          schema:
-            type: integer
-            format: int64
         - name: version
           in: path
           description: API version
           required: true
           schema:
-            type: float
-            default: '1.0'
+            type: number
+            default: 1
         - name: adAccountNo
           in: path
           description: Ad account number
@@ -793,18 +828,11 @@ paths:
       tags:
         - Get real-time conversion data
       summary: Get real-time conversion data of an ad account
-      description: Gets real-time conversion performance data for a specific ad account.
+      description: >-
+        Retrieves the real-time conversion performance of a specific ad account
+        by creative unit.
       operationId: adAccountRealtimePerformance_1
       parameters:
-        - name: timeUnit
-          in: query
-          description: 'Interval for retrieving data (By day: daily)'
-          required: false
-          schema:
-            type: string
-            default: daily
-            enum:
-              - daily
         - name: AccessManagerAccountNo
           in: header
           description: >-
@@ -814,13 +842,22 @@ paths:
           schema:
             type: integer
             format: int64
+        - name: timeUnit
+          in: query
+          description: 'Interval for retrieving data (By day: daily)'
+          required: false
+          schema:
+            type: string
+            default: daily
+            enum:
+              - daily
         - name: version
           in: path
           description: API version
           required: true
           schema:
-            type: float
-            default: '1.0'
+            type: number
+            default: 1
         - name: adAccountNo
           in: path
           description: Ad account number
@@ -842,13 +879,13 @@ paths:
         - name: since
           in: query
           description: >-
-            Timestamp used to get only the creatives whose performance data has
-            been updated after a specific point of time
+            Millisecond-unit timestamp for retrieving only performance updated
+            after a specific point in time
           required: false
           schema:
             type: integer
             format: int64
-          example: 1675907423
+          example: 1675907423000
       responses:
         '200':
           description: OK
@@ -864,6 +901,15 @@ paths:
       description: Gets real-time conversion performance data for a specific creative.
       operationId: creativeRealtimePerformance_1
       parameters:
+        - name: AccessManagerAccountNo
+          in: header
+          description: >-
+            Manager account number that has access to the performance data of
+            the ad account
+          required: false
+          schema:
+            type: integer
+            format: int64
         - name: creativeNo
           in: path
           description: Creative number
@@ -881,22 +927,13 @@ paths:
             default: daily
             enum:
               - daily
-        - name: AccessManagerAccountNo
-          in: header
-          description: >-
-            Manager account number that has access to the performance data of
-            the ad account
-          required: false
-          schema:
-            type: integer
-            format: int64
         - name: version
           in: path
           description: API version
           required: true
           schema:
-            type: float
-            default: '1.0'
+            type: number
+            default: 1
         - name: adAccountNo
           in: path
           description: Ad account number
@@ -918,13 +955,13 @@ paths:
         - name: since
           in: query
           description: >-
-            Timestamp used to get only the creatives whose performance data has
-            been updated after a specific point of time
+            Millisecond-unit timestamp for retrieving only performance updated
+            after a specific point in time
           required: false
           schema:
             type: integer
             format: int64
-          example: 1675907423
+          example: 1675907423000
       responses:
         '200':
           description: OK
@@ -937,9 +974,20 @@ paths:
       tags:
         - Get real-time conversion data
       summary: Get real-time conversion data of a campaign
-      description: Gets real-time conversion performance data for a specific campaign.
+      description: >-
+        Retrieves the real-time conversion performance of a specific campaign by
+        creative unit.
       operationId: campaignRealtimePerformance_1
       parameters:
+        - name: AccessManagerAccountNo
+          in: header
+          description: >-
+            Manager account number that has access to the performance data of
+            the ad account
+          required: false
+          schema:
+            type: integer
+            format: int64
         - name: campaignNo
           in: path
           description: Campaign number
@@ -957,22 +1005,13 @@ paths:
             default: daily
             enum:
               - daily
-        - name: AccessManagerAccountNo
-          in: header
-          description: >-
-            Manager account number that has access to the performance data of
-            the ad account
-          required: false
-          schema:
-            type: integer
-            format: int64
         - name: version
           in: path
           description: API version
           required: true
           schema:
-            type: float
-            default: '1.0'
+            type: number
+            default: 1
         - name: adAccountNo
           in: path
           description: Ad account number
@@ -994,13 +1033,13 @@ paths:
         - name: since
           in: query
           description: >-
-            Timestamp used to get only the creatives whose performance data has
-            been updated after a specific point of time
+            Millisecond-unit timestamp for retrieving only performance updated
+            after a specific point in time
           required: false
           schema:
             type: integer
             format: int64
-          example: 1675907423
+          example: 1675907423000
       responses:
         '200':
           description: OK
@@ -1013,9 +1052,20 @@ paths:
       tags:
         - Get real-time conversion data
       summary: Get real-time conversion data of an ad group
-      description: Gets real-time conversion performance data for a specific ad group.
+      description: >-
+        Retrieves the real-time conversion performance of a specific ad group by
+        creative unit.
       operationId: adSetRealtimePerformance_1
       parameters:
+        - name: AccessManagerAccountNo
+          in: header
+          description: >-
+            Manager account number that has access to the performance data of
+            the ad account
+          required: false
+          schema:
+            type: integer
+            format: int64
         - name: adSetNo
           in: path
           description: Ad group number
@@ -1033,22 +1083,13 @@ paths:
             default: daily
             enum:
               - daily
-        - name: AccessManagerAccountNo
-          in: header
-          description: >-
-            Manager account number that has access to the performance data of
-            the ad account
-          required: false
-          schema:
-            type: integer
-            format: int64
         - name: version
           in: path
           description: API version
           required: true
           schema:
-            type: float
-            default: '1.0'
+            type: number
+            default: 1
         - name: adAccountNo
           in: path
           description: Ad account number
@@ -1070,13 +1111,13 @@ paths:
         - name: since
           in: query
           description: >-
-            Timestamp used to get only the creatives whose performance data has
-            been updated after a specific point of time
+            Millisecond-unit timestamp for retrieving only performance updated
+            after a specific point in time
           required: false
           schema:
             type: integer
             format: int64
-          example: 1675907423
+          example: 1675907423000
       responses:
         '200':
           description: OK
@@ -1090,31 +1131,10 @@ paths:
         - Get past conversion data
       summary: Get past conversion data of an ad account
       description: >-
-        Gets past conversion performance data for a specific ad account at the
-        campaign, ad group, or creative level.
+        Retrieves the past conversion performance of a specific ad account,
+        aggregated by campaign, ad group, creative, or asset group unit.
       operationId: adAccountPastConversionPerformance
       parameters:
-        - name: aggregationType
-          in: path
-          description: >-
-            Performance data aggregation type (campaigns: by campaign, adSets:
-            by ad group, creatives: by creative)
-          required: true
-          schema:
-            type: string
-            enum:
-              - campaigns
-              - adSets
-              - creatives
-        - name: timeUnit
-          in: query
-          description: 'Interval for retrieving data (By day: daily)'
-          required: false
-          schema:
-            type: string
-            default: daily
-            enum:
-              - daily
         - name: AccessManagerAccountNo
           in: header
           description: >-
@@ -1124,13 +1144,35 @@ paths:
           schema:
             type: integer
             format: int64
+        - name: aggregationType
+          in: path
+          description: >-
+            Performance aggregation unit (campaign: campaigns, ad group: adSets,
+            creative: creatives, asset group: assetGroups)
+          required: true
+          schema:
+            type: string
+            enum:
+              - campaigns
+              - adSets
+              - creatives
+              - assetGroups
+        - name: timeUnit
+          in: query
+          description: 'Interval for retrieving data (By day: daily)'
+          required: false
+          schema:
+            type: string
+            default: daily
+            enum:
+              - daily
         - name: version
           in: path
           description: API version
           required: true
           schema:
-            type: float
-            default: '1.0'
+            type: number
+            default: 1
         - name: adAccountNo
           in: path
           description: Ad account number
@@ -1184,6 +1226,15 @@ paths:
       description: Gets past conversion performance data for a specific creative.
       operationId: creativePastPerformance_1
       parameters:
+        - name: AccessManagerAccountNo
+          in: header
+          description: >-
+            Manager account number that has access to the performance data of
+            the ad account
+          required: false
+          schema:
+            type: integer
+            format: int64
         - name: creativeNo
           in: path
           description: Creative number
@@ -1209,22 +1260,13 @@ paths:
             default: daily
             enum:
               - daily
-        - name: AccessManagerAccountNo
-          in: header
-          description: >-
-            Manager account number that has access to the performance data of
-            the ad account
-          required: false
-          schema:
-            type: integer
-            format: int64
         - name: version
           in: path
           description: API version
           required: true
           schema:
-            type: float
-            default: '1.0'
+            type: number
+            default: 1
         - name: adAccountNo
           in: path
           description: Ad account number
@@ -1276,10 +1318,19 @@ paths:
         - Get past conversion data
       summary: Get past conversion data of a campaign
       description: >-
-        Gets past conversion performance data for a specific campaign at the ad
-        group or creative level.
+        Retrieves the past conversion performance of a specific campaign,
+        aggregated by ad group, creative, or asset group unit.
       operationId: campaignPastPerformance_1
       parameters:
+        - name: AccessManagerAccountNo
+          in: header
+          description: >-
+            Manager account number that has access to the performance data of
+            the ad account
+          required: false
+          schema:
+            type: integer
+            format: int64
         - name: campaignNo
           in: path
           description: Campaign number
@@ -1291,14 +1342,15 @@ paths:
         - name: aggregationType
           in: path
           description: >-
-            Performance data aggregation type (adSets: by ad group, creatives:
-            by creative)
+            Performance aggregation unit (ad group: adSets, creative: creatives,
+            asset group: assetGroups)
           required: true
           schema:
             type: string
             enum:
               - adSets
               - creatives
+              - assetGroups
         - name: timeUnit
           in: query
           description: 'Interval for retrieving data (By day: daily)'
@@ -1308,22 +1360,13 @@ paths:
             default: daily
             enum:
               - daily
-        - name: AccessManagerAccountNo
-          in: header
-          description: >-
-            Manager account number that has access to the performance data of
-            the ad account
-          required: false
-          schema:
-            type: integer
-            format: int64
         - name: version
           in: path
           description: API version
           required: true
           schema:
-            type: float
-            default: '1.0'
+            type: number
+            default: 1
         - name: adAccountNo
           in: path
           description: Ad account number
@@ -1379,6 +1422,15 @@ paths:
         creative level.
       operationId: adSetPastPerformance_1
       parameters:
+        - name: AccessManagerAccountNo
+          in: header
+          description: >-
+            Manager account number that has access to the performance data of
+            the ad account
+          required: false
+          schema:
+            type: integer
+            format: int64
         - name: adSetNo
           in: path
           description: Ad group number
@@ -1404,22 +1456,13 @@ paths:
             default: daily
             enum:
               - daily
-        - name: AccessManagerAccountNo
-          in: header
-          description: >-
-            Manager account number that has access to the performance data of
-            the ad account
-          required: false
-          schema:
-            type: integer
-            format: int64
         - name: version
           in: path
           description: API version
           required: true
           schema:
-            type: float
-            default: '1.0'
+            type: number
+            default: 1
         - name: adAccountNo
           in: path
           description: Ad account number
@@ -1465,6 +1508,576 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PastConvPerformanceResponse'
+  /v1/ad-api/{version}/adAccounts/{adAccountNo}/performance/realtime/campaigns/{campaignNo}/assetGroups:
+    get:
+      tags:
+        - Get real-time data
+      summary: Retrieve Campaign Real-Time Performance (Asset Group)
+      description: >-
+        Retrieves the real-time performance of a specific campaign by asset
+        group unit.
+      operationId: campaignAssetGroupRealtimePerformance
+      parameters:
+        - name: campaignNo
+          in: path
+          description: Campaign number
+          required: true
+          schema:
+            type: integer
+            format: int64
+          example: 5678
+        - name: version
+          in: path
+          description: API version
+          required: true
+          schema:
+            type: number
+            default: 1
+        - name: adAccountNo
+          in: path
+          description: Ad account number
+          required: true
+          schema:
+            type: integer
+            format: int64
+          example: 1234
+        - name: targetDate
+          in: query
+          description: 'Lookup target date (today: today, yesterday: yesterday)'
+          required: false
+          schema:
+            type: string
+            default: today
+            enum:
+              - today
+              - yesterday
+        - name: since
+          in: query
+          description: >-
+            Millisecond-unit timestamp for retrieving only performance updated
+            after a specific point in time
+          required: false
+          schema:
+            type: integer
+            format: int64
+          example: 1675907423000
+        - name: timeUnit
+          in: query
+          description: 'Lookup time unit (daily: daily, hourly: hourly)'
+          required: false
+          schema:
+            type: string
+            default: daily
+            enum:
+              - daily
+              - hourly
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RealtimePerformanceResponse'
+  /v1/ad-api/{version}/adAccounts/{adAccountNo}/performance/realtime/assetGroups:
+    get:
+      tags:
+        - Get real-time data
+      summary: Retrieve Ad Account Real-Time Performance (Asset Group)
+      description: >-
+        Retrieves the real-time performance of a specific ad account by asset
+        group unit.
+      operationId: adAccountAssetGroupRealtimePerformance
+      parameters:
+        - name: version
+          in: path
+          description: API version
+          required: true
+          schema:
+            type: number
+            default: 1
+        - name: adAccountNo
+          in: path
+          description: Ad account number
+          required: true
+          schema:
+            type: integer
+            format: int64
+          example: 1234
+        - name: targetDate
+          in: query
+          description: 'Lookup target date (today: today, yesterday: yesterday)'
+          required: false
+          schema:
+            type: string
+            default: today
+            enum:
+              - today
+              - yesterday
+        - name: since
+          in: query
+          description: >-
+            Millisecond-unit timestamp for retrieving only performance updated
+            after a specific point in time
+          required: false
+          schema:
+            type: integer
+            format: int64
+          example: 1675907423000
+        - name: timeUnit
+          in: query
+          description: 'Lookup time unit (daily: daily, hourly: hourly)'
+          required: false
+          schema:
+            type: string
+            default: daily
+            enum:
+              - daily
+              - hourly
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RealtimePerformanceResponse'
+  /v1/ad-api/{version}/adAccounts/{adAccountNo}/performance/realtime/assetGroups/{assetGroupNo}/assetGroups:
+    get:
+      tags:
+        - Get real-time data
+      summary: Retrieve Asset Group Real-Time Performance
+      description: Retrieves the real-time performance of a specific asset group.
+      operationId: assetGroupRealtimePerformance
+      parameters:
+        - name: assetGroupNo
+          in: path
+          description: Asset group number
+          required: true
+          schema:
+            type: integer
+            format: int64
+          example: 5678
+        - name: version
+          in: path
+          description: API version
+          required: true
+          schema:
+            type: number
+            default: 1
+        - name: adAccountNo
+          in: path
+          description: Ad account number
+          required: true
+          schema:
+            type: integer
+            format: int64
+          example: 1234
+        - name: targetDate
+          in: query
+          description: 'Lookup target date (today: today, yesterday: yesterday)'
+          required: false
+          schema:
+            type: string
+            default: today
+            enum:
+              - today
+              - yesterday
+        - name: since
+          in: query
+          description: >-
+            Millisecond-unit timestamp for retrieving only performance updated
+            after a specific point in time
+          required: false
+          schema:
+            type: integer
+            format: int64
+          example: 1675907423000
+        - name: timeUnit
+          in: query
+          description: 'Lookup time unit (daily: daily, hourly: hourly)'
+          required: false
+          schema:
+            type: string
+            default: daily
+            enum:
+              - daily
+              - hourly
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RealtimePerformanceResponse'
+  /v1/ad-api/{version}/adAccounts/{adAccountNo}/performance/past/assetGroups/{assetGroupNo}/{aggregationType}:
+    get:
+      tags:
+        - Get past data
+      summary: Retrieve Asset Group Past Performance
+      description: Retrieves the past performance of a specific asset group.
+      operationId: assetGroupPastPerformance
+      parameters:
+        - name: assetGroupNo
+          in: path
+          description: Asset group number
+          required: true
+          schema:
+            type: integer
+            format: int64
+          example: 5678
+        - name: aggregationType
+          in: path
+          description: 'Performance aggregation unit (asset group: assetGroups)'
+          required: true
+          schema:
+            type: string
+            enum:
+              - assetGroups
+        - name: version
+          in: path
+          description: API version
+          required: true
+          schema:
+            type: number
+            default: 1
+        - name: adAccountNo
+          in: path
+          description: Ad account number
+          required: true
+          schema:
+            type: integer
+            format: int64
+          example: 1234
+        - name: startDate
+          in: query
+          description: Lookup start date (yyyy-MM-dd format)
+          required: true
+          schema:
+            type: string
+            format: date
+          example: '2023-01-01'
+        - name: endDate
+          in: query
+          description: Lookup end date (yyyy-MM-dd format)
+          required: true
+          schema:
+            type: string
+            format: date
+          example: '2023-01-30'
+        - name: next
+          in: query
+          description: Token for retrieving the next page
+          required: false
+          schema:
+            type: string
+          example: zwMvjK6XRhyiJoFGZZkqhw:1707978058060
+        - name: limit
+          in: query
+          description: Number of records to retrieve
+          required: false
+          schema:
+            type: int
+            default: '1000'
+        - name: timeUnit
+          in: query
+          description: 'Lookup time unit (daily: daily, hourly: hourly)'
+          required: false
+          schema:
+            type: string
+            default: daily
+            enum:
+              - daily
+              - hourly
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PastPerformanceResponse'
+  /v1/ad-api/{version}/adAccounts/{adAccountNo}/performance/conversion/realtime/campaigns/{campaignNo}/assetGroups:
+    get:
+      tags:
+        - Get real-time conversion data
+      summary: Retrieve Campaign Real-Time Conversion Performance (Asset Group)
+      description: >-
+        Retrieves the real-time conversion performance of a specific campaign by
+        asset group unit.
+      operationId: campaignAssetGroupRealtimePerformance_1
+      parameters:
+        - name: campaignNo
+          in: path
+          description: Campaign number
+          required: true
+          schema:
+            type: integer
+            format: int64
+          example: 5678
+        - name: timeUnit
+          in: query
+          description: 'Lookup time unit (daily: daily)'
+          required: false
+          schema:
+            type: string
+            default: daily
+            enum:
+              - daily
+        - name: version
+          in: path
+          description: API version
+          required: true
+          schema:
+            type: number
+            default: 1
+        - name: adAccountNo
+          in: path
+          description: Ad account number
+          required: true
+          schema:
+            type: integer
+            format: int64
+          example: 1234
+        - name: targetDate
+          in: query
+          description: 'Lookup target date (today: today, yesterday: yesterday)'
+          required: false
+          schema:
+            type: string
+            default: today
+            enum:
+              - today
+              - yesterday
+        - name: since
+          in: query
+          description: >-
+            Millisecond-unit timestamp for retrieving only performance updated
+            after a specific point in time
+          required: false
+          schema:
+            type: integer
+            format: int64
+          example: 1675907423000
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RealtimeConvPerformanceResponse'
+  /v1/ad-api/{version}/adAccounts/{adAccountNo}/performance/conversion/realtime/assetGroups:
+    get:
+      tags:
+        - Get real-time conversion data
+      summary: Retrieve Ad Account Real-Time Conversion Performance (Asset Group)
+      description: >-
+        Retrieves the real-time conversion performance of a specific ad account
+        by asset group unit.
+      operationId: adAccountAssetGroupRealtimePerformance_1
+      parameters:
+        - name: timeUnit
+          in: query
+          description: 'Lookup time unit (daily: daily)'
+          required: false
+          schema:
+            type: string
+            default: daily
+            enum:
+              - daily
+        - name: version
+          in: path
+          description: API version
+          required: true
+          schema:
+            type: number
+            default: 1
+        - name: adAccountNo
+          in: path
+          description: Ad account number
+          required: true
+          schema:
+            type: integer
+            format: int64
+          example: 1234
+        - name: targetDate
+          in: query
+          description: 'Lookup target date (today: today, yesterday: yesterday)'
+          required: false
+          schema:
+            type: string
+            default: today
+            enum:
+              - today
+              - yesterday
+        - name: since
+          in: query
+          description: >-
+            Millisecond-unit timestamp for retrieving only performance updated
+            after a specific point in time
+          required: false
+          schema:
+            type: integer
+            format: int64
+          example: 1675907423000
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RealtimeConvPerformanceResponse'
+  /v1/ad-api/{version}/adAccounts/{adAccountNo}/performance/conversion/realtime/assetGroups/{assetGroupNo}/assetGroups:
+    get:
+      tags:
+        - Get real-time conversion data
+      summary: Retrieve Asset Group Real-Time Conversion Performance
+      description: >-
+        Retrieves the real-time conversion performance of a specific asset
+        group.
+      operationId: assetGroupRealtimePerformance_1
+      parameters:
+        - name: assetGroupNo
+          in: path
+          description: Asset group number
+          required: true
+          schema:
+            type: integer
+            format: int64
+          example: 5678
+        - name: timeUnit
+          in: query
+          description: 'Lookup time unit (daily: daily)'
+          required: false
+          schema:
+            type: string
+            default: daily
+            enum:
+              - daily
+        - name: version
+          in: path
+          description: API version
+          required: true
+          schema:
+            type: number
+            default: 1
+        - name: adAccountNo
+          in: path
+          description: Ad account number
+          required: true
+          schema:
+            type: integer
+            format: int64
+          example: 1234
+        - name: targetDate
+          in: query
+          description: 'Lookup target date (today: today, yesterday: yesterday)'
+          required: false
+          schema:
+            type: string
+            default: today
+            enum:
+              - today
+              - yesterday
+        - name: since
+          in: query
+          description: >-
+            Millisecond-unit timestamp for retrieving only performance updated
+            after a specific point in time
+          required: false
+          schema:
+            type: integer
+            format: int64
+          example: 1675907423000
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RealtimeConvPerformanceResponse'
+  /v1/ad-api/{version}/adAccounts/{adAccountNo}/performance/conversion/past/assetGroups/{assetGroupNo}/{aggregationType}:
+    get:
+      tags:
+        - Get past conversion data
+      summary: Retrieve Asset Group Past Conversion Performance
+      description: Retrieves the past conversion performance of a specific asset group.
+      operationId: assetGroupPastPerformance_1
+      parameters:
+        - name: assetGroupNo
+          in: path
+          description: Asset group number
+          required: true
+          schema:
+            type: integer
+            format: int64
+          example: 5678
+        - name: aggregationType
+          in: path
+          description: 'Performance aggregation unit (asset group: assetGroups)'
+          required: true
+          schema:
+            type: string
+            enum:
+              - assetGroups
+        - name: timeUnit
+          in: query
+          description: 'Lookup time unit (daily: daily)'
+          required: false
+          schema:
+            type: string
+            default: daily
+            enum:
+              - daily
+        - name: version
+          in: path
+          description: API version
+          required: true
+          schema:
+            type: number
+            default: 1
+        - name: adAccountNo
+          in: path
+          description: Ad account number
+          required: true
+          schema:
+            type: integer
+            format: int64
+          example: 1234
+        - name: startDate
+          in: query
+          description: Lookup start date (yyyy-MM-dd format)
+          required: true
+          schema:
+            type: string
+            format: date
+          example: '2023-01-01'
+        - name: endDate
+          in: query
+          description: Lookup end date (yyyy-MM-dd format)
+          required: true
+          schema:
+            type: string
+            format: date
+          example: '2023-01-30'
+        - name: next
+          in: query
+          description: Token for retrieving the next page
+          required: false
+          schema:
+            type: string
+          example: zwMvjK6XRhyiJoFGZZkqhw:1707978058060
+        - name: limit
+          in: query
+          description: Number of records to retrieve
+          required: false
+          schema:
+            type: int
+            default: '1000'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PastConvPerformanceResponse'
 components:
   schemas:
     AggregatedPerformance:
@@ -1482,10 +2095,26 @@ components:
           type: integer
           description: Creative ID
           format: int64
+        assetGroupNo:
+          type: integer
+          description: Asset group ID
+          format: int64
         targetDate:
           type: string
           description: Date of occurrence
           format: date
+        convCount:
+          type: integer
+          description: Conversion count
+          format: int64
+        convSales:
+          type: number
+          description: Conversion value
+          format: double
+        updatedAt:
+          type: string
+          description: Last update time
+          format: date-time
         hour:
           type: string
           description: >-
@@ -1501,24 +2130,12 @@ components:
           format: int64
         vplayCount:
           type: integer
-          description: Video play count
+          description: Video play count; 0 when retrieved by asset group unit
           format: int64
         sales:
           type: number
           description: Sales
           format: double
-        convCount:
-          type: integer
-          description: Conversion count
-          format: int64
-        convSales:
-          type: number
-          description: Conversion value
-          format: double
-        updatedAt:
-          type: string
-          description: Last update time
-          format: date-time
       description: Performance data aggregated for each metric
     RealtimePerformanceResponse:
       type: object
@@ -1530,8 +2147,12 @@ components:
             $ref: '#/components/schemas/AggregatedPerformance'
         until:
           type: integer
-          description: Last update timestamp
+          description: >-
+            Millisecond-unit timestamp of the reference time for the next
+            incremental lookup. If performance was retrieved, this is the last
+            update time, to be used as since in the next request.
           format: int64
+          example: 1675907423000
       description: Real-time performance data response
     PastPerformanceResponse:
       type: object
@@ -1559,6 +2180,10 @@ components:
         creativeNo:
           type: integer
           description: Creative ID
+          format: int64
+        assetGroupNo:
+          type: integer
+          description: Asset group ID
           format: int64
         targetDate:
           type: string
@@ -1590,8 +2215,12 @@ components:
             $ref: '#/components/schemas/ConvPerformance'
         until:
           type: integer
-          description: Last update timestamp
+          description: >-
+            Millisecond-unit timestamp of the reference time for the next
+            incremental lookup. If performance was retrieved, this is the last
+            update time, to be used as since in the next request.
           format: int64
+          example: 1675907423000
       description: Real-time conversion performance data response
     PastConvPerformanceResponse:
       type: object

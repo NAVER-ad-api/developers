@@ -1,135 +1,136 @@
 openapi: 3.0.1
 info:
-  title: Performance API
-  description: >
-    Gets past or real-time performance data by GFA ad account, campaign, ad
-    group, or creative.
+  title: 성과 API
+  description: |
+    사외용 성과 조회는 다음 두 조회 계층으로 구분됩니다.
+    - 소재 계층: 광고 계정 → 캠페인 → 광고 그룹 → 소재
+    - 애셋 그룹 계층: 광고 계정 → 캠페인 → 애셋 그룹
+  version: '1.0'
 servers:
   - url: https://openapi.naver.com
 tags:
-  - name: Get past data
+  - name: 과거 성과 조회
     description: >
-      Gets past performance data for a specific ad account, campaign, ad group,
-      or creative.
+      과거 성과는 다음 두 조회 계층으로 구분해 조회합니다.
+
+      - 소재 계층: 광고 계정 → 캠페인 → 광고 그룹 → 소재
+
+      - 애셋 그룹 계층: 광고 계정 → 캠페인 → 애셋 그룹
 
 
-      It returns performance data aggregated for child elements of the specified
-      ad account, campaign, ad group, or creative,
+      조회 단위보다 하위 요소로 집계한 결과가 제공되며,
 
-      with the results sorted in ascending order based on dates, advertisers,
-      campaigns, ad groups, and creative numbers.
+      성과는 날짜, 시간별 조회 시 시간, 요청한 집계 단위 번호 순으로 오름차순 정렬되어 제공됩니다.
 
 
-      The date range can be up to 31 days, starting from 2 years ago and ending
-      as recently as yesterday.
+      조회 기간은 최대 31일이며, 2년 전부터 전일 데이터까지 조회가 가능합니다.
 
-      (The data from yesterday can be retrieved starting from 2 AM today.)
+      (전일 데이터는 금일 02시부터 조회가 가능합니다.)
 
 
-      The API returns up to 1,000 rows at a time. If there are more rows, the
-      results are paginated.
+      한 번에 최대 1000개 까지 조회가 가능하며, 이를 초과하는 개수가 존재하는 경우 페이징이 적용됩니다.
 
-      Include the value of the “next” field in the response as the “next”
-      parameter of the next request, then you can get the next page; the token
-      will be valid for 10 minutes.
-  - name: Get real-time data
+      응답의 next 필드 값을 다음 요청의 next 파라미터로 포함시키면 다음 페이지를 조회할 수 있으며, 해당 토큰은 10분간
+      유효합니다.
+
+
+      애셋 그룹(assetGroups) 단위 조회 시 vplayCount 는 항상 0 입니다.
+  - name: 실시간 성과 조회
     description: >
-      Gets real-time performance data for a specific ad account, campaign, ad
-      group, or creative, aggregated by creative.
+      실시간 성과는 다음 두 조회 계층으로 구분해 조회합니다.
+
+      - 소재 계층: 광고 계정 → 캠페인 → 광고 그룹 → 소재
+
+      - 애셋 그룹 계층: 광고 계정 → 캠페인 → 애셋 그룹
 
 
-      It returns performance data from today or yesterday, with the results
-      sorted in ascending order based on update dates.
+      오늘 또는 어제 데이터를 조회할 수 있으며, 성과는 업데이트 시점을 기준으로 오름차순 정렬되어 제공됩니다.
 
 
-      Include the value of the “until” field in the response as the “since”
-      parameter of the next request, then you can get only the creatives that
-      have been updated after the previous request.
+      응답의 until 필드 값을 다음 요청의 since 파라미터로 포함시키면 이전 응답의 until 이후에 업데이트된 성과만 조회할 수
+      있습니다.
 
 
-      Note that the real-time performance data may change for further
-      consistency verification and correction after the API request is made.
-  - name: Get past conversion data
+      실시간 성과는 조회 시점 이후라도 정합성 검증 및 보정 작업에 따라 변동이 발생할 수 있습니다.
+
+
+      애셋 그룹(assetGroups) 단위 조회 시 vplayCount 는 항상 0 입니다.
+  - name: 과거 전환 성과 조회
     description: >
-      Gets past conversion performance data for a specific ad account, campaign,
-      ad group, or creative.
+      과거 전환 성과는 다음 두 조회 계층으로 구분해 조회합니다.
+
+      - 소재 계층: 광고 계정 → 캠페인 → 광고 그룹 → 소재
+
+      - 애셋 그룹 계층: 광고 계정 → 캠페인 → 애셋 그룹
 
 
-      It returns performance data aggregated for child elements of the specified
-      ad account, campaign, ad group, or creative,
+      조회 단위보다 하위 요소로 집계한 결과가 제공되며,
 
-      with the results sorted in ascending order based on dates, advertisers,
-      campaigns, ad groups, and creative numbers.
+      성과는 날짜, 요청한 집계 단위 번호, 전환 유형 순으로 오름차순 정렬되어 제공됩니다.
 
 
-      The date range can be up to 31 days, starting from 2 years ago and ending
-      as recently as yesterday.
+      조회 기간은 최대 31일이며, 2년 전부터 전일 데이터까지 조회가 가능합니다.
 
-      (The data from yesterday can be retrieved starting from 2 AM today.)
-
-
-      The API returns up to 1,000 rows at a time. If there are more rows, the
-      results are paginated.
-
-      Include the value of the “next” field in the response as the “next”
-      parameter of the next request, then you can get the next page; the token
-      will be valid for 10 minutes.
+      (전일 데이터는 금일 02시부터 조회가 가능합니다.)
 
 
-      Note that performance data retrieval supports only daily intervals; hourly
-      intervals are not supported.
+      한 번에 최대 1000개 까지 조회가 가능하며, 이를 초과하는 개수가 존재하는 경우 페이징이 적용됩니다.
 
-      For details about convType response fields, go to **Getting Started >
-      Performance > Get conversion data**.
-  - name: Get real-time conversion data
+      응답의 next 필드 값을 다음 요청의 next 파라미터로 포함시키면 다음 페이지를 조회할 수 있으며, 해당 토큰은 10분간
+      유효합니다.
+
+
+      전환 성과는 시간 단위 조회를 지원하지 않으며 일별 조회만 가능하며,
+
+      응답의 convType 필드에 대한 설명은 '시작하기 > 성과 관리 > 전환 성과 조회' 페이지를 참고해주세요.
+  - name: 실시간 전환 성과 조회
     description: >
-      Gets real-time conversion performance data for a specific ad account,
-      campaign, ad group, or creative, aggregated by creative.
+      실시간 전환 성과는 다음 두 조회 계층으로 구분해 조회합니다.
+
+      - 소재 계층: 광고 계정 → 캠페인 → 광고 그룹 → 소재
+
+      - 애셋 그룹 계층: 광고 계정 → 캠페인 → 애셋 그룹
 
 
-      It returns performance data from today or yesterday, with the results
-      sorted in ascending order based on update dates.
+      오늘 또는 어제 데이터를 조회할 수 있으며, 성과는 업데이트 시점을 기준으로 오름차순 정렬되어 제공됩니다.
 
 
-      Include the value of the “until” field in the response as the “since”
-      parameter of the next request, then you can get only the creatives that
-      have been updated after the previous request.
+      응답의 until 필드 값을 다음 요청의 since 파라미터로 포함시키면 이전 응답의 until 이후에 업데이트된 성과만 조회할 수
+      있습니다.
 
 
-      Note that the real-time performance data may change for further
-      consistency verification and correction after the API request is made.
+      실시간 성과는 조회 시점 이후라도 정합성 검증 및 보정 작업에 따라 변동이 발생할 수 있습니다.
 
 
-      For details about convType response fields, go to **Getting Started >
-      Performance > Get conversion data**.
+      전환 성과는 시간 단위 조회를 지원하지 않으며 일별 조회만 가능하며,
+
+      응답의 convType 필드에 대한 설명은 '시작하기 > 성과 관리 > 전환 성과 조회' 페이지를 참고해주세요.
 paths:
   /v1/ad-api/{version}/adAccounts/{adAccountNo}/performance/realtime/creatives:
     get:
       tags:
-        - Get real-time data
-      summary: Get real-time data of an ad account
-      description: Gets real-time performance data for a specific ad account.
+        - 실시간 성과 조회
+      summary: 광고 계정 실시간 성과 조회
+      description: 특정 광고 계정의 실시간 성과를 소재 단위로 조회합니다.
       operationId: adAccountRealtimePerformance
       parameters:
         - name: AccessManagerAccountNo
           in: header
-          description: >-
-            Manager account number that has access to the performance data of
-            the ad account
+          description: 해당 광고 계정의 성과에 대한 접근 권한이 있는 관리 계정 번호
           required: false
           schema:
             type: integer
             format: int64
         - name: version
           in: path
-          description: API version
+          description: API 버전
           required: true
           schema:
-            type: float
-            default: '1.0'
+            type: number
+            default: 1
         - name: adAccountNo
           in: path
-          description: Ad account number
+          description: 광고 계정 번호
           required: true
           schema:
             type: integer
@@ -137,7 +138,7 @@ paths:
           example: 1234
         - name: targetDate
           in: query
-          description: Date (today or yesterday).
+          description: '조회 대상 일자 ( 오늘 : today, 어제 : yesterday )'
           required: false
           schema:
             type: string
@@ -147,17 +148,15 @@ paths:
               - yesterday
         - name: since
           in: query
-          description: >-
-            Timestamp used to get only the creatives whose performance data has
-            been updated after a specific point of time
+          description: 특정 시점 이후 업데이트된 성과만을 조회하기 위한 밀리초 단위 타임스탬프
           required: false
           schema:
             type: integer
             format: int64
-          example: 1675907423
+          example: 1675907423000
         - name: timeUnit
           in: query
-          description: 'Interval for retrieving data (By day: daily, By hour: hourly)'
+          description: '조회 시간 단위 ( 일자별 : daily, 시간별 : hourly )'
           required: false
           schema:
             type: string
@@ -175,38 +174,36 @@ paths:
   /v1/ad-api/{version}/adAccounts/{adAccountNo}/performance/realtime/creatives/{creativeNo}/creatives:
     get:
       tags:
-        - Get real-time data
-      summary: Get real-time data of a creative
-      description: Gets real-time performance data for a specific creative.
+        - 실시간 성과 조회
+      summary: 소재 실시간 성과 조회
+      description: 특정 소재의 실시간 성과를 조회합니다.
       operationId: creativeRealtimePerformance
       parameters:
+        - name: AccessManagerAccountNo
+          in: header
+          description: 해당 광고 계정의 성과에 대한 접근 권한이 있는 관리 계정 번호
+          required: false
+          schema:
+            type: integer
+            format: int64
         - name: creativeNo
           in: path
-          description: Creative number
+          description: 소재 번호
           required: true
           schema:
             type: integer
             format: int64
           example: 5678
-        - name: AccessManagerAccountNo
-          in: header
-          description: >-
-            Manager account number that has access to the performance data of
-            the ad account
-          required: false
-          schema:
-            type: integer
-            format: int64
         - name: version
           in: path
-          description: API version
+          description: API 버전
           required: true
           schema:
-            type: float
-            default: '1.0'
+            type: number
+            default: 1
         - name: adAccountNo
           in: path
-          description: Ad account number
+          description: 광고 계정 번호
           required: true
           schema:
             type: integer
@@ -214,7 +211,7 @@ paths:
           example: 1234
         - name: targetDate
           in: query
-          description: Date (today or yesterday).
+          description: '조회 대상 일자 ( 오늘 : today, 어제 : yesterday )'
           required: false
           schema:
             type: string
@@ -224,17 +221,15 @@ paths:
               - yesterday
         - name: since
           in: query
-          description: >-
-            Timestamp used to get only the creatives whose performance data has
-            been updated after a specific point of time
+          description: 특정 시점 이후 업데이트된 성과만을 조회하기 위한 밀리초 단위 타임스탬프
           required: false
           schema:
             type: integer
             format: int64
-          example: 1675907423
+          example: 1675907423000
         - name: timeUnit
           in: query
-          description: 'Interval for retrieving data (By day: daily, By hour: hourly)'
+          description: '조회 시간 단위 ( 일자별 : daily, 시간별 : hourly )'
           required: false
           schema:
             type: string
@@ -252,38 +247,36 @@ paths:
   /v1/ad-api/{version}/adAccounts/{adAccountNo}/performance/realtime/campaigns/{campaignNo}/creatives:
     get:
       tags:
-        - Get real-time data
-      summary: Get real-time data of a campaign
-      description: Gets real-time performance data for a specific campaign.
+        - 실시간 성과 조회
+      summary: 캠페인 실시간 성과 조회
+      description: 특정 캠페인의 실시간 성과를 소재 단위로 조회합니다.
       operationId: campaignRealtimePerformance
       parameters:
+        - name: AccessManagerAccountNo
+          in: header
+          description: 해당 광고 계정의 성과에 대한 접근 권한이 있는 관리 계정 번호
+          required: false
+          schema:
+            type: integer
+            format: int64
         - name: campaignNo
           in: path
-          description: Campaign number
+          description: 캠페인 번호
           required: true
           schema:
             type: integer
             format: int64
           example: 5678
-        - name: AccessManagerAccountNo
-          in: header
-          description: >-
-            Manager account number that has access to the performance data of
-            the ad account
-          required: false
-          schema:
-            type: integer
-            format: int64
         - name: version
           in: path
-          description: API version
+          description: API 버전
           required: true
           schema:
-            type: float
-            default: '1.0'
+            type: number
+            default: 1
         - name: adAccountNo
           in: path
-          description: Ad account number
+          description: 광고 계정 번호
           required: true
           schema:
             type: integer
@@ -291,7 +284,7 @@ paths:
           example: 1234
         - name: targetDate
           in: query
-          description: Date (today or yesterday).
+          description: '조회 대상 일자 ( 오늘 : today, 어제 : yesterday )'
           required: false
           schema:
             type: string
@@ -301,17 +294,15 @@ paths:
               - yesterday
         - name: since
           in: query
-          description: >-
-            Timestamp used to get only the creatives whose performance data has
-            been updated after a specific point of time
+          description: 특정 시점 이후 업데이트된 성과만을 조회하기 위한 밀리초 단위 타임스탬프
           required: false
           schema:
             type: integer
             format: int64
-          example: 1675907423
+          example: 1675907423000
         - name: timeUnit
           in: query
-          description: 'Interval for retrieving data (By day: daily, By hour: hourly)'
+          description: '조회 시간 단위 ( 일자별 : daily, 시간별 : hourly )'
           required: false
           schema:
             type: string
@@ -329,38 +320,36 @@ paths:
   /v1/ad-api/{version}/adAccounts/{adAccountNo}/performance/realtime/adSets/{adSetNo}/creatives:
     get:
       tags:
-        - Get real-time data
-      summary: Get real-time data of an ad group
-      description: Gets real-time performance data for a specific ad group.
+        - 실시간 성과 조회
+      summary: 광고 그룹 실시간 성과 조회
+      description: 특정 광고 그룹의 실시간 성과를 소재 단위로 조회합니다.
       operationId: adSetRealtimePerformance
       parameters:
+        - name: AccessManagerAccountNo
+          in: header
+          description: 해당 광고 계정의 성과에 대한 접근 권한이 있는 관리 계정 번호
+          required: false
+          schema:
+            type: integer
+            format: int64
         - name: adSetNo
           in: path
-          description: Ad group number
+          description: 광고 그룹 번호
           required: true
           schema:
             type: integer
             format: int64
           example: 5678
-        - name: AccessManagerAccountNo
-          in: header
-          description: >-
-            Manager account number that has access to the performance data of
-            the ad account
-          required: false
-          schema:
-            type: integer
-            format: int64
         - name: version
           in: path
-          description: API version
+          description: API 버전
           required: true
           schema:
-            type: float
-            default: '1.0'
+            type: number
+            default: 1
         - name: adAccountNo
           in: path
-          description: Ad account number
+          description: 광고 계정 번호
           required: true
           schema:
             type: integer
@@ -368,7 +357,7 @@ paths:
           example: 1234
         - name: targetDate
           in: query
-          description: Date (today or yesterday).
+          description: '조회 대상 일자 ( 오늘 : today, 어제 : yesterday )'
           required: false
           schema:
             type: string
@@ -378,17 +367,15 @@ paths:
               - yesterday
         - name: since
           in: query
-          description: >-
-            Timestamp used to get only the creatives whose performance data has
-            been updated after a specific point of time
+          description: 특정 시점 이후 업데이트된 성과만을 조회하기 위한 밀리초 단위 타임스탬프
           required: false
           schema:
             type: integer
             format: int64
-          example: 1675907423
+          example: 1675907423000
         - name: timeUnit
           in: query
-          description: 'Interval for retrieving data (By day: daily, By hour: hourly)'
+          description: '조회 시간 단위 ( 일자별 : daily, 시간별 : hourly )'
           required: false
           schema:
             type: string
@@ -406,18 +393,23 @@ paths:
   /v1/ad-api/{version}/adAccounts/{adAccountNo}/performance/past/{aggregationType}:
     get:
       tags:
-        - Get past data
-      summary: Get past data of an ad account
-      description: >-
-        Gets past performance data for a specific ad account, aggregated by
-        campaign, ad group, or creative.
+        - 과거 성과 조회
+      summary: 광고 계정 과거 성과 조회
+      description: 특정 광고 계정의 과거 성과를 캠페인, 광고 그룹, 소재 또는 애셋 그룹 단위로 집계하여 조회합니다.
       operationId: adAccountPastPerformance
       parameters:
+        - name: AccessManagerAccountNo
+          in: header
+          description: 해당 광고 계정의 성과에 대한 접근 권한이 있는 관리 계정 번호
+          required: false
+          schema:
+            type: integer
+            format: int64
         - name: aggregationType
           in: path
           description: >-
-            Performance data aggregation type (campaigns: by campaign, adSets:
-            by ad group, creatives: by creative)
+            성과 집계 단위 ( 캠페인 : campaigns, 광고 그룹 : adSets, 소재 : creatives, 애셋 그룹 :
+            assetGroups )
           required: true
           schema:
             type: string
@@ -425,25 +417,17 @@ paths:
               - campaigns
               - adSets
               - creatives
-        - name: AccessManagerAccountNo
-          in: header
-          description: >-
-            Manager account number that has access to the performance data of
-            the ad account
-          required: false
-          schema:
-            type: integer
-            format: int64
+              - assetGroups
         - name: version
           in: path
-          description: API version
+          description: API 버전
           required: true
           schema:
-            type: float
-            default: '1.0'
+            type: number
+            default: 1
         - name: adAccountNo
           in: path
-          description: Ad account number
+          description: 광고 계정 번호
           required: true
           schema:
             type: integer
@@ -451,7 +435,7 @@ paths:
           example: 1234
         - name: startDate
           in: query
-          description: Start date (yyyy-MM-dd)
+          description: 조회 시작일 (yyyy-MM-dd 형식)
           required: true
           schema:
             type: string
@@ -459,7 +443,7 @@ paths:
           example: '2023-01-01'
         - name: endDate
           in: query
-          description: End date (yyyy-MM-dd)
+          description: 조회 종료일 (yyyy-MM-dd 형식)
           required: true
           schema:
             type: string
@@ -467,21 +451,21 @@ paths:
           example: '2023-01-30'
         - name: next
           in: query
-          description: Next page token
+          description: 다음 페이지 조회를 위한 토큰
           required: false
           schema:
             type: string
           example: zwMvjK6XRhyiJoFGZZkqhw:1707978058060
         - name: limit
           in: query
-          description: Number of records to get
+          description: 조회할 레코드 수
           required: false
           schema:
             type: int
             default: '1000'
         - name: timeUnit
           in: query
-          description: 'Interval for retrieving data (By day: daily, By hour: hourly)'
+          description: '조회 시간 단위 ( 일자별 : daily, 시간별 : hourly )'
           required: false
           schema:
             type: string
@@ -499,14 +483,21 @@ paths:
   /v1/ad-api/{version}/adAccounts/{adAccountNo}/performance/past/creatives/{creativeNo}/{aggregationType}:
     get:
       tags:
-        - Get past data
-      summary: Get past data of a creative
-      description: Gets past performance data for a specific creative.
+        - 과거 성과 조회
+      summary: 소재 과거 성과 조회
+      description: 특정 소재의 과거 성과를 조회합니다.
       operationId: creativePastPerformance
       parameters:
+        - name: AccessManagerAccountNo
+          in: header
+          description: 해당 광고 계정의 성과에 대한 접근 권한이 있는 관리 계정 번호
+          required: false
+          schema:
+            type: integer
+            format: int64
         - name: creativeNo
           in: path
-          description: Creative number
+          description: 소재 번호
           required: true
           schema:
             type: integer
@@ -514,31 +505,22 @@ paths:
           example: 5678
         - name: aggregationType
           in: path
-          description: 'Performance data aggregation type (creatives: by creative)'
+          description: '성과 집계 단위 ( 소재 : creatives )'
           required: true
           schema:
             type: string
             enum:
               - creatives
-        - name: AccessManagerAccountNo
-          in: header
-          description: >-
-            Manager account number that has access to the performance data of
-            the ad account
-          required: false
-          schema:
-            type: integer
-            format: int64
         - name: version
           in: path
-          description: API version
+          description: API 버전
           required: true
           schema:
-            type: float
-            default: '1.0'
+            type: number
+            default: 1
         - name: adAccountNo
           in: path
-          description: Ad account number
+          description: 광고 계정 번호
           required: true
           schema:
             type: integer
@@ -546,7 +528,7 @@ paths:
           example: 1234
         - name: startDate
           in: query
-          description: Start date (yyyy-MM-dd)
+          description: 조회 시작일 (yyyy-MM-dd 형식)
           required: true
           schema:
             type: string
@@ -554,7 +536,7 @@ paths:
           example: '2023-01-01'
         - name: endDate
           in: query
-          description: End date (yyyy-MM-dd)
+          description: 조회 종료일 (yyyy-MM-dd 형식)
           required: true
           schema:
             type: string
@@ -562,21 +544,21 @@ paths:
           example: '2023-01-30'
         - name: next
           in: query
-          description: Next page token
+          description: 다음 페이지 조회를 위한 토큰
           required: false
           schema:
             type: string
           example: zwMvjK6XRhyiJoFGZZkqhw:1707978058060
         - name: limit
           in: query
-          description: Number of records to get
+          description: 조회할 레코드 수
           required: false
           schema:
             type: int
             default: '1000'
         - name: timeUnit
           in: query
-          description: 'Interval for retrieving data (By day: daily, By hour: hourly)'
+          description: '조회 시간 단위 ( 일자별 : daily, 시간별 : hourly )'
           required: false
           schema:
             type: string
@@ -594,16 +576,21 @@ paths:
   /v1/ad-api/{version}/adAccounts/{adAccountNo}/performance/past/campaigns/{campaignNo}/{aggregationType}:
     get:
       tags:
-        - Get past data
-      summary: Get past data of a campaign
-      description: >-
-        Gets past performance data for a specific campaign, aggregated by ad
-        group or creative.
+        - 과거 성과 조회
+      summary: 캠페인 과거 성과 조회
+      description: 특정 캠페인의 과거 성과를 광고 그룹, 소재 또는 애셋 그룹 단위로 집계하여 조회합니다.
       operationId: campaignPastPerformance
       parameters:
+        - name: AccessManagerAccountNo
+          in: header
+          description: 해당 광고 계정의 성과에 대한 접근 권한이 있는 관리 계정 번호
+          required: false
+          schema:
+            type: integer
+            format: int64
         - name: campaignNo
           in: path
-          description: Campaign number
+          description: 캠페인 번호
           required: true
           schema:
             type: integer
@@ -611,34 +598,24 @@ paths:
           example: 5678
         - name: aggregationType
           in: path
-          description: >-
-            Performance data aggregation type (adSets: by ad group, creatives:
-            by creative)
+          description: '성과 집계 단위 ( 광고 그룹 : adSets, 소재 : creatives, 애셋 그룹 : assetGroups )'
           required: true
           schema:
             type: string
             enum:
               - adSets
               - creatives
-        - name: AccessManagerAccountNo
-          in: header
-          description: >-
-            Manager account number that has access to the performance data of
-            the ad account
-          required: false
-          schema:
-            type: integer
-            format: int64
+              - assetGroups
         - name: version
           in: path
-          description: API version
+          description: API 버전
           required: true
           schema:
-            type: float
-            default: '1.0'
+            type: number
+            default: 1
         - name: adAccountNo
           in: path
-          description: Ad account number
+          description: 광고 계정 번호
           required: true
           schema:
             type: integer
@@ -646,7 +623,7 @@ paths:
           example: 1234
         - name: startDate
           in: query
-          description: Start date (yyyy-MM-dd)
+          description: 조회 시작일 (yyyy-MM-dd 형식)
           required: true
           schema:
             type: string
@@ -654,7 +631,7 @@ paths:
           example: '2023-01-01'
         - name: endDate
           in: query
-          description: End date (yyyy-MM-dd)
+          description: 조회 종료일 (yyyy-MM-dd 형식)
           required: true
           schema:
             type: string
@@ -662,21 +639,21 @@ paths:
           example: '2023-01-30'
         - name: next
           in: query
-          description: Next page token
+          description: 다음 페이지 조회를 위한 토큰
           required: false
           schema:
             type: string
           example: zwMvjK6XRhyiJoFGZZkqhw:1707978058060
         - name: limit
           in: query
-          description: Number of records to get
+          description: 조회할 레코드 수
           required: false
           schema:
             type: int
             default: '1000'
         - name: timeUnit
           in: query
-          description: 'Interval for retrieving data (By day: daily, By hour: hourly)'
+          description: '조회 시간 단위 ( 일자별 : daily, 시간별 : hourly )'
           required: false
           schema:
             type: string
@@ -694,16 +671,21 @@ paths:
   /v1/ad-api/{version}/adAccounts/{adAccountNo}/performance/past/adSets/{adSetNo}/{aggregationType}:
     get:
       tags:
-        - Get past data
-      summary: Get past data of an ad group
-      description: >-
-        Gets past performance data for a specific ad group, aggregated by
-        creative.
+        - 과거 성과 조회
+      summary: 광고 그룹 과거 성과 조회
+      description: 특정 광고 그룹의 과거 성과를 소재 단위로 집계하여 조회합니다.
       operationId: adSetPastPerformance
       parameters:
+        - name: AccessManagerAccountNo
+          in: header
+          description: 해당 광고 계정의 성과에 대한 접근 권한이 있는 관리 계정 번호
+          required: false
+          schema:
+            type: integer
+            format: int64
         - name: adSetNo
           in: path
-          description: Ad group number
+          description: 광고 그룹 번호
           required: true
           schema:
             type: integer
@@ -711,31 +693,22 @@ paths:
           example: 5678
         - name: aggregationType
           in: path
-          description: 'Performance data aggregation type (creatives: by creative)'
+          description: '성과 집계 단위 ( 소재 : creatives )'
           required: true
           schema:
             type: string
             enum:
               - creatives
-        - name: AccessManagerAccountNo
-          in: header
-          description: >-
-            Manager account number that has access to the performance data of
-            the ad account
-          required: false
-          schema:
-            type: integer
-            format: int64
         - name: version
           in: path
-          description: API version
+          description: API 버전
           required: true
           schema:
-            type: float
-            default: '1.0'
+            type: number
+            default: 1
         - name: adAccountNo
           in: path
-          description: Ad account number
+          description: 광고 계정 번호
           required: true
           schema:
             type: integer
@@ -743,7 +716,7 @@ paths:
           example: 1234
         - name: startDate
           in: query
-          description: Start date (yyyy-MM-dd)
+          description: 조회 시작일 (yyyy-MM-dd 형식)
           required: true
           schema:
             type: string
@@ -751,7 +724,7 @@ paths:
           example: '2023-01-01'
         - name: endDate
           in: query
-          description: End date (yyyy-MM-dd)
+          description: 조회 종료일 (yyyy-MM-dd 형식)
           required: true
           schema:
             type: string
@@ -759,21 +732,21 @@ paths:
           example: '2023-01-30'
         - name: next
           in: query
-          description: Next page token
+          description: 다음 페이지 조회를 위한 토큰
           required: false
           schema:
             type: string
           example: zwMvjK6XRhyiJoFGZZkqhw:1707978058060
         - name: limit
           in: query
-          description: Number of records to get
+          description: 조회할 레코드 수
           required: false
           schema:
             type: int
             default: '1000'
         - name: timeUnit
           in: query
-          description: 'Interval for retrieving data (By day: daily, By hour: hourly)'
+          description: '조회 시간 단위 ( 일자별 : daily, 시간별 : hourly )'
           required: false
           schema:
             type: string
@@ -791,39 +764,37 @@ paths:
   /v1/ad-api/{version}/adAccounts/{adAccountNo}/performance/conversion/realtime/creatives:
     get:
       tags:
-        - Get real-time conversion data
-      summary: Get real-time conversion data of an ad account
-      description: Gets real-time conversion performance data for a specific ad account.
+        - 실시간 전환 성과 조회
+      summary: 광고 계정 실시간 전환 성과 조회
+      description: 특정 광고 계정의 실시간 전환 성과를 소재 단위로 조회합니다.
       operationId: adAccountRealtimePerformance_1
       parameters:
+        - name: AccessManagerAccountNo
+          in: header
+          description: 해당 광고 계정의 성과에 대한 접근 권한이 있는 관리 계정 번호
+          required: false
+          schema:
+            type: integer
+            format: int64
         - name: timeUnit
           in: query
-          description: 'Interval for retrieving data (By day: daily)'
+          description: '조회 시간 단위 ( 일자별 : daily )'
           required: false
           schema:
             type: string
             default: daily
             enum:
               - daily
-        - name: AccessManagerAccountNo
-          in: header
-          description: >-
-            Manager account number that has access to the performance data of
-            the ad account
-          required: false
-          schema:
-            type: integer
-            format: int64
         - name: version
           in: path
-          description: API version
+          description: API 버전
           required: true
           schema:
-            type: float
-            default: '1.0'
+            type: number
+            default: 1
         - name: adAccountNo
           in: path
-          description: Ad account number
+          description: 광고 계정 번호
           required: true
           schema:
             type: integer
@@ -831,7 +802,7 @@ paths:
           example: 1234
         - name: targetDate
           in: query
-          description: Date (today or yesterday)
+          description: '조회 대상 일자 ( 오늘 : today, 어제 : yesterday )'
           required: false
           schema:
             type: string
@@ -841,14 +812,12 @@ paths:
               - yesterday
         - name: since
           in: query
-          description: >-
-            Timestamp used to get only the creatives whose performance data has
-            been updated after a specific point of time
+          description: 특정 시점 이후 업데이트된 성과만을 조회하기 위한 밀리초 단위 타임스탬프
           required: false
           schema:
             type: integer
             format: int64
-          example: 1675907423
+          example: 1675907423000
       responses:
         '200':
           description: OK
@@ -859,14 +828,21 @@ paths:
   /v1/ad-api/{version}/adAccounts/{adAccountNo}/performance/conversion/realtime/creatives/{creativeNo}/creatives:
     get:
       tags:
-        - Get real-time conversion data
-      summary: Get real-time conversion data of a creative
-      description: Gets real-time conversion performance data for a specific creative.
+        - 실시간 전환 성과 조회
+      summary: 소재 실시간 전환 성과 조회
+      description: 특정 소재의 실시간 전환 성과를 조회합니다.
       operationId: creativeRealtimePerformance_1
       parameters:
+        - name: AccessManagerAccountNo
+          in: header
+          description: 해당 광고 계정의 성과에 대한 접근 권한이 있는 관리 계정 번호
+          required: false
+          schema:
+            type: integer
+            format: int64
         - name: creativeNo
           in: path
-          description: Creative number
+          description: 소재 번호
           required: true
           schema:
             type: integer
@@ -874,32 +850,23 @@ paths:
           example: 5678
         - name: timeUnit
           in: query
-          description: 'Interval for retrieving data (By day: daily)'
+          description: '조회 시간 단위 ( 일자별 : daily )'
           required: false
           schema:
             type: string
             default: daily
             enum:
               - daily
-        - name: AccessManagerAccountNo
-          in: header
-          description: >-
-            Manager account number that has access to the performance data of
-            the ad account
-          required: false
-          schema:
-            type: integer
-            format: int64
         - name: version
           in: path
-          description: API version
+          description: API 버전
           required: true
           schema:
-            type: float
-            default: '1.0'
+            type: number
+            default: 1
         - name: adAccountNo
           in: path
-          description: Ad account number
+          description: 광고 계정 번호
           required: true
           schema:
             type: integer
@@ -907,7 +874,7 @@ paths:
           example: 1234
         - name: targetDate
           in: query
-          description: Date (today or yesterday)
+          description: '조회 대상 일자 ( 오늘 : today, 어제 : yesterday )'
           required: false
           schema:
             type: string
@@ -917,14 +884,12 @@ paths:
               - yesterday
         - name: since
           in: query
-          description: >-
-            Timestamp used to get only the creatives whose performance data has
-            been updated after a specific point of time
+          description: 특정 시점 이후 업데이트된 성과만을 조회하기 위한 밀리초 단위 타임스탬프
           required: false
           schema:
             type: integer
             format: int64
-          example: 1675907423
+          example: 1675907423000
       responses:
         '200':
           description: OK
@@ -935,14 +900,21 @@ paths:
   /v1/ad-api/{version}/adAccounts/{adAccountNo}/performance/conversion/realtime/campaigns/{campaignNo}/creatives:
     get:
       tags:
-        - Get real-time conversion data
-      summary: Get real-time conversion data of a campaign
-      description: Gets real-time conversion performance data for a specific campaign.
+        - 실시간 전환 성과 조회
+      summary: 캠페인 실시간 전환 성과 조회
+      description: 특정 캠페인의 실시간 전환 성과를 소재 단위로 조회합니다.
       operationId: campaignRealtimePerformance_1
       parameters:
+        - name: AccessManagerAccountNo
+          in: header
+          description: 해당 광고 계정의 성과에 대한 접근 권한이 있는 관리 계정 번호
+          required: false
+          schema:
+            type: integer
+            format: int64
         - name: campaignNo
           in: path
-          description: Campaign number
+          description: 캠페인 번호
           required: true
           schema:
             type: integer
@@ -950,32 +922,23 @@ paths:
           example: 5678
         - name: timeUnit
           in: query
-          description: 'Interval for retrieving data (By day: daily)'
+          description: '조회 시간 단위 ( 일자별 : daily )'
           required: false
           schema:
             type: string
             default: daily
             enum:
               - daily
-        - name: AccessManagerAccountNo
-          in: header
-          description: >-
-            Manager account number that has access to the performance data of
-            the ad account
-          required: false
-          schema:
-            type: integer
-            format: int64
         - name: version
           in: path
-          description: API version
+          description: API 버전
           required: true
           schema:
-            type: float
-            default: '1.0'
+            type: number
+            default: 1
         - name: adAccountNo
           in: path
-          description: Ad account number
+          description: 광고 계정 번호
           required: true
           schema:
             type: integer
@@ -983,7 +946,7 @@ paths:
           example: 1234
         - name: targetDate
           in: query
-          description: Date (today or yesterday)
+          description: '조회 대상 일자 ( 오늘 : today, 어제 : yesterday )'
           required: false
           schema:
             type: string
@@ -993,14 +956,12 @@ paths:
               - yesterday
         - name: since
           in: query
-          description: >-
-            Timestamp used to get only the creatives whose performance data has
-            been updated after a specific point of time
+          description: 특정 시점 이후 업데이트된 성과만을 조회하기 위한 밀리초 단위 타임스탬프
           required: false
           schema:
             type: integer
             format: int64
-          example: 1675907423
+          example: 1675907423000
       responses:
         '200':
           description: OK
@@ -1011,14 +972,21 @@ paths:
   /v1/ad-api/{version}/adAccounts/{adAccountNo}/performance/conversion/realtime/adSets/{adSetNo}/creatives:
     get:
       tags:
-        - Get real-time conversion data
-      summary: Get real-time conversion data of an ad group
-      description: Gets real-time conversion performance data for a specific ad group.
+        - 실시간 전환 성과 조회
+      summary: 광고 그룹 실시간 전환 성과 조회
+      description: 특정 광고 그룹의 실시간 전환 성과를 소재 단위로 조회합니다.
       operationId: adSetRealtimePerformance_1
       parameters:
+        - name: AccessManagerAccountNo
+          in: header
+          description: 해당 광고 계정의 성과에 대한 접근 권한이 있는 관리 계정 번호
+          required: false
+          schema:
+            type: integer
+            format: int64
         - name: adSetNo
           in: path
-          description: Ad group number
+          description: 광고 그룹 번호
           required: true
           schema:
             type: integer
@@ -1026,32 +994,23 @@ paths:
           example: 5678
         - name: timeUnit
           in: query
-          description: 'Interval for retrieving data (By day: daily)'
+          description: '조회 시간 단위 ( 일자별 : daily )'
           required: false
           schema:
             type: string
             default: daily
             enum:
               - daily
-        - name: AccessManagerAccountNo
-          in: header
-          description: >-
-            Manager account number that has access to the performance data of
-            the ad account
-          required: false
-          schema:
-            type: integer
-            format: int64
         - name: version
           in: path
-          description: API version
+          description: API 버전
           required: true
           schema:
-            type: float
-            default: '1.0'
+            type: number
+            default: 1
         - name: adAccountNo
           in: path
-          description: Ad account number
+          description: 광고 계정 번호
           required: true
           schema:
             type: integer
@@ -1059,7 +1018,7 @@ paths:
           example: 1234
         - name: targetDate
           in: query
-          description: Date (today or yesterday)
+          description: '조회 대상 일자 ( 오늘 : today, 어제 : yesterday )'
           required: false
           schema:
             type: string
@@ -1069,14 +1028,12 @@ paths:
               - yesterday
         - name: since
           in: query
-          description: >-
-            Timestamp used to get only the creatives whose performance data has
-            been updated after a specific point of time
+          description: 특정 시점 이후 업데이트된 성과만을 조회하기 위한 밀리초 단위 타임스탬프
           required: false
           schema:
             type: integer
             format: int64
-          example: 1675907423
+          example: 1675907423000
       responses:
         '200':
           description: OK
@@ -1087,18 +1044,23 @@ paths:
   /v1/ad-api/{version}/adAccounts/{adAccountNo}/performance/conversion/past/{aggregationType}:
     get:
       tags:
-        - Get past conversion data
-      summary: Get past conversion data of an ad account
-      description: >-
-        Gets past conversion performance data for a specific ad account at the
-        campaign, ad group, or creative level.
+        - 과거 전환 성과 조회
+      summary: 광고 계정 과거 전환 성과 조회
+      description: 특정 광고 계정의 과거 전환 성과를 캠페인, 광고 그룹, 소재 또는 애셋 그룹 단위로 집계하여 조회합니다.
       operationId: adAccountPastConversionPerformance
       parameters:
+        - name: AccessManagerAccountNo
+          in: header
+          description: 해당 광고 계정의 성과에 대한 접근 권한이 있는 관리 계정 번호
+          required: false
+          schema:
+            type: integer
+            format: int64
         - name: aggregationType
           in: path
           description: >-
-            Performance data aggregation type (campaigns: by campaign, adSets:
-            by ad group, creatives: by creative)
+            성과 집계 단위 ( 캠페인 : campaigns, 광고 그룹 : adSets, 소재 : creatives, 애셋 그룹 :
+            assetGroups )
           required: true
           schema:
             type: string
@@ -1106,34 +1068,26 @@ paths:
               - campaigns
               - adSets
               - creatives
+              - assetGroups
         - name: timeUnit
           in: query
-          description: 'Interval for retrieving data (By day: daily)'
+          description: '조회 시간 단위 ( 일자별 : daily )'
           required: false
           schema:
             type: string
             default: daily
             enum:
               - daily
-        - name: AccessManagerAccountNo
-          in: header
-          description: >-
-            Manager account number that has access to the performance data of
-            the ad account
-          required: false
-          schema:
-            type: integer
-            format: int64
         - name: version
           in: path
-          description: API version
+          description: API 버전
           required: true
           schema:
-            type: float
-            default: '1.0'
+            type: number
+            default: 1
         - name: adAccountNo
           in: path
-          description: Ad account number
+          description: 광고 계정 번호
           required: true
           schema:
             type: integer
@@ -1141,7 +1095,7 @@ paths:
           example: 1234
         - name: startDate
           in: query
-          description: Start date (yyyy-MM-dd)
+          description: 조회 시작일 (yyyy-MM-dd 형식)
           required: true
           schema:
             type: string
@@ -1149,7 +1103,7 @@ paths:
           example: '2023-01-01'
         - name: endDate
           in: query
-          description: End date (yyyy-MM-dd)
+          description: 조회 종료일 (yyyy-MM-dd 형식)
           required: true
           schema:
             type: string
@@ -1157,14 +1111,14 @@ paths:
           example: '2023-01-30'
         - name: next
           in: query
-          description: Next page token
+          description: 다음 페이지 조회를 위한 토큰
           required: false
           schema:
             type: string
           example: zwMvjK6XRhyiJoFGZZkqhw:1707978058060
         - name: limit
           in: query
-          description: Number of records to get
+          description: 조회할 레코드 수
           required: false
           schema:
             type: int
@@ -1179,14 +1133,21 @@ paths:
   /v1/ad-api/{version}/adAccounts/{adAccountNo}/performance/conversion/past/creatives/{creativeNo}/{aggregationType}:
     get:
       tags:
-        - Get past conversion data
-      summary: Get past conversion data of a creative
-      description: Gets past conversion performance data for a specific creative.
+        - 과거 전환 성과 조회
+      summary: 소재 과거 전환 성과 조회
+      description: 특정 소재의 과거 전환 성과를 조회합니다.
       operationId: creativePastPerformance_1
       parameters:
+        - name: AccessManagerAccountNo
+          in: header
+          description: 해당 광고 계정의 성과에 대한 접근 권한이 있는 관리 계정 번호
+          required: false
+          schema:
+            type: integer
+            format: int64
         - name: creativeNo
           in: path
-          description: Creative number
+          description: 소재 번호
           required: true
           schema:
             type: integer
@@ -1194,7 +1155,7 @@ paths:
           example: 5678
         - name: aggregationType
           in: path
-          description: 'Performance data aggregation type (creatives: by creative)'
+          description: '성과 집계 단위 ( 소재 : creatives )'
           required: true
           schema:
             type: string
@@ -1202,32 +1163,23 @@ paths:
               - creatives
         - name: timeUnit
           in: query
-          description: 'Interval for retrieving data (By day: daily)'
+          description: '조회 시간 단위 ( 일자별 : daily )'
           required: false
           schema:
             type: string
             default: daily
             enum:
               - daily
-        - name: AccessManagerAccountNo
-          in: header
-          description: >-
-            Manager account number that has access to the performance data of
-            the ad account
-          required: false
-          schema:
-            type: integer
-            format: int64
         - name: version
           in: path
-          description: API version
+          description: API 버전
           required: true
           schema:
-            type: float
-            default: '1.0'
+            type: number
+            default: 1
         - name: adAccountNo
           in: path
-          description: Ad account number
+          description: 광고 계정 번호
           required: true
           schema:
             type: integer
@@ -1235,7 +1187,7 @@ paths:
           example: 1234
         - name: startDate
           in: query
-          description: Start date (yyyy-MM-dd)
+          description: 조회 시작일 (yyyy-MM-dd 형식)
           required: true
           schema:
             type: string
@@ -1243,7 +1195,7 @@ paths:
           example: '2023-01-01'
         - name: endDate
           in: query
-          description: End date (yyyy-MM-dd)
+          description: 조회 종료일 (yyyy-MM-dd 형식)
           required: true
           schema:
             type: string
@@ -1251,14 +1203,14 @@ paths:
           example: '2023-01-30'
         - name: next
           in: query
-          description: Next page token
+          description: 다음 페이지 조회를 위한 토큰
           required: false
           schema:
             type: string
           example: zwMvjK6XRhyiJoFGZZkqhw:1707978058060
         - name: limit
           in: query
-          description: Number of records to get
+          description: 조회할 레코드 수
           required: false
           schema:
             type: int
@@ -1273,16 +1225,21 @@ paths:
   /v1/ad-api/{version}/adAccounts/{adAccountNo}/performance/conversion/past/campaigns/{campaignNo}/{aggregationType}:
     get:
       tags:
-        - Get past conversion data
-      summary: Get past conversion data of a campaign
-      description: >-
-        Gets past conversion performance data for a specific campaign at the ad
-        group or creative level.
+        - 과거 전환 성과 조회
+      summary: 캠페인 과거 전환 성과 조회
+      description: 특정 캠페인의 과거 전환 성과를 광고 그룹, 소재 또는 애셋 그룹 단위로 집계하여 조회합니다.
       operationId: campaignPastPerformance_1
       parameters:
+        - name: AccessManagerAccountNo
+          in: header
+          description: 해당 광고 계정의 성과에 대한 접근 권한이 있는 관리 계정 번호
+          required: false
+          schema:
+            type: integer
+            format: int64
         - name: campaignNo
           in: path
-          description: Campaign number
+          description: 캠페인 번호
           required: true
           schema:
             type: integer
@@ -1290,43 +1247,33 @@ paths:
           example: 5678
         - name: aggregationType
           in: path
-          description: >-
-            Performance data aggregation type (adSets: by ad group, creatives:
-            by creative)
+          description: '성과 집계 단위 ( 광고 그룹 : adSets, 소재 : creatives, 애셋 그룹 : assetGroups )'
           required: true
           schema:
             type: string
             enum:
               - adSets
               - creatives
+              - assetGroups
         - name: timeUnit
           in: query
-          description: 'Interval for retrieving data (By day: daily)'
+          description: '조회 시간 단위 ( 일자별 : daily )'
           required: false
           schema:
             type: string
             default: daily
             enum:
               - daily
-        - name: AccessManagerAccountNo
-          in: header
-          description: >-
-            Manager account number that has access to the performance data of
-            the ad account
-          required: false
-          schema:
-            type: integer
-            format: int64
         - name: version
           in: path
-          description: API version
+          description: API 버전
           required: true
           schema:
-            type: float
-            default: '1.0'
+            type: number
+            default: 1
         - name: adAccountNo
           in: path
-          description: Ad account number
+          description: 광고 계정 번호
           required: true
           schema:
             type: integer
@@ -1334,7 +1281,7 @@ paths:
           example: 1234
         - name: startDate
           in: query
-          description: Start date (yyyy-MM-dd)
+          description: 조회 시작일 (yyyy-MM-dd 형식)
           required: true
           schema:
             type: string
@@ -1342,7 +1289,7 @@ paths:
           example: '2023-01-01'
         - name: endDate
           in: query
-          description: End date (yyyy-MM-dd)
+          description: 조회 종료일 (yyyy-MM-dd 형식)
           required: true
           schema:
             type: string
@@ -1350,14 +1297,14 @@ paths:
           example: '2023-01-30'
         - name: next
           in: query
-          description: Next page token
+          description: 다음 페이지 조회를 위한 토큰
           required: false
           schema:
             type: string
           example: zwMvjK6XRhyiJoFGZZkqhw:1707978058060
         - name: limit
           in: query
-          description: Number of records to get
+          description: 조회할 레코드 수
           required: false
           schema:
             type: int
@@ -1372,16 +1319,21 @@ paths:
   /v1/ad-api/{version}/adAccounts/{adAccountNo}/performance/conversion/past/adSets/{adSetNo}/{aggregationType}:
     get:
       tags:
-        - Get past conversion data
-      summary: Get past conversion data of an ad group
-      description: >-
-        Gets past conversion performance data for a specific ad group at the
-        creative level.
+        - 과거 전환 성과 조회
+      summary: 광고 그룹 과거 전환 성과 조회
+      description: 특정 광고 그룹의 과거 전환 성과를 소재 단위로 집계하여 조회합니다.
       operationId: adSetPastPerformance_1
       parameters:
+        - name: AccessManagerAccountNo
+          in: header
+          description: 해당 광고 계정의 성과에 대한 접근 권한이 있는 관리 계정 번호
+          required: false
+          schema:
+            type: integer
+            format: int64
         - name: adSetNo
           in: path
-          description: Ad group number
+          description: 광고 그룹 번호
           required: true
           schema:
             type: integer
@@ -1389,7 +1341,7 @@ paths:
           example: 5678
         - name: aggregationType
           in: path
-          description: 'Performance data aggregation type (creatives: by creative)'
+          description: '성과 집계 단위 ( 소재 : creatives )'
           required: true
           schema:
             type: string
@@ -1397,32 +1349,23 @@ paths:
               - creatives
         - name: timeUnit
           in: query
-          description: 'Interval for retrieving data (By day: daily)'
+          description: '조회 시간 단위 ( 일자별 : daily )'
           required: false
           schema:
             type: string
             default: daily
             enum:
               - daily
-        - name: AccessManagerAccountNo
-          in: header
-          description: >-
-            Manager account number that has access to the performance data of
-            the ad account
-          required: false
-          schema:
-            type: integer
-            format: int64
         - name: version
           in: path
-          description: API version
+          description: API 버전
           required: true
           schema:
-            type: float
-            default: '1.0'
+            type: number
+            default: 1
         - name: adAccountNo
           in: path
-          description: Ad account number
+          description: 광고 계정 번호
           required: true
           schema:
             type: integer
@@ -1430,7 +1373,7 @@ paths:
           example: 1234
         - name: startDate
           in: query
-          description: Start date (yyyy-MM-dd)
+          description: 조회 시작일 (yyyy-MM-dd 형식)
           required: true
           schema:
             type: string
@@ -1438,7 +1381,7 @@ paths:
           example: '2023-01-01'
         - name: endDate
           in: query
-          description: End date (yyyy-MM-dd)
+          description: 조회 종료일 (yyyy-MM-dd 형식)
           required: true
           schema:
             type: string
@@ -1446,14 +1389,562 @@ paths:
           example: '2023-01-30'
         - name: next
           in: query
-          description: Next page token
+          description: 다음 페이지 조회를 위한 토큰
           required: false
           schema:
             type: string
           example: zwMvjK6XRhyiJoFGZZkqhw:1707978058060
         - name: limit
           in: query
-          description: Number of records to get
+          description: 조회할 레코드 수
+          required: false
+          schema:
+            type: int
+            default: '1000'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PastConvPerformanceResponse'
+  /v1/ad-api/{version}/adAccounts/{adAccountNo}/performance/realtime/campaigns/{campaignNo}/assetGroups:
+    get:
+      tags:
+        - 실시간 성과 조회
+      summary: 캠페인 실시간 성과 조회 (애셋 그룹)
+      description: 특정 캠페인의 실시간 성과를 애셋 그룹 단위로 조회합니다.
+      operationId: campaignAssetGroupRealtimePerformance
+      parameters:
+        - name: campaignNo
+          in: path
+          description: 캠페인 번호
+          required: true
+          schema:
+            type: integer
+            format: int64
+          example: 5678
+        - name: version
+          in: path
+          description: API 버전
+          required: true
+          schema:
+            type: number
+            default: 1
+        - name: adAccountNo
+          in: path
+          description: 광고 계정 번호
+          required: true
+          schema:
+            type: integer
+            format: int64
+          example: 1234
+        - name: targetDate
+          in: query
+          description: '조회 대상 일자 ( 오늘 : today, 어제 : yesterday )'
+          required: false
+          schema:
+            type: string
+            default: today
+            enum:
+              - today
+              - yesterday
+        - name: since
+          in: query
+          description: 특정 시점 이후 업데이트된 성과만을 조회하기 위한 밀리초 단위 타임스탬프
+          required: false
+          schema:
+            type: integer
+            format: int64
+          example: 1675907423000
+        - name: timeUnit
+          in: query
+          description: '조회 시간 단위 ( 일자별 : daily, 시간별 : hourly )'
+          required: false
+          schema:
+            type: string
+            default: daily
+            enum:
+              - daily
+              - hourly
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RealtimePerformanceResponse'
+  /v1/ad-api/{version}/adAccounts/{adAccountNo}/performance/realtime/assetGroups:
+    get:
+      tags:
+        - 실시간 성과 조회
+      summary: 광고 계정 실시간 성과 조회 (애셋 그룹)
+      description: 특정 광고 계정의 실시간 성과를 애셋 그룹 단위로 조회합니다.
+      operationId: adAccountAssetGroupRealtimePerformance
+      parameters:
+        - name: version
+          in: path
+          description: API 버전
+          required: true
+          schema:
+            type: number
+            default: 1
+        - name: adAccountNo
+          in: path
+          description: 광고 계정 번호
+          required: true
+          schema:
+            type: integer
+            format: int64
+          example: 1234
+        - name: targetDate
+          in: query
+          description: '조회 대상 일자 ( 오늘 : today, 어제 : yesterday )'
+          required: false
+          schema:
+            type: string
+            default: today
+            enum:
+              - today
+              - yesterday
+        - name: since
+          in: query
+          description: 특정 시점 이후 업데이트된 성과만을 조회하기 위한 밀리초 단위 타임스탬프
+          required: false
+          schema:
+            type: integer
+            format: int64
+          example: 1675907423000
+        - name: timeUnit
+          in: query
+          description: '조회 시간 단위 ( 일자별 : daily, 시간별 : hourly )'
+          required: false
+          schema:
+            type: string
+            default: daily
+            enum:
+              - daily
+              - hourly
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RealtimePerformanceResponse'
+  /v1/ad-api/{version}/adAccounts/{adAccountNo}/performance/realtime/assetGroups/{assetGroupNo}/assetGroups:
+    get:
+      tags:
+        - 실시간 성과 조회
+      summary: 애셋 그룹 실시간 성과 조회
+      description: 특정 애셋 그룹의 실시간 성과를 조회합니다.
+      operationId: assetGroupRealtimePerformance
+      parameters:
+        - name: assetGroupNo
+          in: path
+          description: 애셋 그룹 번호
+          required: true
+          schema:
+            type: integer
+            format: int64
+          example: 5678
+        - name: version
+          in: path
+          description: API 버전
+          required: true
+          schema:
+            type: number
+            default: 1
+        - name: adAccountNo
+          in: path
+          description: 광고 계정 번호
+          required: true
+          schema:
+            type: integer
+            format: int64
+          example: 1234
+        - name: targetDate
+          in: query
+          description: '조회 대상 일자 ( 오늘 : today, 어제 : yesterday )'
+          required: false
+          schema:
+            type: string
+            default: today
+            enum:
+              - today
+              - yesterday
+        - name: since
+          in: query
+          description: 특정 시점 이후 업데이트된 성과만을 조회하기 위한 밀리초 단위 타임스탬프
+          required: false
+          schema:
+            type: integer
+            format: int64
+          example: 1675907423000
+        - name: timeUnit
+          in: query
+          description: '조회 시간 단위 ( 일자별 : daily, 시간별 : hourly )'
+          required: false
+          schema:
+            type: string
+            default: daily
+            enum:
+              - daily
+              - hourly
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RealtimePerformanceResponse'
+  /v1/ad-api/{version}/adAccounts/{adAccountNo}/performance/past/assetGroups/{assetGroupNo}/{aggregationType}:
+    get:
+      tags:
+        - 과거 성과 조회
+      summary: 애셋 그룹 과거 성과 조회
+      description: 특정 애셋 그룹의 과거 성과를 조회합니다.
+      operationId: assetGroupPastPerformance
+      parameters:
+        - name: assetGroupNo
+          in: path
+          description: 애셋 그룹 번호
+          required: true
+          schema:
+            type: integer
+            format: int64
+          example: 5678
+        - name: aggregationType
+          in: path
+          description: '성과 집계 단위 ( 애셋 그룹 : assetGroups )'
+          required: true
+          schema:
+            type: string
+            enum:
+              - assetGroups
+        - name: version
+          in: path
+          description: API 버전
+          required: true
+          schema:
+            type: number
+            default: 1
+        - name: adAccountNo
+          in: path
+          description: 광고 계정 번호
+          required: true
+          schema:
+            type: integer
+            format: int64
+          example: 1234
+        - name: startDate
+          in: query
+          description: 조회 시작일 (yyyy-MM-dd 형식)
+          required: true
+          schema:
+            type: string
+            format: date
+          example: '2023-01-01'
+        - name: endDate
+          in: query
+          description: 조회 종료일 (yyyy-MM-dd 형식)
+          required: true
+          schema:
+            type: string
+            format: date
+          example: '2023-01-30'
+        - name: next
+          in: query
+          description: 다음 페이지 조회를 위한 토큰
+          required: false
+          schema:
+            type: string
+          example: zwMvjK6XRhyiJoFGZZkqhw:1707978058060
+        - name: limit
+          in: query
+          description: 조회할 레코드 수
+          required: false
+          schema:
+            type: int
+            default: '1000'
+        - name: timeUnit
+          in: query
+          description: '조회 시간 단위 ( 일자별 : daily, 시간별 : hourly )'
+          required: false
+          schema:
+            type: string
+            default: daily
+            enum:
+              - daily
+              - hourly
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PastPerformanceResponse'
+  /v1/ad-api/{version}/adAccounts/{adAccountNo}/performance/conversion/realtime/campaigns/{campaignNo}/assetGroups:
+    get:
+      tags:
+        - 실시간 전환 성과 조회
+      summary: 캠페인 실시간 전환 성과 조회 (애셋 그룹)
+      description: 특정 캠페인의 실시간 전환 성과를 애셋 그룹 단위로 조회합니다.
+      operationId: campaignAssetGroupRealtimePerformance_1
+      parameters:
+        - name: campaignNo
+          in: path
+          description: 캠페인 번호
+          required: true
+          schema:
+            type: integer
+            format: int64
+          example: 5678
+        - name: timeUnit
+          in: query
+          description: '조회 시간 단위 ( 일자별 : daily )'
+          required: false
+          schema:
+            type: string
+            default: daily
+            enum:
+              - daily
+        - name: version
+          in: path
+          description: API 버전
+          required: true
+          schema:
+            type: number
+            default: 1
+        - name: adAccountNo
+          in: path
+          description: 광고 계정 번호
+          required: true
+          schema:
+            type: integer
+            format: int64
+          example: 1234
+        - name: targetDate
+          in: query
+          description: '조회 대상 일자 ( 오늘 : today, 어제 : yesterday )'
+          required: false
+          schema:
+            type: string
+            default: today
+            enum:
+              - today
+              - yesterday
+        - name: since
+          in: query
+          description: 특정 시점 이후 업데이트된 성과만을 조회하기 위한 밀리초 단위 타임스탬프
+          required: false
+          schema:
+            type: integer
+            format: int64
+          example: 1675907423000
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RealtimeConvPerformanceResponse'
+  /v1/ad-api/{version}/adAccounts/{adAccountNo}/performance/conversion/realtime/assetGroups:
+    get:
+      tags:
+        - 실시간 전환 성과 조회
+      summary: 광고 계정 실시간 전환 성과 조회 (애셋 그룹)
+      description: 특정 광고 계정의 실시간 전환 성과를 애셋 그룹 단위로 조회합니다.
+      operationId: adAccountAssetGroupRealtimePerformance_1
+      parameters:
+        - name: timeUnit
+          in: query
+          description: '조회 시간 단위 ( 일자별 : daily )'
+          required: false
+          schema:
+            type: string
+            default: daily
+            enum:
+              - daily
+        - name: version
+          in: path
+          description: API 버전
+          required: true
+          schema:
+            type: number
+            default: 1
+        - name: adAccountNo
+          in: path
+          description: 광고 계정 번호
+          required: true
+          schema:
+            type: integer
+            format: int64
+          example: 1234
+        - name: targetDate
+          in: query
+          description: '조회 대상 일자 ( 오늘 : today, 어제 : yesterday )'
+          required: false
+          schema:
+            type: string
+            default: today
+            enum:
+              - today
+              - yesterday
+        - name: since
+          in: query
+          description: 특정 시점 이후 업데이트된 성과만을 조회하기 위한 밀리초 단위 타임스탬프
+          required: false
+          schema:
+            type: integer
+            format: int64
+          example: 1675907423000
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RealtimeConvPerformanceResponse'
+  /v1/ad-api/{version}/adAccounts/{adAccountNo}/performance/conversion/realtime/assetGroups/{assetGroupNo}/assetGroups:
+    get:
+      tags:
+        - 실시간 전환 성과 조회
+      summary: 애셋 그룹 실시간 전환 성과 조회
+      description: 특정 애셋 그룹의 실시간 전환 성과를 조회합니다.
+      operationId: assetGroupRealtimePerformance_1
+      parameters:
+        - name: assetGroupNo
+          in: path
+          description: 애셋 그룹 번호
+          required: true
+          schema:
+            type: integer
+            format: int64
+          example: 5678
+        - name: timeUnit
+          in: query
+          description: '조회 시간 단위 ( 일자별 : daily )'
+          required: false
+          schema:
+            type: string
+            default: daily
+            enum:
+              - daily
+        - name: version
+          in: path
+          description: API 버전
+          required: true
+          schema:
+            type: number
+            default: 1
+        - name: adAccountNo
+          in: path
+          description: 광고 계정 번호
+          required: true
+          schema:
+            type: integer
+            format: int64
+          example: 1234
+        - name: targetDate
+          in: query
+          description: '조회 대상 일자 ( 오늘 : today, 어제 : yesterday )'
+          required: false
+          schema:
+            type: string
+            default: today
+            enum:
+              - today
+              - yesterday
+        - name: since
+          in: query
+          description: 특정 시점 이후 업데이트된 성과만을 조회하기 위한 밀리초 단위 타임스탬프
+          required: false
+          schema:
+            type: integer
+            format: int64
+          example: 1675907423000
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RealtimeConvPerformanceResponse'
+  /v1/ad-api/{version}/adAccounts/{adAccountNo}/performance/conversion/past/assetGroups/{assetGroupNo}/{aggregationType}:
+    get:
+      tags:
+        - 과거 전환 성과 조회
+      summary: 애셋 그룹 과거 전환 성과 조회
+      description: 특정 애셋 그룹의 과거 전환 성과를 조회합니다.
+      operationId: assetGroupPastPerformance_1
+      parameters:
+        - name: assetGroupNo
+          in: path
+          description: 애셋 그룹 번호
+          required: true
+          schema:
+            type: integer
+            format: int64
+          example: 5678
+        - name: aggregationType
+          in: path
+          description: '성과 집계 단위 ( 애셋 그룹 : assetGroups )'
+          required: true
+          schema:
+            type: string
+            enum:
+              - assetGroups
+        - name: timeUnit
+          in: query
+          description: '조회 시간 단위 ( 일자별 : daily )'
+          required: false
+          schema:
+            type: string
+            default: daily
+            enum:
+              - daily
+        - name: version
+          in: path
+          description: API 버전
+          required: true
+          schema:
+            type: number
+            default: 1
+        - name: adAccountNo
+          in: path
+          description: 광고 계정 번호
+          required: true
+          schema:
+            type: integer
+            format: int64
+          example: 1234
+        - name: startDate
+          in: query
+          description: 조회 시작일 (yyyy-MM-dd 형식)
+          required: true
+          schema:
+            type: string
+            format: date
+          example: '2023-01-01'
+        - name: endDate
+          in: query
+          description: 조회 종료일 (yyyy-MM-dd 형식)
+          required: true
+          schema:
+            type: string
+            format: date
+          example: '2023-01-30'
+        - name: next
+          in: query
+          description: 다음 페이지 조회를 위한 토큰
+          required: false
+          schema:
+            type: string
+          example: zwMvjK6XRhyiJoFGZZkqhw:1707978058060
+        - name: limit
+          in: query
+          description: 조회할 레코드 수
           required: false
           schema:
             type: int
@@ -1472,136 +1963,148 @@ components:
       properties:
         campaignNo:
           type: integer
-          description: Campaign ID
+          description: 캠페인 ID
           format: int64
         adSetNo:
           type: integer
-          description: Ad group ID
+          description: 광고 그룹 ID
           format: int64
         creativeNo:
           type: integer
-          description: Creative ID
+          description: 소재 ID
+          format: int64
+        assetGroupNo:
+          type: integer
+          description: 애셋 그룹 ID
           format: int64
         targetDate:
           type: string
-          description: Date of occurrence
+          description: 성과 발생 일자
           format: date
-        hour:
-          type: string
-          description: >-
-            Hour of occurrence. If the interval is specified as daily, no value
-            is included in the response.
-        impCount:
-          type: integer
-          description: Impression count
-          format: int64
-        clickCount:
-          type: integer
-          description: Click count
-          format: int64
-        vplayCount:
-          type: integer
-          description: Video play count
-          format: int64
-        sales:
-          type: number
-          description: Sales
-          format: double
         convCount:
           type: integer
-          description: Conversion count
+          description: 전환 횟수
           format: int64
         convSales:
           type: number
-          description: Conversion value
+          description: 전환 매출
           format: double
         updatedAt:
           type: string
-          description: Last update time
+          description: 최종 업데이트 시각
           format: date-time
-      description: Performance data aggregated for each metric
+        hour:
+          type: string
+          description: 성과 발생 시간대; 일자별 조회인 경우에는 응답에 미포함
+        impCount:
+          type: integer
+          description: 노출 횟수
+          format: int64
+        clickCount:
+          type: integer
+          description: 클릭 횟수
+          format: int64
+        vplayCount:
+          type: integer
+          description: 비디오 재생 횟수; 애셋 그룹 단위 조회인 경우에는 0
+          format: int64
+        sales:
+          type: number
+          description: 매출
+          format: double
+      description: 조회 단위별로 집계된 성과
     RealtimePerformanceResponse:
       type: object
       properties:
         rows:
           type: array
-          description: List of performance data
+          description: 성과 목록
           items:
             $ref: '#/components/schemas/AggregatedPerformance'
         until:
           type: integer
-          description: Last update timestamp
+          description: >-
+            다음 증분 조회 기준 시각의 밀리초 단위 타임스탬프. 조회된 성과가 있으면 마지막 업데이트 시각이며, 다음 요청의
+            since로 사용합니다.
           format: int64
-      description: Real-time performance data response
+          example: 1675907423000
+      description: 실시간 성과 조회 응답
     PastPerformanceResponse:
       type: object
       properties:
         rows:
           type: array
-          description: List of performance data
+          description: 성과 목록
           items:
             $ref: '#/components/schemas/AggregatedPerformance'
         next:
           type: string
-          description: Next page token
-      description: Past performance data response
+          description: 다음 페이지 조회를 위한 토큰
+      description: 과거 성과 조회 응답
     ConvPerformance:
       type: object
       properties:
         campaignNo:
           type: integer
-          description: Campaign ID
+          description: 캠페인 ID
           format: int64
         adSetNo:
           type: integer
-          description: Ad group ID
+          description: 광고 그룹 ID
           format: int64
         creativeNo:
           type: integer
-          description: Creative ID
+          description: 소재 ID
+          format: int64
+        assetGroupNo:
+          type: integer
+          description: 애셋 그룹 ID
           format: int64
         targetDate:
           type: string
-          description: Date of occurrence
+          description: 성과 발생 일자
           format: date
         convCount:
           type: integer
-          description: Conversion count
+          description: 전환 횟수
           format: int64
         convSales:
           type: number
-          description: Conversion value
+          description: 전환 매출
           format: double
         updatedAt:
           type: string
-          description: Last update time
+          description: 최종 업데이트 시각
           format: date-time
         convType:
           type: string
-          description: Conversion type
-      description: Conversion performance data aggregated by each unit
+          description: 전환 유형
+      description: 조회 단위별로 집계된 전환 성과
     RealtimeConvPerformanceResponse:
       type: object
       properties:
         rows:
           type: array
-          description: List of conversion performance data
+          description: 전환 성과 목록
           items:
             $ref: '#/components/schemas/ConvPerformance'
         until:
           type: integer
-          description: Last update timestamp
+          description: >-
+            다음 증분 조회 기준 시각의 밀리초 단위 타임스탬프. 조회된 성과가 있으면 마지막 업데이트 시각이며, 다음 요청의
+            since로 사용합니다.
           format: int64
-      description: Real-time conversion performance data response
+          example: 1675907423000
+      description: 실시간 전환 성과 조회 응답
     PastConvPerformanceResponse:
       type: object
       properties:
         rows:
           type: array
-          description: List of conversion performance data
+          description: 전환 성과 목록
           items:
             $ref: '#/components/schemas/ConvPerformance'
         next:
           type: string
-          description: Next page token
-      description: Past conversion performance data response
+          description: 다음 페이지 조회를 위한 토큰
+      description: 과거 전환 성과 조회 응답
