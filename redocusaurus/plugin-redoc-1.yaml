@@ -27,7 +27,7 @@ paths:
           content:
             '*/*':
               schema:
-                $ref: '#/components/schemas/Page«OpenAdSetListView»'
+                $ref: '#/components/schemas/PageOpenAdSetListView'
       deprecated: false
       parameters:
         - name: AccessManagerAccountNo
@@ -134,28 +134,28 @@ paths:
           schema:
             type: integer
             format: int64
-        - name: adAccountNo
-          in: path
-          description: adAccountNo
-          required: true
-          schema:
-            type: integer
-            format: int64
         - name: version
           in: path
           description: API 버전
-          required: false
+          required: true
           schema:
             type: number
             format: float
             default: 1
+        - name: adAccountNo
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: adAccountNo
       requestBody:
-        description: params
-        required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/OpenAdSetCreationParam'
+        required: true
+        description: params
     delete:
       tags:
         - 광고 그룹
@@ -179,25 +179,23 @@ paths:
             format: int64
         - name: adAccountNo
           in: path
-          description: adAccountNo
           required: true
           schema:
             type: integer
             format: int64
+          description: adAccountNo
         - name: adSetNos
           in: query
           description: 광고 그룹 ID 목록
-          required: false
-          allowEmptyValue: false
+          required: true
           schema:
             type: array
             items:
               type: integer
               format: int64
-            minimum: 1
-            maximum: 100
-          style: form
-          explode: true
+            maxItems: 100
+            minItems: 1
+            uniqueItems: true
         - name: version
           in: path
           description: API 버전
@@ -228,34 +226,31 @@ paths:
           schema:
             type: integer
             format: int64
-        - name: activated
-          in: query
-          description: 'ON/OFF 설정. (예, true : ON)'
-          required: false
-          allowEmptyValue: false
-          schema:
-            type: boolean
         - name: adAccountNo
           in: path
-          description: adAccountNo
           required: true
           schema:
             type: integer
             format: int64
+          description: adAccountNo
         - name: adSetNos
           in: query
           description: 광고 그룹 ID 목록
-          required: false
-          allowEmptyValue: false
+          required: true
           schema:
             type: array
             items:
               type: integer
               format: int64
-            minimum: 1
-            maximum: 100
-          style: form
-          explode: true
+            maxItems: 100
+            minItems: 1
+            uniqueItems: true
+        - name: activated
+          in: query
+          description: 'ON/OFF 설정. (예, true : ON)'
+          required: true
+          schema:
+            type: boolean
         - name: version
           in: path
           description: API 버전
@@ -298,28 +293,32 @@ paths:
           schema:
             type: integer
             format: int64
-        - name: adAccountNo
-          in: path
-          description: adAccountNo
-          required: true
-          schema:
-            type: integer
-            format: int64
         - name: version
           in: path
           description: API 버전
-          required: false
+          required: true
           schema:
             type: number
             format: float
             default: 1
+        - name: adAccountNo
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: adAccountNo
       requestBody:
-        description: editParam
-        required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/AdSetBidAndBudgetEditParam'
+              oneOf:
+                - $ref: '#/components/schemas/AdSetBidAndBudgetEditParam'
+                - $ref: '#/components/schemas/AdSetEditBidPriceParam'
+                - $ref: '#/components/schemas/AdSetEditBidStrategyValueParam'
+                - $ref: '#/components/schemas/AdSetEditBudgetParam'
+        required: true
+        description: editParam
   /{version}/adAccounts/{adAccountNo}/adSets/sampleByCampaignNo:
     get:
       tags:
@@ -470,28 +469,28 @@ paths:
           schema:
             type: integer
             format: int64
-        - name: adAccountNo
-          in: path
-          description: adAccountNo
-          required: true
-          schema:
-            type: integer
-            format: int64
-        - name: adSetNo
-          in: path
-          description: adSetNo
-          required: true
-          schema:
-            type: integer
-            format: int64
         - name: version
           in: path
-          description: version
-          required: false
+          description: API 버전
+          required: true
           schema:
             type: number
             format: float
             default: 1
+        - name: adAccountNo
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: adAccountNo
+        - name: adSetNo
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: adSetNo
   /{version}/adAccounts/{adAccountNo}/adSets/{adSetNo}/adidLibraries:
     get:
       tags:
@@ -717,35 +716,35 @@ paths:
           schema:
             type: integer
             format: int64
-        - name: adAccountNo
-          in: path
-          description: adAccountNo
-          required: true
-          schema:
-            type: integer
-            format: int64
-        - name: adSetNo
-          in: path
-          description: adSetNo
-          required: true
-          schema:
-            type: integer
-            format: int64
         - name: version
           in: path
-          description: version
-          required: false
+          description: API 버전
+          required: true
           schema:
             type: number
             format: float
             default: 1
+        - name: adAccountNo
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: adAccountNo
+        - name: adSetNo
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: adSetNo
       requestBody:
-        description: editParam
-        required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/AdSetDeviceAndPlacementGroupParam'
+        required: true
+        description: editParam
   /{version}/adAccounts/{adAccountNo}/adSets/{adSetNo}/interest:
     put:
       tags:
@@ -780,35 +779,35 @@ paths:
           schema:
             type: integer
             format: int64
-        - name: adAccountNo
-          in: path
-          description: adAccountNo
-          required: true
-          schema:
-            type: integer
-            format: int64
-        - name: adSetNo
-          in: path
-          description: adSetNo
-          required: true
-          schema:
-            type: integer
-            format: int64
         - name: version
           in: path
-          description: version
-          required: false
+          description: API 버전
+          required: true
           schema:
             type: number
             format: float
             default: 1
+        - name: adAccountNo
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: adAccountNo
+        - name: adSetNo
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: adSetNo
       requestBody:
-        description: editParam
-        required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/AdSetInterestOpenApiParam'
+        required: true
+        description: editParam
   /{version}/adAccounts/{adAccountNo}/campaigns:
     get:
       tags:
@@ -821,7 +820,7 @@ paths:
           content:
             '*/*':
               schema:
-                $ref: '#/components/schemas/Page«OpenCampaignView»'
+                $ref: '#/components/schemas/PageOpenCampaignView'
       deprecated: false
       parameters:
         - name: AccessManagerAccountNo
@@ -923,11 +922,11 @@ paths:
             format: int64
         - name: adAccountNo
           in: path
-          description: adAccountNo
           required: true
           schema:
             type: integer
             format: int64
+          description: adAccountNo
         - name: version
           in: path
           description: API 버전
@@ -937,12 +936,19 @@ paths:
             format: float
             default: 1
       requestBody:
-        description: params
-        required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/OpenCampaignCreationParam'
+              oneOf:
+                - $ref: '#/components/schemas/CATALOG'
+                - $ref: '#/components/schemas/CONVERSION'
+                - $ref: '#/components/schemas/INSTALL_APP'
+                - $ref: '#/components/schemas/PMAX'
+                - $ref: '#/components/schemas/SHOPPING'
+                - $ref: '#/components/schemas/WATCH_VIDEO'
+                - $ref: '#/components/schemas/WEB_SITE_TRAFFIC'
+        required: true
+        description: params
     delete:
       tags:
         - 캠페인
@@ -966,25 +972,23 @@ paths:
             format: int64
         - name: adAccountNo
           in: path
-          description: adAccountNo
           required: true
           schema:
             type: integer
             format: int64
+          description: adAccountNo
         - name: campaignNos
           in: query
           description: 캠페인 ID 목록
-          required: false
-          allowEmptyValue: false
+          required: true
           schema:
             type: array
             items:
               type: integer
               format: int64
-            minimum: 1
-            maximum: 100
-          style: form
-          explode: true
+            maxItems: 100
+            minItems: 1
+            uniqueItems: true
         - name: version
           in: path
           description: API 버전
@@ -1015,34 +1019,31 @@ paths:
           schema:
             type: integer
             format: int64
-        - name: activated
-          in: query
-          description: 'ON/OFF 설정. (예, true : ON)'
-          required: false
-          allowEmptyValue: false
-          schema:
-            type: boolean
         - name: adAccountNo
           in: path
-          description: adAccountNo
           required: true
           schema:
             type: integer
             format: int64
+          description: adAccountNo
         - name: campaignNos
           in: query
           description: 캠페인 ID 목록
-          required: false
-          allowEmptyValue: false
+          required: true
           schema:
             type: array
             items:
               type: integer
               format: int64
-            minimum: 1
-            maximum: 100
-          style: form
-          explode: true
+            maxItems: 100
+            minItems: 1
+            uniqueItems: true
+        - name: activated
+          in: query
+          description: 'ON/OFF 설정. (예, true : ON)'
+          required: true
+          schema:
+            type: boolean
         - name: version
           in: path
           description: API 버전
@@ -1063,7 +1064,7 @@ paths:
           content:
             '*/*':
               schema:
-                $ref: '#/components/schemas/Page«BrandListResponse»'
+                $ref: '#/components/schemas/PageBrandListResponse'
       deprecated: false
       parameters:
         - name: AccessManagerAccountNo
@@ -1229,32 +1230,29 @@ paths:
             format: int64
         - name: adAccountNo
           in: path
-          description: adAccountNo
           required: true
           schema:
             type: integer
             format: int64
-        - name: campaignBudget
-          in: query
-          description: 캠페인 지출 한도
-          required: false
-          allowEmptyValue: false
-          schema:
-            type: number
+          description: adAccountNo
         - name: campaignNos
           in: query
           description: 캠페인 ID 목록
-          required: false
-          allowEmptyValue: false
+          required: true
           schema:
             type: array
             items:
               type: integer
               format: int64
-            minimum: 1
-            maximum: 100
-          style: form
-          explode: true
+            maxItems: 100
+            minItems: 1
+            uniqueItems: true
+        - name: campaignBudget
+          in: query
+          description: 캠페인 지출 한도
+          required: true
+          schema:
+            type: number
         - name: version
           in: path
           description: API 버전
@@ -1292,32 +1290,29 @@ paths:
             format: int64
         - name: adAccountNo
           in: path
-          description: adAccountNo
           required: true
           schema:
             type: integer
             format: int64
+          description: adAccountNo
         - name: campaignNos
           in: query
           description: 캠페인 ID 목록
-          required: false
-          allowEmptyValue: false
+          required: true
           schema:
             type: array
             items:
               type: integer
               format: int64
-            minimum: 1
-            maximum: 100
-          style: form
-          explode: true
+            maxItems: 100
+            minItems: 1
+            uniqueItems: true
         - name: campaignSpendLimit
           in: query
           description: >-
             캠페인 지출 한도. ADVoost 쇼핑 캠페인(objective: PMAX)은 이 값이 ADVoost 쇼핑
             예산(performanceMax.budget)으로 반영됩니다.
           required: false
-          allowEmptyValue: false
           schema:
             type: number
         - name: version
@@ -1340,7 +1335,7 @@ paths:
           content:
             '*/*':
               schema:
-                $ref: '#/components/schemas/Page«OpenUrl»'
+                $ref: '#/components/schemas/PageOpenUrl'
       deprecated: false
       parameters:
         - name: AccessManagerAccountNo
@@ -1487,12 +1482,26 @@ paths:
           content:
             '*/*':
               schema:
-                $ref: '#/components/schemas/Page«OpenCreative»'
+                $ref: '#/components/schemas/PageOpenCreative'
       deprecated: false
       parameters:
         - name: AccessManagerAccountNo
           in: header
           description: 해당 광고 계정에 대한 접근 권한이 있는 관리 계정 ID
+          required: false
+          schema:
+            type: integer
+            format: int64
+        - name: adAccountNo
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: adAccountNo
+        - name: adSetNo
+          in: query
+          description: 광고 그룹 ID
           required: false
           schema:
             type: integer
@@ -1503,30 +1512,12 @@ paths:
             소재 활성화 여부, true/false 인 경우 각각 ON/OFF 인 광고 소재만 검색합니다. 이 값이 없을 시 모든 광고
             소재를 검색합니다.
           required: false
-          allowEmptyValue: false
           schema:
             type: boolean
-        - name: adAccountNo
-          in: path
-          description: adAccountNo
-          required: true
-          schema:
-            type: integer
-            format: int64
-        - name: adSetNo
-          in: query
-          description: 광고 그룹 ID
-          required: false
-          allowEmptyValue: false
-          schema:
-            type: integer
-            format: int64
         - name: deleteOnly
           in: query
           description: 삭제된 소재 조회 여부, 이 값이 true인 경우, 삭제된 소재만 조회합니다.
           required: false
-          allowEmptyValue: false
-          example: false
           schema:
             type: boolean
             default: false
@@ -1535,13 +1526,17 @@ paths:
           description: '페이지 번호 (기본값: 0)'
           required: false
           schema:
-            type: string
+            type: integer
+            format: int32
+            description: '페이지 번호 (기본값: 0)'
         - name: size
           in: query
           description: '페이지 크기 (기본값: 10, 최대: 100)'
           required: false
           schema:
-            type: string
+            type: integer
+            format: int32
+            description: '페이지 크기 (기본값: 10, 최대: 100)'
         - name: version
           in: path
           description: API 버전
@@ -1574,35 +1569,33 @@ paths:
           schema:
             type: integer
             format: int64
+        - name: version
+          in: path
+          description: API 버전
+          required: true
+          schema:
+            type: number
+            format: float
+            default: 1
         - name: adAccountNo
           in: path
-          description: adAccountNo
           required: true
           schema:
             type: integer
             format: int64
+          description: adAccountNo
         - name: creativeNos
           in: query
           description: 소재 ID 목록
           required: true
-          allowEmptyValue: false
           schema:
             type: array
             items:
               type: integer
               format: int64
-            minimum: 1
-            maximum: 100
-          style: form
-          explode: true
-        - name: version
-          in: path
-          description: API 버전
-          required: false
-          schema:
-            type: number
-            format: float
-            default: 1
+            maxItems: 100
+            minItems: 1
+            uniqueItems: true
   /{version}/adAccounts/{adAccountNo}/creatives/IMAGE_BANNER:
     post:
       tags:
@@ -1631,28 +1624,28 @@ paths:
                 $ref: '#/components/schemas/ErrorResult'
       deprecated: false
       parameters:
-        - name: adAccountNo
-          in: path
-          description: adAccountNo
-          required: true
-          schema:
-            type: integer
-            format: int64
         - name: version
           in: path
           description: API 버전
-          required: false
+          required: true
           schema:
             type: number
             format: float
             default: 1
+        - name: adAccountNo
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: adAccountNo
       requestBody:
-        description: params
-        required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/OpenCreativeOfImageBannerParam'
+        required: true
+        description: params
   /{version}/adAccounts/{adAccountNo}/creatives/INSTREAM_VIDEO:
     post:
       tags:
@@ -1681,28 +1674,28 @@ paths:
                 $ref: '#/components/schemas/ErrorResult'
       deprecated: false
       parameters:
-        - name: adAccountNo
-          in: path
-          description: adAccountNo
-          required: true
-          schema:
-            type: integer
-            format: int64
         - name: version
           in: path
           description: API 버전
-          required: false
+          required: true
           schema:
             type: number
             format: float
             default: 1
+        - name: adAccountNo
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: adAccountNo
       requestBody:
-        description: params
-        required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/OpenCreativeOfInstreamVideoParam'
+        required: true
+        description: params
   /{version}/adAccounts/{adAccountNo}/creatives/MULTIPLE_IMAGE:
     post:
       tags:
@@ -1731,28 +1724,28 @@ paths:
                 $ref: '#/components/schemas/ErrorResult'
       deprecated: false
       parameters:
-        - name: adAccountNo
-          in: path
-          description: adAccountNo
-          required: true
-          schema:
-            type: integer
-            format: int64
         - name: version
           in: path
           description: API 버전
-          required: false
+          required: true
           schema:
             type: number
             format: float
             default: 1
+        - name: adAccountNo
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: adAccountNo
       requestBody:
-        description: params
-        required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/OpenCreativeOfMultipleImageParam'
+        required: true
+        description: params
   /{version}/adAccounts/{adAccountNo}/creatives/MULTIPLE_IMAGE_WITH_VIDEO:
     post:
       tags:
@@ -1781,28 +1774,28 @@ paths:
                 $ref: '#/components/schemas/ErrorResult'
       deprecated: false
       parameters:
-        - name: adAccountNo
-          in: path
-          description: adAccountNo
-          required: true
-          schema:
-            type: integer
-            format: int64
         - name: version
           in: path
           description: API 버전
-          required: false
+          required: true
           schema:
             type: number
             format: float
             default: 1
+        - name: adAccountNo
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: adAccountNo
       requestBody:
-        description: params
-        required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/OpenCreativeOfMultipleImageWithVideoParam'
+        required: true
+        description: params
   /{version}/adAccounts/{adAccountNo}/creatives/NATIVE_VIDEO:
     post:
       tags:
@@ -1831,28 +1824,28 @@ paths:
                 $ref: '#/components/schemas/ErrorResult'
       deprecated: false
       parameters:
-        - name: adAccountNo
-          in: path
-          description: adAccountNo
-          required: true
-          schema:
-            type: integer
-            format: int64
         - name: version
           in: path
           description: API 버전
-          required: false
+          required: true
           schema:
             type: number
             format: float
             default: 1
+        - name: adAccountNo
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: adAccountNo
       requestBody:
-        description: params
-        required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/OpenCreativeOfNativeSingleVideoParam'
+        required: true
+        description: params
   /{version}/adAccounts/{adAccountNo}/creatives/SINGLE_IMAGE:
     post:
       tags:
@@ -1881,28 +1874,28 @@ paths:
                 $ref: '#/components/schemas/ErrorResult'
       deprecated: false
       parameters:
-        - name: adAccountNo
-          in: path
-          description: adAccountNo
-          required: true
-          schema:
-            type: integer
-            format: int64
         - name: version
           in: path
           description: API 버전
-          required: false
+          required: true
           schema:
             type: number
             format: float
             default: 1
+        - name: adAccountNo
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: adAccountNo
       requestBody:
-        description: params
-        required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/OpenCreativeOfSingleImageParam'
+        required: true
+        description: params
   /{version}/adAccounts/{adAccountNo}/creatives/activate:
     post:
       tags:
@@ -1929,42 +1922,39 @@ paths:
           schema:
             type: integer
             format: int64
-        - name: activated
-          in: query
-          description: '소재 활성화 여부, (예> true : ON)'
+        - name: version
+          in: path
+          description: API 버전
           required: true
-          allowEmptyValue: false
           schema:
-            type: boolean
+            type: number
+            format: float
+            default: 1
         - name: adAccountNo
           in: path
-          description: adAccountNo
           required: true
           schema:
             type: integer
             format: int64
+          description: adAccountNo
         - name: creativeNos
           in: query
           description: 소재 ID 목록
           required: true
-          allowEmptyValue: false
           schema:
             type: array
             items:
               type: integer
               format: int64
-            minimum: 1
-            maximum: 100
-          style: form
-          explode: true
-        - name: version
-          in: path
-          description: API 버전
-          required: false
+            maxItems: 100
+            minItems: 1
+            uniqueItems: true
+        - name: activated
+          in: query
+          description: '소재 활성화 여부, (예> true : ON)'
+          required: true
           schema:
-            type: number
-            format: float
-            default: 1
+            type: boolean
   /{version}/adAccounts/{adAccountNo}/creatives/callToActions:
     get:
       tags:
@@ -2046,35 +2036,34 @@ paths:
           schema:
             type: integer
             format: int64
-        - name: adAccountNo
-          in: path
-          description: adAccountNo
-          required: true
-          schema:
-            type: integer
-            format: int64
         - name: version
           in: path
           description: API 버전
-          required: false
+          required: true
           schema:
             type: number
             format: float
             default: 1
+        - name: adAccountNo
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: adAccountNo
       requestBody:
-        required: true
         content:
           multipart/form-data:
             schema:
               type: object
               properties:
-                creativeTemplateCode:
-                  type: string
-                  description: 소재 템플릿
                 file:
                   type: string
                   format: binary
                   description: file
+                creativeTemplateCode:
+                  type: string
+                  description: 소재 템플릿
               required:
                 - creativeTemplateCode
                 - file
@@ -2112,42 +2101,43 @@ paths:
           schema:
             type: integer
             format: int64
-        - name: adAccountNo
-          in: path
-          description: adAccountNo
-          required: true
-          schema:
-            type: integer
-            format: int64
         - name: version
           in: path
           description: API 버전
-          required: false
+          required: true
           schema:
             type: number
             format: float
             default: 1
+        - name: adAccountNo
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: adAccountNo
       requestBody:
-        required: true
         content:
           multipart/form-data:
             schema:
               type: object
               properties:
-                callbackUrl:
-                  type: string
-                  description: 콜백 URL
-                creativeTemplateCode:
-                  type: string
-                  description: 소재 템플릿
                 file:
                   type: string
                   format: binary
                   description: file
+                creativeTemplateCode:
+                  type: string
+                  description: 소재 템플릿
                 sizeGroupNo:
                   type: integer
                   format: int32
                   description: 소재 미디어(이미지/동영상) 규격ID
+                callbackUrl:
+                  type: string
+                  description: 콜백 URL
+                  maxLength: 1024
+                  minLength: 0
               required:
                 - callbackUrl
                 - creativeTemplateCode
@@ -2221,28 +2211,28 @@ paths:
           schema:
             type: integer
             format: int64
-        - name: adAccountNo
-          in: path
-          description: adAccountNo
-          required: true
-          schema:
-            type: integer
-            format: int64
-        - name: creativeNo
-          in: path
-          description: creativeNo
-          required: true
-          schema:
-            type: integer
-            format: int64
         - name: version
           in: path
           description: API 버전
-          required: false
+          required: true
           schema:
             type: number
             format: float
             default: 1
+        - name: adAccountNo
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: adAccountNo
+        - name: creativeNo
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: creativeNo
   /{version}/adAccounts/{adAccountNo}/customTargets/adidLibraries:
     get:
       tags:
@@ -2255,7 +2245,7 @@ paths:
           content:
             '*/*':
               schema:
-                $ref: '#/components/schemas/Page«OpenCustomTargetAdidLibraryResponse»'
+                $ref: '#/components/schemas/PageOpenCustomTargetAdidLibraryResponse'
       deprecated: false
       parameters:
         - name: AccessManagerAccountNo
@@ -2338,20 +2328,11 @@ paths:
             format: int64
         - name: adAccountNo
           in: path
-          description: adAccountNo
           required: true
           schema:
             type: integer
             format: int64
-        - name: name
-          in: query
-          description: 고객 파일 타겟 명
-          required: true
-          allowEmptyValue: false
-          schema:
-            type: string
-            minLength: 1
-            maxLength: 128
+          description: adAccountNo
         - name: version
           in: path
           description: API 버전
@@ -2361,7 +2342,6 @@ paths:
             format: float
             default: 1
       requestBody:
-        required: true
         content:
           multipart/form-data:
             schema:
@@ -2371,8 +2351,14 @@ paths:
                   type: string
                   format: binary
                   description: 고객 파일
+                name:
+                  type: string
+                  description: 고객 파일 타겟 명
+                  maxLength: 128
+                  minLength: 1
               required:
                 - file
+                - name
   /{version}/adAccounts/{adAccountNo}/customTargets/adidLibraries/{adidLibraryNo}:
     get:
       tags:
@@ -2566,25 +2552,18 @@ paths:
             format: int64
         - name: adAccountNo
           in: path
-          description: adAccountNo
           required: true
           schema:
             type: integer
             format: int64
+          description: adAccountNo
         - name: adidLibraryNo
           in: path
-          description: adidLibraryNo
           required: true
           schema:
             type: integer
             format: int64
-        - name: callbackUrl
-          in: query
-          description: callback url
-          required: false
-          allowEmptyValue: false
-          schema:
-            type: string
+          description: adidLibraryNo
         - name: version
           in: path
           description: API 버전
@@ -2594,7 +2573,6 @@ paths:
             format: float
             default: 1
       requestBody:
-        required: true
         content:
           multipart/form-data:
             schema:
@@ -2604,6 +2582,9 @@ paths:
                   type: string
                   format: binary
                   description: 고객 파일
+                callbackUrl:
+                  type: string
+                  description: callback url
               required:
                 - file
   /{version}/adAccounts/{adAccountNo}/customTargets/adidLibraries/{adidLibraryNo}/removeAdid:
@@ -2647,25 +2628,18 @@ paths:
             format: int64
         - name: adAccountNo
           in: path
-          description: adAccountNo
           required: true
           schema:
             type: integer
             format: int64
+          description: adAccountNo
         - name: adidLibraryNo
           in: path
-          description: adidLibraryNo
           required: true
           schema:
             type: integer
             format: int64
-        - name: callbackUrl
-          in: query
-          description: callback url
-          required: false
-          allowEmptyValue: false
-          schema:
-            type: string
+          description: adidLibraryNo
         - name: version
           in: path
           description: API 버전
@@ -2675,7 +2649,6 @@ paths:
             format: float
             default: 1
       requestBody:
-        required: true
         content:
           multipart/form-data:
             schema:
@@ -2685,6 +2658,9 @@ paths:
                   type: string
                   format: binary
                   description: 고객 파일
+                callbackUrl:
+                  type: string
+                  description: callback url
               required:
                 - file
   /{version}/constants:
@@ -3103,328 +3079,99 @@ paths:
             default: 1
 components:
   schemas:
-    AdSetBidAndBudgetEditParam:
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          enum:
+            - CASE_1
+            - CASE_2
+            - CASE_3
+            - CASE_4
+            - CASE_5
+            - CONDITION_DOES_NOT_MEET
+            - DATA_NOT_EXIST
+            - DATA_CONCURRENCY_PROBLEM
+            - DUPLICATED_VALUE
+            - ALREADY_DONE
+            - LIMIT_EXCEEDED
+            - NOT_ALLOWED_FILE_TYPE
+            - INVALID_PARAMETER
+            - INVALID_URL
+            - INVALID_SHOPPING
+            - INVALID_SURVEY
+            - BAD_REQUEST
+            - AUTH_ERROR
+            - UNDER_CONSTRUCTION
+            - MAX_AD_SET_EXCEEDED
+            - CBO_INVALID_AD_SETS
+            - CBO_INVALID_CREATIVE
+            - WEBSITE_TARGET_ALREADY_EXISTS
+            - STORE_TARGET_ALREADY_EXISTS
+            - AD__SA_INSPECTION_STATUS_FETCH_FAILED
+            - AD__SA_BIZ_CHANNEL_NOT_FOUND
+            - UNKNOWN_ERROR
+        detailCode:
+          type: string
+        message:
+          type: string
+        description:
+          type: string
+        extra: {}
+    ErrorResult:
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/Error'
+      title: ErrorResult
+    OpenCustomTargetAdidUpdateResponse:
+      type: object
+      properties:
+        name:
+          type: string
+          description: 타겟 name
+        'no':
+          type: integer
+          format: int64
+          description: 타겟 no
+      title: OpenCustomTargetAdidUpdateResponse
+    OpenCampaignOptimizationEditParam:
       type: object
       required:
-        - adSetNos
-        - editType
-      discriminator: editType
+        - activated
       properties:
-        adSetNos:
-          type: array
-          description: 광고그룹no 목록
-          items:
-            type: integer
-            format: int64
-            minimum: 1
-            maximum: 100
-        editType:
+        activated:
+          type: boolean
+          description: 캠페인 예산 최적화 사용 여부
+        bidGoal:
           type: string
-          description: 변경 파라미터 구분
-      title: AdSetBidAndBudgetEditParam
-    AdSetDemographicParam:
-      type: object
-      properties:
-        adultOnly:
+          description: '예산 최적화 시 적용할 입찰 전략 (클릭수 최대화 : MAX_CLICK, 전환수 최대화 : MAX_CONV)'
+          enum:
+            - MAX_CLICK
+            - MAX_CONV
+        bidStrategy:
+          type: string
+          description: >-
+            예산 최적화 시 적용할 비용 관리 (입찰가 한도 : BID_CAP, 비용 한도 : COST_CAP, 한도 없음 :
+            NO_CAP) - COST_CAP 은 입찰 전략이 MAX_CLICK 인 경우에만 선택 가능합니다.
+          enum:
+            - BID_CAP
+            - COST_CAP
+            - NO_CAP
+        bidStrategyValue:
+          type: number
+          description: 예산 최적화 시 적용할 비용 관리 금액
+        budget:
+          type: number
+          description: 예산 최적화 캠페인의 총 예산
+        defaultBudgetAmountForAdSets:
+          type: number
+          description: '하위 광고그룹에 일괄 적용할 예산값, 기본값: (현재 캠페인 예산) / (현재 광고그룹 갯수)'
+        overwriteAllAdSets:
           type: boolean
-          description: 성인 타겟팅 여부
-        ageRanges:
-          type: array
-          description: 연령
-          items:
-            type: string
-            enum:
-              - AGE_14_18
-              - AGE_19_24
-              - AGE_25_29
-              - AGE_30_34
-              - AGE_35_39
-              - AGE_40_44
-              - AGE_45_49
-              - AGE_50_54
-              - AGE_55_59
-              - OVER_60
-              - UNKNOWN
-        extensionDemos:
-          type: array
-          description: 확장 데모
-          items:
-            type: integer
-            format: int32
-        genders:
-          type: array
-          description: "성별\r\n- 사용 가능한 값: `M`,`F`,`U`"
-          items:
-            type: string
-            enum:
-              - M
-              - F
-              - U
-        includeUnknownLocation:
-          type: boolean
-          description: '지역 : 비해당자 포함 여부'
-        locations:
-          type: array
-          description: 지역
-          items:
-            type: string
-      title: AdSetDemographicParam
-    AdSetDeviceAndPlacementGroupParam:
-      type: object
-      properties:
-        allDevice:
-          type: boolean
-          description: 노출 가능한 모든 디바이스 선택 여부
-        allPlacementGroup:
-          type: boolean
-          description: 노출 가능한 모든 게재위치 선택 여부
-        devices:
-          type: array
-          description: "디바이스 타입\r\n- 사용 가능한 값: `DESKTOP`,`MOBILE`"
-          items:
-            type: string
-            enum:
-              - DESKTOP
-              - MOBILE
-              - UNKNOWN
-        placementGroupCodes:
-          type: array
-          description: 게재 위치
-          items:
-            type: string
-            enum:
-              - M_SMARTCHANNEL
-              - M_MAIN
-              - M_BANNER
-              - M_FEED
-              - N_INSTREAM
-              - N_SHOPPING
-              - N_COMMUNICATION
-              - F_SMARTCHANNEL
-              - F_BANNER
-              - BAND
-              - NW_SMARTCHANNEL
-              - NW_BANNER
-              - NW_FEED
-              - PMAX
-              - COMPOSITION
-              - N_ETC
-        platforms:
-          type: array
-          description: "운영체제\r\n- 사용 가능한 값: `ANDROID`,`IOS`"
-          items:
-            type: string
-            enum:
-              - UNKNOWN
-              - ANDROID
-              - IOS
-              - WINDOWS
-              - MACOS
-      title: AdSetDeviceAndPlacementGroupParam
-    AdSetEditBidPriceParam:
-      title: AdSetEditBidPriceParam
-      allOf:
-        - $ref: '#/components/schemas/AdSetBidAndBudgetEditParam'
-        - type: object
-          required:
-            - adSetNos
-            - bidPrice
-            - editType
-          properties:
-            adSetNos:
-              type: array
-              description: 광고그룹no 목록
-              items:
-                type: integer
-                format: int64
-                minimum: 1
-                maximum: 100
-            bidPrice:
-              type: number
-              example: 10000
-              description: 입찰가
-            bidType:
-              type: string
-              description: "청구 기준\r\n- 사용 가능한 값: `CPC`,`CPM`,`CPV`"
-              enum:
-                - CPC
-                - CPM
-                - CPV
-            editType:
-              type: string
-              description: 변경 파라미터 구분
-          title: AdSetEditBidPriceParam
-    AdSetEditBidStrategyValueParam:
-      title: AdSetEditBidStrategyValueParam
-      allOf:
-        - $ref: '#/components/schemas/AdSetBidAndBudgetEditParam'
-        - type: object
-          required:
-            - adSetNos
-            - editType
-          properties:
-            adSetNos:
-              type: array
-              description: 광고그룹no 목록
-              items:
-                type: integer
-                format: int64
-                minimum: 1
-                maximum: 100
-            bidGoal:
-              type: string
-              description: "입찰 전략\r\n- 사용 가능한 값: `MAX_CONV`,`MAX_CLICK`,`MAX_CONV_VALUE`"
-              enum:
-                - MAX_CLICK
-                - MAX_CONV
-                - MAX_CONV_VALUE
-                - NONE
-            bidStrategy:
-              type: string
-              description: "비용 관리\r\n- 사용 가능한 값: `BID_CAP`,`COST_CAP`,`NO_CAP`"
-              enum:
-                - FIXED_BID
-                - BID_CAP
-                - COST_CAP
-                - NO_CAP
-                - TARGET_COST
-                - TARGET_ROAS
-            bidStrategyValue:
-              type: number
-              example: 100000
-              description: 입찰가/비용 한도
-            editType:
-              type: string
-              description: 변경 파라미터 구분
-          title: AdSetEditBidStrategyValueParam
-    AdSetEditBudgetParam:
-      title: AdSetEditBudgetParam
-      allOf:
-        - $ref: '#/components/schemas/AdSetBidAndBudgetEditParam'
-        - type: object
-          required:
-            - adSetNos
-            - budgetAmount
-            - editType
-          properties:
-            adSetNos:
-              type: array
-              description: 광고그룹no 목록
-              items:
-                type: integer
-                format: int64
-                minimum: 1
-                maximum: 100
-            budgetAmount:
-              type: number
-              example: 100000
-              description: 예산
-            budgetType:
-              type: string
-              description: 예산 타입
-              enum:
-                - DAILY
-                - TOTAL
-            editType:
-              type: string
-              description: 변경 파라미터 구분
-          title: AdSetEditBudgetParam
-    AdSetInterestOpenApiParam:
-      type: object
-      properties:
-        interestCodes:
-          type: array
-          description: 관심사
-          items:
-            $ref: '#/components/schemas/InterestTargetOpenApiParam'
-        interestIntersection:
-          type: boolean
-          description: 타겟 설정 방식
-        purchaseIntentCodes:
-          type: array
-          description: 구매 의도
-          items:
-            type: integer
-            format: int32
-      title: AdSetInterestOpenApiParam
-    AdSetInterestParam:
-      type: object
-      properties:
-        interestCodes:
-          type: array
-          description: 관심사
-          items:
-            $ref: '#/components/schemas/InterestTargetParam'
-        interestIntersection:
-          type: boolean
-          description: 타겟 설정 방식
-        purchaseIntentCodes:
-          type: array
-          description: 구매 의도
-          items:
-            $ref: '#/components/schemas/PurchaseIntentParam'
-      title: AdSetInterestParam
-    AgeRange:
-      type: object
-      properties:
-        from:
-          type: integer
-          format: int32
-        to:
-          type: integer
-          format: int32
-      title: AgeRange
-    AvailableTypesOfAdSet:
-      type: object
-      properties:
-        bidGoals:
-          type: array
-          items:
-            type: string
-            enum:
-              - MAX_CLICK
-              - MAX_CONV
-              - MAX_CONV_VALUE
-              - NONE
-        bidStrategies:
-          type: array
-          items:
-            type: string
-            enum:
-              - FIXED_BID
-              - BID_CAP
-              - COST_CAP
-              - NO_CAP
-              - TARGET_COST
-              - TARGET_ROAS
-        bidTypes:
-          type: array
-          items:
-            type: string
-            enum:
-              - CPC
-              - CPM
-              - CPV
-        budgetTypes:
-          type: array
-          items:
-            type: string
-            enum:
-              - DAILY
-              - TOTAL
-        deviceTypes:
-          type: array
-          items:
-            type: string
-            enum:
-              - DESKTOP
-              - MOBILE
-              - UNKNOWN
-        placementGroupCodes:
-          type: array
-          items:
-            type: string
-      title: AvailableTypesOfAdSet
+          description: 하위 광고그룹 일괄 변경 여부
+      title: OpenCampaignOptimizationEditParam
     Brand:
       type: object
       properties:
@@ -3456,134 +3203,6 @@ components:
           type: string
           format: date-time
       title: Brand
-    BrandListResponse:
-      type: object
-      properties:
-        adAccountNo:
-          type: integer
-          format: int64
-          description: 브랜드를 등록한 광고 계정 ID
-        brandName:
-          type: string
-          description: 브랜드명
-        brandNo:
-          type: integer
-          format: int64
-          description: 브랜드 ID
-        explanation:
-          type: string
-          description: 설명
-        favorites:
-          type: boolean
-          description: 즐겨찾기 여부
-        updatedAt:
-          type: string
-          format: date-time
-          description: 수정 일시
-      title: BrandListResponse
-    CATALOG:
-      title: CATALOG
-      allOf:
-        - $ref: '#/components/schemas/OpenCampaignCreationParam'
-        - type: object
-          required:
-            - brandNo
-            - catalogId
-            - name
-            - objective
-            - urlNo
-          properties:
-            brandNo:
-              type: integer
-              format: int64
-              description: 브랜드 ID
-            budgetAmount:
-              type: number
-              example: 100000
-              description: 지출 한도 (Deprecated)
-            catalogId:
-              type: string
-              description: 카탈로그 ID
-            conversionUrlNo:
-              type: integer
-              format: int64
-              description: >-
-                전환 추적 대상 ID, 캠페인 목적 `LEAD`일 경우 사용되지 않습니다. ADVoost 쇼핑
-                캠페인(objective: `PMAX`)은 필수이며 전환스크립트가 설치 완료된 대상이어야 합니다.
-            name:
-              type: string
-              description: 캠페인 이름
-              minLength: 2
-              maxLength: 128
-            objective:
-              type: string
-              description: 캠페인 목적
-            s2sApiOn:
-              type: boolean
-              description: 전환 API를 연동하여 전환 추적 사용 여부
-            spendLimit:
-              type: number
-              example: 100000
-              description: >-
-                지출 한도. ADVoost 쇼핑 캠페인(objective: `PMAX`)은 이 필드를 사용하지 않으며, 예산은
-                performanceMax.budget 으로 입력합니다.
-            urlNo:
-              type: integer
-              format: int64
-              description: 대표 url ID
-          title: CATALOG
-    CONVERSION:
-      title: CONVERSION
-      allOf:
-        - $ref: '#/components/schemas/OpenCampaignCreationParam'
-        - type: object
-          required:
-            - brandNo
-            - name
-            - objective
-            - urlNo
-          properties:
-            brandNo:
-              type: integer
-              format: int64
-              description: 브랜드 ID
-            budgetAmount:
-              type: number
-              example: 100000
-              description: 지출 한도 (Deprecated)
-            conversionType:
-              type: string
-              description: "최적화 전환 유형\r\n- 사용 가능한 값: `null`,`PURCHASE`,`CART`"
-            conversionUrlNo:
-              type: integer
-              format: int64
-              description: >-
-                전환 추적 대상 ID, 캠페인 목적 `LEAD`일 경우 사용되지 않습니다. ADVoost 쇼핑
-                캠페인(objective: `PMAX`)은 필수이며 전환스크립트가 설치 완료된 대상이어야 합니다.
-            name:
-              type: string
-              description: 캠페인 이름
-              minLength: 2
-              maxLength: 128
-            objective:
-              type: string
-              description: 캠페인 목적
-            optimization:
-              $ref: '#/components/schemas/OpenCampaignOptimizationParam'
-            s2sApiOn:
-              type: boolean
-              description: 전환 API를 연동하여 전환 추적 사용 여부
-            spendLimit:
-              type: number
-              example: 100000
-              description: >-
-                지출 한도. ADVoost 쇼핑 캠페인(objective: `PMAX`)은 이 필드를 사용하지 않으며, 예산은
-                performanceMax.budget 으로 입력합니다.
-            urlNo:
-              type: integer
-              format: int64
-              description: 대표 url ID
-          title: CONVERSION
     CampaignSearchKeyword:
       type: object
       properties:
@@ -3687,75 +3306,373 @@ components:
         vtr:
           type: number
       title: CampaignStats
-    CatalogNode:
+    OpenCampaignView:
       type: object
       properties:
-        catalogTypeId:
-          type: string
-        id:
-          type: string
-        name:
-          type: string
-      title: CatalogNode
-    CodeKeywordResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-          format: int32
-        keyword:
-          type: string
-      title: CodeKeywordResponse
-    ConstantResponse:
-      type: object
-      properties:
-        extra:
-          type: string
-        name:
-          type: string
-        value:
-          type: string
-      title: ConstantResponse
-    ConversionUrlResponse:
-      type: object
-      properties:
-        appId:
-          type: string
-        bizChannelNo:
+        'no':
           type: integer
           format: int64
-          description: 비즈채널 ID
-        naAccountId:
-          type: string
-          description: 네이버 공통키
+          description: 캠페인 ID
+        adAccountNo:
+          type: integer
+          format: int64
+          description: 광고 계정 ID
         name:
           type: string
-          description: 비즈채널 이름
+          description: 캠페인 이름
+        spendLimit:
+          type: number
+          description: 캠페인 지출 한도
+        objective:
+          type: string
+          description: 캠페인 목적
+          enum:
+            - CONVERSION
+            - WEB_SITE_TRAFFIC
+            - INSTALL_APP
+            - WATCH_VIDEO
+            - CATALOG
+            - SHOPPING
+            - LEAD
+            - PMAX
+        subType:
+          type: string
+          description: 캠페인 서브타입. `OFFSITE_CAMPAIGN`(부스트업) 캠페인은 Open API 로 예산 수정/삭제할 수 없습니다.
+          enum:
+            - OFFSITE_CAMPAIGN
+        urlNo:
+          type: integer
+          format: int64
+          description: URL ID
+        conversionUrlNo:
+          type: integer
+          format: int64
+          description: 전환 추적 대상 ID
+        conversionType:
+          type: string
+          description: "최적화 전환 유형\r\n- 사용 가능한 값: `null`,`PURCHASE`,`CART`,`INSTALL`"
+          enum:
+            - PURCHASE
+            - MEMBERSHIP
+            - CART
+            - RESERVATION
+            - INSTALL
+            - ETC
+        appName:
+          type: string
+          description: 앱 이름. 구 데이터 때문에 컬럼은 남아 있음. 더이상 입력 받지 않는 값
+        brandNo:
+          type: integer
+          format: int64
+          description: 브랜드 ID
+        catalogId:
+          type: string
+          description: 카탈로그 ID
+        catalogAvailable:
+          type: boolean
+          description: 카탈로그 사용가능 여부
+        createdAt:
+          type: string
+          format: date-time
+          description: 생성 일시
+        updatedAt:
+          type: string
+          format: date-time
+          description: 수정 일시
+        activated:
+          type: boolean
+          description: ON/OFF 여부
+        pausedAt:
+          type: string
+          format: date-time
+          description: 중지 일시
+        deleted:
+          type: boolean
+          description: 삭제 여부
+        campaignSearchKeywords:
+          type: array
+          description: 키워드 객체
+          items:
+            $ref: '#/components/schemas/CampaignSearchKeyword'
+          uniqueItems: true
+        url:
+          $ref: '#/components/schemas/OpenUrl'
+          description: 대표 URL 객체
+        conversionUrl:
+          $ref: '#/components/schemas/OpenUrl'
+          description: 전환추적대상 객체
+        brand:
+          $ref: '#/components/schemas/Brand'
+          description: 브랜드 객체
+        stats:
+          $ref: '#/components/schemas/CampaignStats'
+          description: 캠페인 통계 객체
+        budgetExhausted:
+          type: boolean
+          description: 캠페인 지출 한도 도달 여부
+        spentBudgetRatio:
+          type: number
+        bidTypes:
+          type: array
+          items:
+            type: string
+            enum:
+              - CPC
+              - CPM
+              - CPV
+          uniqueItems: true
         status:
           type: string
+          description: 캠페인 상태
           enum:
-            - PENDING
-            - INSTALLING
-            - INSTALLED
-            - DROP_OUT
-            - CLOSED
+            - RUNNABLE
+            - RUNNABLE_LEARNING
+            - RUNNABLE_LEARNING_LIMIT
+            - DELETED
+            - BUDGET_EXHAUSTED
+            - OPTIMIZATION_BUDGET_EXHAUSTED
+        cboActivated:
+          type: boolean
+          description: CBO 활성화 여부
+        bidGoal:
+          type: string
+          description: CBO 입찰 전략
+          enum:
+            - MAX_CLICK
+            - MAX_CONV
+            - MAX_CONV_VALUE
+            - NONE
+        bidStrategy:
+          type: string
+          description: CBO 비용 관리
+          enum:
+            - FIXED_BID
+            - BID_CAP
+            - COST_CAP
+            - NO_CAP
+            - TARGET_COST
+            - TARGET_ROAS
+        bidStrategyValue:
+          type: number
+          description: CBO 비용 관리 한도값
+        budget:
+          type: number
+          description: CBO 예산
+        performanceMax:
+          $ref: '#/components/schemas/OpenPerformanceMaxView'
+          description: 'ADVoost 쇼핑 캠페인(objective: `PMAX`) 설정. 해당 캠페인에서만 제공됩니다.'
+    OpenPerformanceMaxView:
+      type: object
+      properties:
+        budget:
+          type: number
+          description: 일 예산
+        endDate:
+          type: string
+          format: date
+          description: 종료일 (yyyy-MM-dd)
+        scheduleTimeSlots:
+          type: array
+          description: 광고 게재 시간대
+          items:
+            $ref: '#/components/schemas/ScheduleTimeSlotParam'
+        startDate:
+          type: string
+          format: date
+          description: 시작일 (yyyy-MM-dd)
+      title: OpenPerformanceMaxView
+    OpenUrl:
+      type: object
+      properties:
+        'no':
+          type: integer
+          format: int64
+        url:
+          type: string
         storePlatform:
           type: string
           enum:
             - ANDROID
             - IOS
-        trackingDays:
-          type: integer
-          format: int32
-          description: 전환 추적 기간
-        url:
+        inspectionStatus:
           type: string
-          description: 비즈채널 URL
-        urlNo:
+          enum:
+            - PENDING
+            - APPROVED
+            - REJECTED
+        adAccountNo:
           type: integer
           format: int64
-          description: URL ID
-      title: ConversionUrlResponse
+        deleted:
+          type: boolean
+        updaterId:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        zoneId:
+          type: string
+        mallId:
+          type: string
+        bizChannelType:
+          type: string
+          enum:
+            - NAVER_SHOPPING
+            - WEBSITE
+            - MOBILE_APP
+        localUpdatedAt:
+          type: string
+          format: date-time
+        mobileApp:
+          type: boolean
+    ScheduleTimeSlotParam:
+      type: object
+      properties:
+        dayOfWeek:
+          type: integer
+          format: int32
+        endHour:
+          type: integer
+          format: int32
+        startHour:
+          type: integer
+          format: int32
+      title: ScheduleTimeSlotParam
+    AdSetInterestOpenApiParam:
+      type: object
+      properties:
+        interestCodes:
+          type: array
+          description: 관심사
+          items:
+            $ref: '#/components/schemas/InterestTargetOpenApiParam'
+          uniqueItems: true
+        purchaseIntentCodes:
+          type: array
+          description: 구매 의도
+          items:
+            type: integer
+            format: int32
+          uniqueItems: true
+        interestIntersection:
+          type: boolean
+          description: 타겟 설정 방식
+    InterestTargetOpenApiParam:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        depth:
+          type: integer
+          format: int32
+      title: InterestTargetOpenApiParam
+    AdSetDeviceAndPlacementGroupParam:
+      type: object
+      properties:
+        devices:
+          type: array
+          description: "디바이스 타입\r\n- 사용 가능한 값: `DESKTOP`,`MOBILE`"
+          items:
+            type: string
+            enum:
+              - DESKTOP
+              - MOBILE
+              - UNKNOWN
+          uniqueItems: true
+        platforms:
+          type: array
+          description: "운영체제\r\n- 사용 가능한 값: `ANDROID`,`IOS`"
+          items:
+            type: string
+            enum:
+              - UNKNOWN
+              - ANDROID
+              - IOS
+              - WINDOWS
+              - MACOS
+          uniqueItems: true
+        allDevice:
+          type: boolean
+          description: 노출 가능한 모든 디바이스 선택 여부
+        placementGroupCodes:
+          type: array
+          description: 게재 위치
+          items:
+            type: string
+            enum:
+              - M_SMARTCHANNEL
+              - M_MAIN
+              - M_BANNER
+              - M_FEED
+              - N_INSTREAM
+              - N_SHOPPING
+              - N_COMMUNICATION
+              - F_SMARTCHANNEL
+              - F_BANNER
+              - BAND
+              - NW_SMARTCHANNEL
+              - NW_BANNER
+              - NW_FEED
+              - PMAX
+              - COMPOSITION
+              - N_ETC
+        allPlacementGroup:
+          type: boolean
+          description: 노출 가능한 모든 게재위치 선택 여부
+    AdSetDemographicParam:
+      type: object
+      properties:
+        genders:
+          type: array
+          description: "성별\r\n- 사용 가능한 값: `M`,`F`,`U`"
+          items:
+            type: string
+            enum:
+              - M
+              - F
+              - U
+          uniqueItems: true
+        ageRanges:
+          type: array
+          description: 연령
+          items:
+            type: string
+            enum:
+              - AGE_14_18
+              - AGE_19_24
+              - AGE_25_29
+              - AGE_30_34
+              - AGE_35_39
+              - AGE_40_44
+              - AGE_45_49
+              - AGE_50_54
+              - AGE_55_59
+              - OVER_60
+              - UNKNOWN
+          uniqueItems: true
+        adultOnly:
+          type: boolean
+          description: 성인 타겟팅 여부
+        locations:
+          type: array
+          description: 지역
+          items:
+            type: string
+          uniqueItems: true
+        includeUnknownLocation:
+          type: boolean
+          description: '지역 : 비해당자 포함 여부'
+        extensionDemos:
+          type: array
+          description: 확장 데모
+          items:
+            type: integer
+            format: int32
+          uniqueItems: true
     CreateCustomizedTargetingAdidLibrariesRequest:
       type: object
       properties:
@@ -3770,18 +3687,6 @@ components:
           items:
             $ref: '#/components/schemas/CustomTargetParam'
       title: CreateCustomizedTargetingAdidLibrariesRequest
-    CustomCta:
-      type: object
-      properties:
-        name:
-          type: string
-          description: 행동 유도 문구
-          minLength: 1
-          maxLength: 15
-        url:
-          type: string
-          description: 행동 유도 URL
-      title: CustomCta
     CustomTargetParam:
       type: object
       properties:
@@ -3793,170 +3698,59 @@ components:
           format: int64
           description: 고객파일 타겟 no
       title: CustomTargetParam
-    Duration:
+    OpenCustomTargetAdidLibraryResponse:
       type: object
       properties:
-        nano:
-          type: integer
-          format: int32
-        negative:
-          type: boolean
-        seconds:
-          type: integer
-          format: int64
-        units:
-          type: array
-          items:
-            $ref: '#/components/schemas/TemporalUnit'
-        zero:
-          type: boolean
-      title: Duration
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-          enum:
-            - CASE_1
-            - CASE_2
-            - CASE_3
-            - CASE_4
-            - CASE_5
-            - CONDITION_DOES_NOT_MEET
-            - DATA_NOT_EXIST
-            - DATA_CONCURRENCY_PROBLEM
-            - DUPLICATED_VALUE
-            - ALREADY_DONE
-            - LIMIT_EXCEEDED
-            - NOT_ALLOWED_FILE_TYPE
-            - INVALID_PARAMETER
-            - INVALID_URL
-            - INVALID_SHOPPING
-            - INVALID_SURVEY
-            - BAD_REQUEST
-            - AUTH_ERROR
-            - UNDER_CONSTRUCTION
-            - MAX_AD_SET_EXCEEDED
-            - CBO_INVALID_AD_SETS
-            - CBO_INVALID_CREATIVE
-            - WEBSITE_TARGET_ALREADY_EXISTS
-            - STORE_TARGET_ALREADY_EXISTS
-            - AD__SA_INSPECTION_STATUS_FETCH_FAILED
-            - AD__SA_BIZ_CHANNEL_NOT_FOUND
-            - UNKNOWN_ERROR
-        description:
-          type: string
-        detailCode:
-          type: string
-        extra:
-          type: object
-        message:
-          type: string
-      title: Error
-    ErrorResult:
-      type: object
-      properties:
-        error:
-          $ref: '#/components/schemas/Error'
-      title: ErrorResult
-    File:
-      type: object
-      properties:
-        absolute:
-          type: boolean
-        absoluteFile:
-          $ref: '#/components/schemas/File'
-        absolutePath:
-          type: string
-        canonicalFile:
-          $ref: '#/components/schemas/File'
-        canonicalPath:
-          type: string
-        directory:
-          type: boolean
-        executable:
-          type: boolean
-        file:
-          type: boolean
-        freeSpace:
-          type: integer
-          format: int64
-        hidden:
-          type: boolean
-        lastModified:
+        'no':
           type: integer
           format: int64
         name:
           type: string
-        parent:
+        status:
           type: string
-        parentFile:
-          $ref: '#/components/schemas/File'
-        path:
-          type: string
-        readable:
-          type: boolean
-        totalSpace:
+          enum:
+            - PREPARING
+            - AVAILABLE
+            - DISABLED
+        count:
           type: integer
           format: int64
-        usableSpace:
+        countUpdatedAt:
+          type: string
+          format: date-time
+        totalNumber:
           type: integer
           format: int64
-        writable:
+        serviceActivated:
           type: boolean
-      title: File
-    INSTALL_APP:
-      title: INSTALL_APP
-      allOf:
-        - $ref: '#/components/schemas/OpenCampaignCreationParam'
-        - type: object
-          required:
-            - brandNo
-            - name
-            - objective
-            - urlNo
-          properties:
-            brandNo:
-              type: integer
-              format: int64
-              description: 브랜드 ID
-            budgetAmount:
-              type: number
-              example: 100000
-              description: 지출 한도 (Deprecated)
-            conversionType:
-              type: string
-              description: "최적화 전환 유형\r\n- 사용 가능한 값: `null`,`INSTALL`,`PURCHASE`,`CART`"
-            conversionUrlNo:
-              type: integer
-              format: int64
-              description: >-
-                전환 추적 대상 ID, 캠페인 목적 `LEAD`일 경우 사용되지 않습니다. ADVoost 쇼핑
-                캠페인(objective: `PMAX`)은 필수이며 전환스크립트가 설치 완료된 대상이어야 합니다.
-            name:
-              type: string
-              description: 캠페인 이름
-              minLength: 2
-              maxLength: 128
-            objective:
-              type: string
-              description: 캠페인 목적
-            optimization:
-              $ref: '#/components/schemas/OpenCampaignOptimizationParam'
-            s2sApiOn:
-              type: boolean
-              description: 전환 API를 연동하여 전환 추적 사용 여부
-            spendLimit:
-              type: number
-              example: 100000
-              description: >-
-                지출 한도. ADVoost 쇼핑 캠페인(objective: `PMAX`)은 이 필드를 사용하지 않으며, 예산은
-                performanceMax.budget 으로 입력합니다.
-            urlNo:
-              type: integer
-              format: int64
-              description: 대표 url ID
-          title: INSTALL_APP
+        deleted:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+    UploadVideo:
+      type: object
+      properties:
+        createdAt:
+          type: string
+          format: date-time
+        failMessage:
+          type: string
+        'no':
+          type: integer
+          format: int64
+        sizeGroupNo:
+          type: integer
+          format: int32
+        status:
+          type: string
+          enum:
+            - READY
+            - ONGOING
+            - COMPLETED
+            - FAILED
+            - NOT_AVAILABLE
+      title: UploadVideo
     Image:
       type: object
       properties:
@@ -3988,821 +3782,100 @@ components:
           type: integer
           format: int32
       title: Image
-    InputStream:
-      type: object
-      title: InputStream
-    InterestKeywordResponse:
+    SuccessResponse:
       type: object
       properties:
-        children:
-          type: array
-          items:
-            $ref: '#/components/schemas/InterestKeywordResponse'
-        code:
-          type: integer
-          format: int32
-        depth:
-          type: integer
-          format: int32
-        keyword:
+        description:
           type: string
-      title: InterestKeywordResponse
-    InterestTargetOpenApiParam:
+        message:
+          type: string
+        success:
+          type: boolean
+      title: SuccessResponse
+    OpenCreativeOfSingleImageParam:
       type: object
       properties:
-        code:
-          type: integer
-          format: int32
-        depth:
-          type: integer
-          format: int32
-      title: InterestTargetOpenApiParam
-    InterestTargetParam:
-      type: object
-      properties:
-        code:
-          type: integer
-          format: int32
-        depth:
-          type: integer
-          format: int32
-        recommended:
-          type: boolean
-      title: InterestTargetParam
-    LocalTime:
-      type: object
-      properties:
-        hour:
-          type: integer
-          format: int32
-        minute:
-          type: integer
-          format: int32
-        nano:
-          type: integer
-          format: int32
-        second:
-          type: integer
-          format: int32
-      title: LocalTime
-    OpenAdSetCreationParam:
-      type: object
-      required:
-        - campaignNo
-        - name
-      properties:
-        accelerated:
-          type: boolean
-          description: 게재 방식. 빠른 게재 여부
-        adidLibraries:
-          type: array
-          description: 고객파일 타겟
-          items:
-            $ref: '#/components/schemas/CustomTargetParam'
-        adidLibraryParams:
-          type: array
-          description: 고객파일 타겟 (deprecated)
-          items:
-            $ref: '#/components/schemas/CustomTargetParam'
-        ageRanges:
-          type: array
-          description: 연령
-          items:
-            $ref: '#/components/schemas/AgeRange'
-        allDevice:
-          type: boolean
-          description: 노출 가능한 모든 디바이스 선택 여부
-        allPlacementGroup:
-          type: boolean
-          description: 노출 가능한 모든 게재위치 선택 여부
-        bidGoal:
-          type: string
-          description: "입찰 전략\r\n- 사용 가능한 값: `MAX_CONV`,`MAX_CLICK`,`MAX_CONV_VALUE`,`NONE`"
-          enum:
-            - MAX_CLICK
-            - MAX_CONV
-            - MAX_CONV_VALUE
-            - NONE
-        bidPrice:
-          type: number
-          description: 입찰가
-        bidStrategy:
-          type: string
-          description: "비용 관리\r\n- 사용 가능한 값: `FIXED_BID`,`BID_CAP`,`COST_CAP`,`NO_CAP`"
-          enum:
-            - FIXED_BID
-            - BID_CAP
-            - COST_CAP
-            - NO_CAP
-            - TARGET_COST
-            - TARGET_ROAS
-        bidStrategyValue:
-          type: number
-          description: 한도 금액
-        bidType:
-          type: string
-          description: "청구 기준\r\n- 사용 가능한 값: `CPC`,`CPM`,`CPV`"
-          enum:
-            - CPC
-            - CPM
-            - CPV
-        budgetAmount:
-          type: number
-          description: 예산 금액
-        budgetType:
-          type: string
-          description: 예산 타입
-          enum:
-            - DAILY
-            - TOTAL
-        campaignNo:
-          type: integer
-          format: int64
-          description: 캠페인 ID
-        creativeChooserType:
-          type: string
-          description: 소재 선택 방식
-          enum:
-            - VALUE_WEIGHTED_RANDOM
-            - SIMPLE_RANDOM
-            - OPTIMIZATION
-        devices:
-          type: array
-          description: "디바이스 타입\r\n- 사용 가능한 값: `DESKTOP`,`MOBILE`"
-          items:
-            type: string
-            enum:
-              - DESKTOP
-              - MOBILE
-              - UNKNOWN
-        endTime:
-          type: string
-          description: 종료일시
-        extensionDemos:
-          type: array
-          description: 확장 데모
-          items:
-            type: integer
-            format: int32
-        frequencyAdUnit:
-          type: string
-          description: 노출 빈도 단위
-          enum:
-            - AD_SET
-            - CREATIVE
-        genders:
-          type: array
-          description: "성별\r\n- 사용 가능한 값: `M`,`F`,`U`"
-          items:
-            type: string
-            enum:
-              - M
-              - F
-              - U
-        interestCodes:
-          type: array
-          description: 관심사
-          items:
-            $ref: '#/components/schemas/InterestTargetParam'
-        locations:
-          type: array
-          description: 지역
-          items:
-            type: string
-        name:
-          type: string
-          description: 광고 그룹 이름
-          minLength: 2
-          maxLength: 128
-        ongoing:
-          type: boolean
-          description: 계속 게재 여부
-        placementGroupCodes:
-          type: array
-          description: 게재 위치
-          items:
-            type: string
-        platforms:
-          type: array
-          description: "운영체제\r\n- 사용 가능한 값: `ANDROID`,`IOS`"
-          items:
-            type: string
-            enum:
-              - UNKNOWN
-              - ANDROID
-              - IOS
-              - WINDOWS
-              - MACOS
-        purchaseIntentCodes:
-          type: array
-          description: 구매 의도
-          items:
-            type: integer
-            format: int32
-        quota:
-          type: integer
-          format: int32
-          description: 노출 빈도 횟수
-          minimum: 1
-          maximum: 5
-          exclusiveMinimum: false
-          exclusiveMaximum: false
-        scheduleTimeSlots:
-          type: array
-          description: 상세 일정
-          items:
-            $ref: '#/components/schemas/ScheduleTimeSlotParam'
-        startTime:
-          type: string
-          description: 시작일시
-        targetingType:
-          type: string
-          description: 타게팅 타입
-          enum:
-            - AUDIENCE
-            - CONTEXT
-            - ADVOOST_AUDIENCE
-            - ADVOOST_EXPAND
-        useAutoFrequency:
-          type: boolean
-          description: 노출 빈도 자동 설정 여부
-      title: OpenAdSetCreationParam
-    OpenAdSetListView:
-      type: object
-      properties:
-        activated:
-          type: boolean
-          description: 광고 그룹 ON/OFF 여부
-        allPlacementGroup:
-          type: boolean
-          description: 노출 가능한 모든 게재위치 선택 여부
-        autoBidStatus:
-          type: string
-          enum:
-            - LEARNING
-            - RE_LEARNING
-            - STABLE
-            - LIMITED
-        bidGoal:
-          type: string
-          description: "입찰 전략\r\n- 사용 가능한 값: `MAX_CONV`,`MAX_CLICK`,`MAX_CONV_VALUE`,`NONE`"
-          enum:
-            - MAX_CLICK
-            - MAX_CONV
-            - MAX_CONV_VALUE
-            - NONE
-        bidPrice:
-          type: number
-          description: 입찰가
-        bidStrategy:
-          type: string
-          description: "비용 관리\r\n- 사용 가능한 값: `FIXED_BID`,`BID_CAP`,`COST_CAP`,`NO_CAP`"
-          enum:
-            - FIXED_BID
-            - BID_CAP
-            - COST_CAP
-            - NO_CAP
-            - TARGET_COST
-            - TARGET_ROAS
-        bidStrategyValue:
-          type: number
-          description: 한도 금액
-        bidType:
-          type: string
-          description: "청구 기준\r\n- 사용 가능한 값: `CPC`,`CPM`,`CPV`"
-          enum:
-            - CPC
-            - CPM
-            - CPV
-        budgetAmount:
-          type: number
-          description: 예산 금액
-        budgetType:
-          type: string
-          description: 예산 타입
-          enum:
-            - DAILY
-            - TOTAL
-        campaignName:
-          type: string
-          description: 캠페인 이름
-        campaignNo:
-          type: integer
-          format: int64
-          description: 캠페인 ID
-        deleted:
-          type: boolean
-          description: 삭제 여부
-        endTime:
-          type: string
-          format: date-time
-          description: 종료일시
-        interestIntersection:
-          type: boolean
-        name:
-          type: string
-          description: 광고 그룹 이름
-        'no':
+        adSetNo:
           type: integer
           format: int64
           description: 광고 그룹 ID
-        objective:
-          type: string
-          description: 캠페인 목적
-          enum:
-            - CONVERSION
-            - WEB_SITE_TRAFFIC
-            - INSTALL_APP
-            - WATCH_VIDEO
-            - CATALOG
-            - SHOPPING
-            - LEAD
-            - PMAX
-        placementGroups:
-          type: array
-          description: 게재 위치
-          items:
-            $ref: '#/components/schemas/PlacementGroup'
-        startTime:
-          type: string
-          format: date-time
-          description: 시작일시
-        status:
-          type: string
-          enum:
-            - RUNNABLE
-            - BEFORE_STARTING
-            - TERMINATED
-            - DELETED
-            - BUDGET_EXHAUSTED
-            - LOW_TARGETED
-            - TARGET_DISABLED
-            - LEARNING
-            - LEARNING_LIMITED
-            - SEGMENT_NOT_SET
-            - AUTO_TARGET_DISABLED
-        timezoneOffset:
-          type: string
-      title: OpenAdSetListView
-    OpenAdSetView:
-      type: object
-      properties:
-        accelerated:
-          type: boolean
-          description: 게재 방식. 빠른 게재 여부
-        adidLibraryParams:
-          type: array
-          items:
-            $ref: '#/components/schemas/OpenCustomTargetView'
-        ageRanges:
-          type: array
-          description: 연령
-          items:
-            $ref: '#/components/schemas/AgeRange'
-        aiplTargetParams:
-          type: array
-          items:
-            $ref: '#/components/schemas/OpenCustomTargetView'
-        allDevice:
-          type: boolean
-          description: 노출 가능한 모든 디바이스 선택 여부
-        allPlacementGroup:
-          type: boolean
-          description: 노출 가능한 모든 게재위치 선택 여부
-        bidGoal:
-          type: string
-          description: "입찰 전략\r\n- 사용 가능한 값: `MAX_CONV`,`MAX_CLICK`,`MAX_CONV_VALUE`,`NONE`"
-        bidPrice:
-          type: number
-          description: 입찰가
-        bidStrategy:
-          type: string
-          description: "비용 관리\r\n- 사용 가능한 값: `FIXED_BID`,`BID_CAP`,`COST_CAP`,`NO_CAP`"
-        bidStrategyValue:
-          type: number
-          description: 한도 금액
-        bidType:
-          type: string
-          description: "청구 기준\r\n- 사용 가능한 값: `CPC`,`CPM`,`CPV`"
-        budgetAmount:
-          type: number
-          description: 예산 금액
-        budgetType:
-          type: string
-          description: 예산 타입
-          enum:
-            - DAILY
-            - TOTAL
-        campaignNo:
-          type: integer
-          format: int64
-          description: 캠페인 ID
-        creativeChooserType:
-          type: string
-          description: 소재 선택 방식
-          enum:
-            - VALUE_WEIGHTED_RANDOM
-            - SIMPLE_RANDOM
-            - OPTIMIZATION
-        creativeTemplates:
-          type: array
-          description: 소재 템플릿 정보
-          items:
-            $ref: '#/components/schemas/OpenCreativeTemplateView'
-        devices:
-          type: array
-          description: "디바이스 타입\r\n- 사용 가능한 값: `DESKTOP`,`MOBILE`"
-          items:
-            type: string
-        endTime:
-          type: string
-          description: 종료일시
-        extensionDemos:
-          type: array
-          description: 확장 데모
-          items:
-            type: integer
-            format: int32
-        frequencyAdUnit:
-          type: string
-          description: 노출 빈도 단위
-          enum:
-            - AD_SET
-            - CREATIVE
-        genders:
-          type: array
-          description: "성별\r\n- 사용 가능한 값: `M`,`F`,`U`"
-          items:
-            type: string
-        interestCodes:
-          type: array
-          description: 관심사
-          items:
-            $ref: '#/components/schemas/InterestTargetOpenApiParam'
-        locations:
-          type: array
-          description: 지역
-          items:
-            type: string
-        lookalikeAudienceParams:
-          type: array
-          items:
-            $ref: '#/components/schemas/OpenCustomTargetView'
-        matTargetParams:
-          type: array
-          items:
-            $ref: '#/components/schemas/OpenCustomTargetView'
         name:
           type: string
-          description: 광고 그룹 이름
-        'no':
-          type: integer
-          format: int64
-          description: 광고 그룹 ID
-        ongoing:
-          type: boolean
-          description: 계속 게재 여부
-        placementGroupCodes:
-          type: array
-          description: 게재 위치
-          items:
-            type: string
-        platforms:
-          type: array
-          description: "운영체제\r\n- 사용 가능한 값: `ANDROID`,`IOS`"
-          items:
-            type: string
-        purchaseIntentCodes:
-          type: array
-          description: 구매 의도
-          items:
-            type: integer
-            format: int32
-        quota:
-          type: integer
-          format: int32
-          description: 노출 빈도 횟수
-        scheduleTimeSlots:
-          type: array
-          description: 상세 일정
-          items:
-            $ref: '#/components/schemas/ScheduleTimeSlotParam'
-        searchKeywordTargetParams:
-          type: array
-          items:
-            $ref: '#/components/schemas/OpenCustomTargetView'
-        shoppingNewsTargetParams:
-          type: array
-          items:
-            $ref: '#/components/schemas/OpenCustomTargetView'
-        spentBudgetRatio:
-          type: number
-        startTime:
-          type: string
-          description: 시작일시
-        status:
-          type: string
-          enum:
-            - RUNNABLE
-            - BEFORE_STARTING
-            - TERMINATED
-            - DELETED
-            - BUDGET_EXHAUSTED
-            - LOW_TARGETED
-            - TARGET_DISABLED
-            - LEARNING
-            - LEARNING_LIMITED
-            - SEGMENT_NOT_SET
-            - AUTO_TARGET_DISABLED
-        targetingType:
-          type: string
-          description: 타게팅 타입
-          enum:
-            - AUDIENCE
-            - CONTEXT
-            - ADVOOST_AUDIENCE
-            - ADVOOST_EXPAND
-        websiteTargetParams:
-          type: array
-          items:
-            $ref: '#/components/schemas/OpenCustomTargetView'
-      title: OpenAdSetView
-    OpenApiPageable:
-      type: object
-      properties:
-        page:
-          type: integer
-          format: int32
-          description: '페이지 번호 (기본값: 0)'
-        size:
-          type: integer
-          format: int32
-          description: '페이지 크기 (기본값: 10, 최대: 100)'
-      title: OpenApiPageable
-    OpenCampaignCreationParam:
-      type: object
-      required:
-        - name
-        - objective
-        - urlNo
-      discriminator: objective
-      properties:
-        brandNo:
-          type: integer
-          format: int64
-          description: 브랜드 ID
-        budgetAmount:
-          type: number
-          example: 100000
-          description: 지출 한도 (Deprecated)
-        conversionUrlNo:
-          type: integer
-          format: int64
-          description: >-
-            전환 추적 대상 ID, 캠페인 목적 `LEAD`일 경우 사용되지 않습니다. ADVoost 쇼핑 캠페인(objective:
-            `PMAX`)은 필수이며 전환스크립트가 설치 완료된 대상이어야 합니다.
-        name:
-          type: string
-          description: 캠페인 이름
-          minLength: 2
+          description: 소재 이름
           maxLength: 128
-        objective:
+          minLength: 2
+        message:
           type: string
-          description: 캠페인 목적
-        spendLimit:
-          type: number
-          example: 100000
-          description: >-
-            지출 한도. ADVoost 쇼핑 캠페인(objective: `PMAX`)은 이 필드를 사용하지 않으며, 예산은
-            performanceMax.budget 으로 입력합니다.
-        urlNo:
+          description: 광고 문구
+          maxLength: 65
+          minLength: 2
+        creativeTemplateCode:
+          type: string
+          description: "소재 템플릿:\r\n `NATIVE_SINGLE_IMAGE_V2`, `NATIVE_SINGLE_IMAGE_PC`, `FEED_SINGLE_IMAGE`, `FEED_SINGLE_IMAGE_2TO3`, `FEED_SINGLE_IMAGE_SQUARE`, `NATIVE_SINGLE_IMAGE_COMMUNICATION`"
+          minLength: 1
+        imageNo:
           type: integer
           format: int64
-          description: 대표 url ID
-      title: OpenCampaignCreationParam
-    OpenCampaignOptimizationEditParam:
-      type: object
+          description: 소재 이미지 ID
+        linkUrl:
+          type: string
+          description: 랜딩 URL
+          minLength: 1
+        linkTitle:
+          type: string
+          description: 설명 문구1
+          maxLength: 2147483647
+          minLength: 2
+        linkDescription:
+          type: string
+          description: 설명 문구2
+          maxLength: 2147483647
+          minLength: 2
+        linkText3rd:
+          type: string
+          description: 설명 문구3
+          maxLength: 2147483647
+          minLength: 2
+        linkText4th:
+          type: string
+          description: PC 배너형 긴 설명문구 1
+          maxLength: 2147483647
+          minLength: 2
+        linkText5th:
+          type: string
+          description: PC 배너형 긴 설명문구 2
+          maxLength: 2147483647
+          minLength: 2
+        ctaCode:
+          type: string
+          description: 행동 유도
+          minLength: 1
+        adviceMessage:
+          type: string
+          description: 고지 문구
+          maxLength: 45
+          minLength: 0
       required:
-        - activated
-      properties:
-        activated:
-          type: boolean
-          description: 캠페인 예산 최적화 사용 여부
-        bidGoal:
-          type: string
-          description: '예산 최적화 시 적용할 입찰 전략 (클릭수 최대화 : MAX_CLICK, 전환수 최대화 : MAX_CONV)'
-          enum:
-            - MAX_CLICK
-            - MAX_CONV
-        bidStrategy:
-          type: string
-          description: >-
-            예산 최적화 시 적용할 비용 관리 (입찰가 한도 : BID_CAP, 비용 한도 : COST_CAP, 한도 없음 :
-            NO_CAP) - COST_CAP 은 입찰 전략이 MAX_CLICK 인 경우에만 선택 가능합니다.
-          enum:
-            - BID_CAP
-            - COST_CAP
-            - NO_CAP
-        bidStrategyValue:
-          type: number
-          description: 예산 최적화 시 적용할 비용 관리 금액
-        budget:
-          type: number
-          description: 예산 최적화 캠페인의 총 예산
-        defaultBudgetAmountForAdSets:
-          type: number
-          description: '하위 광고그룹에 일괄 적용할 예산값, 기본값: (현재 캠페인 예산) / (현재 광고그룹 갯수)'
-        overwriteAllAdSets:
-          type: boolean
-          description: 하위 광고그룹 일괄 변경 여부
-      title: OpenCampaignOptimizationEditParam
-    OpenCampaignOptimizationParam:
-      type: object
-      required:
-        - activated
-      properties:
-        activated:
-          type: boolean
-          description: 캠페인 예산 최적화 사용 여부
-        bidGoal:
-          type: string
-          description: 예산 최적화 시 적용할 입찰 전략
-          enum:
-            - MAX_CLICK
-            - MAX_CONV
-            - MAX_CONV_VALUE
-            - NONE
-        bidStrategy:
-          type: string
-          description: 예산 최적화 시 적용할 비용 관리
-          enum:
-            - FIXED_BID
-            - BID_CAP
-            - COST_CAP
-            - NO_CAP
-            - TARGET_COST
-            - TARGET_ROAS
-        bidStrategyValue:
-          type: number
-          description: 예산 최적화 시 적용할 비용 관리 금액
-        budget:
-          type: number
-          description: 예산 최적화 캠페인의 총 예산
-        overwriteAllAdSets:
-          type: boolean
-          description: 하위 광고그룹 일괄 변경 여부
-      title: OpenCampaignOptimizationParam
-    OpenCampaignView:
+        - adSetNo
+        - creativeTemplateCode
+        - ctaCode
+        - imageNo
+        - linkUrl
+        - name
+    CustomCta:
       type: object
       properties:
-        activated:
-          type: boolean
-          description: ON/OFF 여부
-        adAccountNo:
-          type: integer
-          format: int64
-          description: 광고 계정 ID
-        appName:
-          type: string
-          description: 앱 이름. 구 데이터 때문에 컬럼은 남아 있음. 더이상 입력 받지 않는 값
-        bidGoal:
-          type: string
-          description: CBO 입찰 전략
-          enum:
-            - MAX_CLICK
-            - MAX_CONV
-            - MAX_CONV_VALUE
-            - NONE
-        bidStrategy:
-          type: string
-          description: CBO 비용 관리
-          enum:
-            - FIXED_BID
-            - BID_CAP
-            - COST_CAP
-            - NO_CAP
-            - TARGET_COST
-            - TARGET_ROAS
-        bidStrategyValue:
-          type: number
-          description: CBO 비용 관리 한도값
-        bidTypes:
-          type: array
-          items:
-            type: string
-            enum:
-              - CPC
-              - CPM
-              - CPV
-        brand:
-          description: 브랜드 객체
-          $ref: '#/components/schemas/Brand'
-        brandNo:
-          type: integer
-          format: int64
-          description: 브랜드 ID
-        budget:
-          type: number
-          description: CBO 예산
-        budgetExhausted:
-          type: boolean
-          description: 캠페인 지출 한도 도달 여부
-        campaignSearchKeywords:
-          type: array
-          description: 키워드 객체
-          items:
-            $ref: '#/components/schemas/CampaignSearchKeyword'
-        catalogAvailable:
-          type: boolean
-          description: 카탈로그 사용가능 여부
-        catalogId:
-          type: string
-          description: 카탈로그 ID
-        cboActivated:
-          type: boolean
-          description: CBO 활성화 여부
-        conversionType:
-          type: string
-          description: "최적화 전환 유형\r\n- 사용 가능한 값: `null`,`PURCHASE`,`CART`,`INSTALL`"
-          enum:
-            - PURCHASE
-            - MEMBERSHIP
-            - CART
-            - RESERVATION
-            - INSTALL
-            - ETC
-        conversionUrl:
-          description: 전환추적대상 객체
-          $ref: '#/components/schemas/OpenUrl'
-        conversionUrlNo:
-          type: integer
-          format: int64
-          description: 전환 추적 대상 ID
-        createdAt:
-          description: 생성 일시
-          $ref: '#/components/schemas/Timestamp'
-        deleted:
-          type: boolean
-          description: 삭제 여부
         name:
           type: string
-          description: 캠페인 이름
-        'no':
-          type: integer
-          format: int64
-          description: 캠페인 ID
-        objective:
-          type: string
-          description: 캠페인 목적
-          enum:
-            - CONVERSION
-            - WEB_SITE_TRAFFIC
-            - INSTALL_APP
-            - WATCH_VIDEO
-            - CATALOG
-            - SHOPPING
-            - LEAD
-            - PMAX
-        pausedAt:
-          description: 중지 일시
-          $ref: '#/components/schemas/Timestamp'
-        performanceMax:
-          description: 'ADVoost 쇼핑 캠페인(objective: `PMAX`) 설정. 해당 캠페인에서만 제공됩니다.'
-          $ref: '#/components/schemas/OpenPerformanceMaxView'
-        spendLimit:
-          type: number
-          description: 캠페인 지출 한도
-        spentBudgetRatio:
-          type: number
-        stats:
-          description: 캠페인 통계 객체
-          $ref: '#/components/schemas/CampaignStats'
-        status:
-          type: string
-          description: 캠페인 상태
-          enum:
-            - RUNNABLE
-            - RUNNABLE_LEARNING
-            - RUNNABLE_LEARNING_LIMIT
-            - DELETED
-            - BUDGET_EXHAUSTED
-            - OPTIMIZATION_BUDGET_EXHAUSTED
-        subType:
-          type: string
-          description: 캠페인 서브타입. `OFFSITE_CAMPAIGN`(부스트업) 캠페인은 Open API 로 예산 수정/삭제할 수 없습니다.
-          enum:
-            - OFFSITE_CAMPAIGN
-        updatedAt:
-          description: 수정 일시
-          $ref: '#/components/schemas/Timestamp'
+          description: 행동 유도 문구
+          maxLength: 15
+          minLength: 1
         url:
-          description: 대표 URL 객체
-          $ref: '#/components/schemas/OpenUrl'
-        urlNo:
-          type: integer
-          format: int64
-          description: URL ID
-      title: OpenCampaignView
+          type: string
+          description: 행동 유도 URL
+          minLength: 1
+      required:
+        - url
     OpenCatalog:
       type: object
       properties:
@@ -4813,45 +3886,6 @@ components:
           type: string
           description: 쇼핑 카탈로그 아이템 세트 ID
       title: OpenCatalog
-    OpenCreative:
-      type: object
-      properties:
-        activated:
-          type: boolean
-          description: 소재 활성화 여부
-        adSetNo:
-          type: integer
-          format: int64
-          description: 광고 그룹 ID
-        creativeType:
-          type: string
-          description: 소재 타입
-          enum:
-            - SINGLE_IMAGE
-            - MULTIPLE_IMAGE
-            - SINGLE_VIDEO
-            - IMAGE_BANNER
-            - CATALOG
-            - ASSET_CREATIVE
-            - COMPOSITION
-            - PMAX
-        image:
-          description: 대표 이미지
-          $ref: '#/components/schemas/Image'
-        linkUrl:
-          type: string
-          description: 대표 URL
-        name:
-          type: string
-          description: 소재 이름
-        'no':
-          type: integer
-          format: int64
-          description: 소재 ID
-        status:
-          type: string
-          description: "소재 상태:\r\n `PENDING','REJECT','ACCEPT','PENDING_IN_OPERATION','REJECT_IN_OPERATION','DELETED`"
-      title: OpenCreative
     OpenCreativeDetail:
       type: object
       properties:
@@ -4905,413 +3939,6 @@ components:
           type: string
           description: "소재 상태:\r\n `PENDING','REJECT','ACCEPT','PENDING_IN_OPERATION','REJECT_IN_OPERATION','DELETED`"
       title: OpenCreativeDetail
-    OpenCreativeOfImageBannerParam:
-      type: object
-      required:
-        - adSetNo
-        - altMessage
-        - creativeTemplateCode
-        - imageNo
-        - name
-        - url
-      properties:
-        adSetNo:
-          type: integer
-          format: int64
-          description: 광고 그룹 ID
-        altMessage:
-          type: string
-          description: 광고 안내 문구
-          minLength: 2
-          maxLength: 100
-        creativeTemplateCode:
-          type: string
-          description: "소재 템플릿:\r\n `BANNER_750`, `BANNER_750X200`, `BANNER_750X280`, `BANNER_1250X560`, `BANNER_1200X1200`"
-        imageNo:
-          type: integer
-          format: int64
-          description: 소재 이미지 ID
-        name:
-          type: string
-          description: 소재 이름
-          minLength: 2
-          maxLength: 128
-        url:
-          type: string
-          description: 랜딩 URL
-      title: OpenCreativeOfImageBannerParam
-    OpenCreativeOfInstreamVideoParam:
-      type: object
-      required:
-        - adSetNo
-        - creativeTemplateCode
-        - linkUrl
-        - name
-        - videoNo
-      properties:
-        adSetNo:
-          type: integer
-          format: int64
-          description: 광고 그룹 ID
-        creativeTemplateCode:
-          type: string
-          description: "소재 템플릿:\r\n `INSTREAM_VIDEO`"
-        linkUrl:
-          type: string
-          description: 랜딩 URL
-        name:
-          type: string
-          description: 소재 이름
-          minLength: 2
-          maxLength: 128
-        videoNo:
-          type: integer
-          format: int64
-          description: 소재 동영상 ID
-      title: OpenCreativeOfInstreamVideoParam
-    OpenCreativeOfMultipleImageParam:
-      type: object
-      required:
-        - adSetNo
-        - creativeTemplateCode
-        - ctaCode
-        - ctaUrl
-        - imageMedias
-        - message
-        - name
-      properties:
-        adSetNo:
-          type: integer
-          format: int64
-          description: 광고 그룹 ID
-        creativeTemplateCode:
-          type: string
-          description: "소재 템플릿:\r\n `FEED_MULTIPLE_IMAGE`"
-        ctaCode:
-          type: string
-          description: 행동 유도
-        ctaUrl:
-          type: string
-          description: 행동 유도 URL
-        imageMedias:
-          type: array
-          description: 소재 이미지 컬렉션 정보
-          items:
-            $ref: '#/components/schemas/OpenImageMedia'
-        message:
-          type: string
-          description: 광고 문구
-          minLength: 2
-          maxLength: 65
-        name:
-          type: string
-          description: 소재 이름
-          minLength: 2
-          maxLength: 128
-      title: OpenCreativeOfMultipleImageParam
-    OpenCreativeOfMultipleImageWithVideoParam:
-      type: object
-      required:
-        - adSetNo
-        - creativeTemplateCode
-        - ctaCode
-        - ctaUrl
-        - imageMedias
-        - message
-        - name
-        - thumbnailImageNo
-        - videoNo
-      properties:
-        adSetNo:
-          type: integer
-          format: int64
-          description: 광고 그룹 ID
-        creativeTemplateCode:
-          type: string
-          description: "소재 템플릿:\r\n `FEED_MULTIPLE_IMAGE_WITH_VIDEO`"
-        ctaCode:
-          type: string
-          description: 행동 유도
-        ctaUrl:
-          type: string
-          description: 행동 유도 URL
-        imageMedias:
-          type: array
-          description: '소재 이미지 컬렉션 정보, sizeGroupNo: `3`인 이미지 규격만 등록 가능합니다.'
-          items:
-            $ref: '#/components/schemas/OpenImageMediaInVideoCollection'
-        message:
-          type: string
-          description: 광고 문구
-          minLength: 2
-          maxLength: 65
-        name:
-          type: string
-          description: 소재 이름
-          minLength: 2
-          maxLength: 128
-        thumbnailImageNo:
-          type: integer
-          format: int64
-          description: '소재 동영상 썸네일 ID, sizeGroupNo: `5`인 이미지 규격만 등록 가능합니다.'
-        videoNo:
-          type: integer
-          format: int64
-          description: '소재 동영상 ID, sizeGroupNo: `5`인 동영상 규격만 등록 가능합니다.'
-      title: OpenCreativeOfMultipleImageWithVideoParam
-    OpenCreativeOfNativeSingleVideoParam:
-      type: object
-      required:
-        - adSetNo
-        - creativeTemplateCode
-        - linkUrl
-        - message
-        - name
-        - thumbnailImageNo
-        - videoNo
-      properties:
-        adSetNo:
-          type: integer
-          format: int64
-          description: 광고 그룹 ID
-        creativeTemplateCode:
-          type: string
-          description: "소재 템플릿:\r\n `NATIVE_SINGLE_VIDEO`, `FEED_SINGLE_VIDEO`, `FEED_SHORTFORM_VIDEO`"
-        ctaCode:
-          type: string
-          description: 행동 유도
-        linkDescription:
-          type: string
-          description: 설명 문구2
-          minLength: 2
-          maxLength: 2147483647
-        linkTitle:
-          type: string
-          description: 설명 문구1
-          minLength: 2
-          maxLength: 2147483647
-        linkUrl:
-          type: string
-          description: 랜딩 URL
-        message:
-          type: string
-          description: 광고 문구
-          minLength: 2
-          maxLength: 120
-        name:
-          type: string
-          description: 소재 이름
-          minLength: 2
-          maxLength: 128
-        thumbnailImageNo:
-          type: integer
-          format: int64
-          description: 소재 동영상 썸네일 ID
-        videoNo:
-          type: integer
-          format: int64
-          description: 소재 동영상 ID
-      title: OpenCreativeOfNativeSingleVideoParam
-    OpenCreativeOfSingleImageParam:
-      type: object
-      required:
-        - adSetNo
-        - creativeTemplateCode
-        - ctaCode
-        - imageNo
-        - linkUrl
-        - name
-      properties:
-        adSetNo:
-          type: integer
-          format: int64
-          description: 광고 그룹 ID
-        adviceMessage:
-          type: string
-          description: 고지 문구
-          minLength: 0
-          maxLength: 45
-        creativeTemplateCode:
-          type: string
-          description: "소재 템플릿:\r\n `NATIVE_SINGLE_IMAGE_V2`, `NATIVE_SINGLE_IMAGE_PC`, `FEED_SINGLE_IMAGE`, `FEED_SINGLE_IMAGE_2TO3`, `FEED_SINGLE_IMAGE_SQUARE`, `NATIVE_SINGLE_IMAGE_COMMUNICATION`"
-        ctaCode:
-          type: string
-          description: 행동 유도
-        imageNo:
-          type: integer
-          format: int64
-          description: 소재 이미지 ID
-        linkDescription:
-          type: string
-          description: 설명 문구2
-          minLength: 2
-          maxLength: 2147483647
-        linkText3rd:
-          type: string
-          description: 설명 문구3
-          minLength: 2
-          maxLength: 2147483647
-        linkText4th:
-          type: string
-          description: PC 배너형 긴 설명문구 1
-          minLength: 2
-          maxLength: 2147483647
-        linkText5th:
-          type: string
-          description: PC 배너형 긴 설명문구 2
-          minLength: 2
-          maxLength: 2147483647
-        linkTitle:
-          type: string
-          description: 설명 문구1
-          minLength: 2
-          maxLength: 2147483647
-        linkUrl:
-          type: string
-          description: 랜딩 URL
-        message:
-          type: string
-          description: 광고 문구
-          minLength: 2
-          maxLength: 65
-        name:
-          type: string
-          description: 소재 이름
-          minLength: 2
-          maxLength: 128
-      title: OpenCreativeOfSingleImageParam
-    OpenCreativeTemplateView:
-      type: object
-      properties:
-        code:
-          type: string
-          description: 소재 템플릿
-        creativeType:
-          type: string
-          description: 소재 타입
-          enum:
-            - SINGLE_IMAGE
-            - MULTIPLE_IMAGE
-            - SINGLE_VIDEO
-            - IMAGE_BANNER
-            - CATALOG
-            - ASSET_CREATIVE
-            - COMPOSITION
-            - PMAX
-        sizeGroups:
-          type: array
-          description: 소재 미디어(이미지/동영상) 규격
-          items:
-            $ref: '#/components/schemas/SizeGroup'
-      title: OpenCreativeTemplateView
-    OpenCustomTargetAdSetResponse:
-      type: object
-      properties:
-        adSetName:
-          type: string
-        adSetNo:
-          type: integer
-          format: int64
-        campaignName:
-          type: string
-        campaignNo:
-          type: integer
-          format: int64
-        status:
-          type: string
-          enum:
-            - RUNNABLE
-            - BEFORE_STARTING
-            - TERMINATED
-            - DELETED
-            - BUDGET_EXHAUSTED
-            - LOW_TARGETED
-            - TARGET_DISABLED
-            - LEARNING
-            - LEARNING_LIMITED
-            - SEGMENT_NOT_SET
-            - AUTO_TARGET_DISABLED
-      title: OpenCustomTargetAdSetResponse
-    OpenCustomTargetAdidLibraryDetailResponse:
-      type: object
-      properties:
-        adSetList:
-          type: array
-          items:
-            $ref: '#/components/schemas/OpenCustomTargetAdSetResponse'
-        customTargetAdidLibrary:
-          $ref: '#/components/schemas/OpenCustomTargetAdidLibraryResponse'
-        lookalikeAudienceList:
-          type: array
-          items:
-            $ref: '#/components/schemas/OpenCustomTargetLookalikeAudienceResponse'
-      title: OpenCustomTargetAdidLibraryDetailResponse
-    OpenCustomTargetAdidLibraryResponse:
-      type: object
-      properties:
-        count:
-          type: integer
-          format: int64
-        countUpdatedAt:
-          $ref: '#/components/schemas/Timestamp'
-        createdAt:
-          $ref: '#/components/schemas/Timestamp'
-        deleted:
-          type: boolean
-        name:
-          type: string
-        'no':
-          type: integer
-          format: int64
-        serviceActivated:
-          type: boolean
-        status:
-          type: string
-          enum:
-            - PREPARING
-            - AVAILABLE
-            - DISABLED
-        totalNumber:
-          type: integer
-          format: int64
-      title: OpenCustomTargetAdidLibraryResponse
-    OpenCustomTargetAdidUpdateResponse:
-      type: object
-      properties:
-        name:
-          type: string
-          description: 타겟 name
-        'no':
-          type: integer
-          format: int64
-          description: 타겟 no
-      title: OpenCustomTargetAdidUpdateResponse
-    OpenCustomTargetLookalikeAudienceResponse:
-      type: object
-      properties:
-        name:
-          type: string
-        'no':
-          type: integer
-          format: int64
-        status:
-          type: string
-          enum:
-            - PREPARING
-            - AVAILABLE
-            - DISABLED
-      title: OpenCustomTargetLookalikeAudienceResponse
-    OpenCustomTargetView:
-      type: object
-      properties:
-        included:
-          type: boolean
-        name:
-          type: string
-        'no':
-          type: integer
-          format: int64
-      title: OpenCustomTargetView
     OpenImage:
       type: object
       properties:
@@ -5339,40 +3966,6 @@ components:
           format: int32
           description: 소재 이미지 너비
       title: OpenImage
-    OpenImageMedia:
-      type: object
-      required:
-        - imageNo
-        - linkTitle
-        - linkUrl
-      properties:
-        imageNo:
-          type: integer
-          format: int64
-          description: 소재 이미지 ID
-        linkTitle:
-          type: string
-          description: 설명 문구1
-          minLength: 2
-          maxLength: 28
-        linkUrl:
-          type: string
-          description: 랜딩 URL
-      title: OpenImageMedia
-    OpenImageMediaInVideoCollection:
-      type: object
-      required:
-        - imageNo
-        - linkUrl
-      properties:
-        imageNo:
-          type: integer
-          format: int64
-          description: '소재 이미지 ID, sizeGroupNo: `3`인 이미지 규격만 등록 가능합니다.'
-        linkUrl:
-          type: string
-          description: 랜딩 URL
-      title: OpenImageMediaInVideoCollection
     OpenMedia:
       type: object
       properties:
@@ -5428,26 +4021,6 @@ components:
           type: string
           description: 랜딩 URL
       title: OpenMediaContent
-    OpenPerformanceMaxView:
-      type: object
-      properties:
-        budget:
-          type: number
-          description: 일 예산
-        endDate:
-          type: string
-          format: date
-          description: 종료일 (yyyy-MM-dd)
-        scheduleTimeSlots:
-          type: array
-          description: 광고 게재 시간대
-          items:
-            $ref: '#/components/schemas/ScheduleTimeSlotParam'
-        startDate:
-          type: string
-          format: date
-          description: 시작일 (yyyy-MM-dd)
-      title: OpenPerformanceMaxView
     OpenProfile:
       type: object
       properties:
@@ -5544,54 +4117,6 @@ components:
             - FILE
             - TEXT
       title: OpenShoppingPromotion
-    OpenUrl:
-      type: object
-      properties:
-        adAccountNo:
-          type: integer
-          format: int64
-        bizChannelType:
-          type: string
-          enum:
-            - NAVER_SHOPPING
-            - WEBSITE
-            - MOBILE_APP
-        createdAt:
-          type: string
-          format: date-time
-        deleted:
-          type: boolean
-        inspectionStatus:
-          type: string
-          enum:
-            - PENDING
-            - APPROVED
-            - REJECTED
-        localUpdatedAt:
-          type: string
-          format: date-time
-        mallId:
-          type: string
-        mobileApp:
-          type: boolean
-        'no':
-          type: integer
-          format: int64
-        storePlatform:
-          type: string
-          enum:
-            - ANDROID
-            - IOS
-        updatedAt:
-          type: string
-          format: date-time
-        updaterId:
-          type: string
-        url:
-          type: string
-        zoneId:
-          $ref: '#/components/schemas/ZoneId'
-      title: OpenUrl
     OpenVideo:
       type: object
       properties:
@@ -5611,273 +4136,1365 @@ components:
           description: 소재 동영상 썸네일 정보
           $ref: '#/components/schemas/OpenImage'
       title: OpenVideo
-    PMAX:
-      title: PMAX
+    OpenCreativeOfNativeSingleVideoParam:
+      type: object
+      properties:
+        adSetNo:
+          type: integer
+          format: int64
+          description: 광고 그룹 ID
+        name:
+          type: string
+          description: 소재 이름
+          maxLength: 128
+          minLength: 2
+        message:
+          type: string
+          description: 광고 문구
+          maxLength: 120
+          minLength: 2
+        creativeTemplateCode:
+          type: string
+          description: "소재 템플릿:\r\n `NATIVE_SINGLE_VIDEO`, `FEED_SINGLE_VIDEO`, `FEED_SHORTFORM_VIDEO`"
+          minLength: 1
+        videoNo:
+          type: integer
+          format: int64
+          description: 소재 동영상 ID
+        thumbnailImageNo:
+          type: integer
+          format: int64
+          description: 소재 동영상 썸네일 ID
+        linkUrl:
+          type: string
+          description: 랜딩 URL
+        linkTitle:
+          type: string
+          description: 설명 문구1
+          maxLength: 2147483647
+          minLength: 2
+        linkDescription:
+          type: string
+          description: 설명 문구2
+          maxLength: 2147483647
+          minLength: 2
+        ctaCode:
+          type: string
+          description: 행동 유도
+      required:
+        - adSetNo
+        - creativeTemplateCode
+        - linkUrl
+        - message
+        - name
+        - thumbnailImageNo
+        - videoNo
+    OpenCreativeOfMultipleImageWithVideoParam:
+      type: object
+      properties:
+        adSetNo:
+          type: integer
+          format: int64
+          description: 광고 그룹 ID
+        name:
+          type: string
+          description: 소재 이름
+          maxLength: 128
+          minLength: 2
+        message:
+          type: string
+          description: 광고 문구
+          maxLength: 65
+          minLength: 2
+        creativeTemplateCode:
+          type: string
+          description: "소재 템플릿:\r\n `FEED_MULTIPLE_IMAGE_WITH_VIDEO`"
+          minLength: 1
+        ctaCode:
+          type: string
+          description: 행동 유도
+          minLength: 1
+        ctaUrl:
+          type: string
+          description: 행동 유도 URL
+          minLength: 1
+        videoNo:
+          type: integer
+          format: int64
+          description: '소재 동영상 ID, sizeGroupNo: `5`인 동영상 규격만 등록 가능합니다.'
+        thumbnailImageNo:
+          type: integer
+          format: int64
+          description: '소재 동영상 썸네일 ID, sizeGroupNo: `5`인 이미지 규격만 등록 가능합니다.'
+        imageMedias:
+          type: array
+          description: '소재 이미지 컬렉션 정보, sizeGroupNo: `3`인 이미지 규격만 등록 가능합니다.'
+          items:
+            $ref: '#/components/schemas/OpenImageMediaInVideoCollection'
+          maxItems: 9
+          minItems: 4
+      required:
+        - adSetNo
+        - creativeTemplateCode
+        - ctaCode
+        - ctaUrl
+        - imageMedias
+        - message
+        - name
+        - thumbnailImageNo
+        - videoNo
+    OpenImageMediaInVideoCollection:
+      type: object
+      properties:
+        imageNo:
+          type: integer
+          format: int64
+          description: '소재 이미지 ID, sizeGroupNo: `3`인 이미지 규격만 등록 가능합니다.'
+        linkUrl:
+          type: string
+          description: 랜딩 URL
+          minLength: 1
+      required:
+        - imageNo
+        - linkUrl
+    OpenCreativeOfMultipleImageParam:
+      type: object
+      properties:
+        adSetNo:
+          type: integer
+          format: int64
+          description: 광고 그룹 ID
+        name:
+          type: string
+          description: 소재 이름
+          maxLength: 128
+          minLength: 2
+        message:
+          type: string
+          description: 광고 문구
+          maxLength: 65
+          minLength: 2
+        creativeTemplateCode:
+          type: string
+          description: "소재 템플릿:\r\n `FEED_MULTIPLE_IMAGE`"
+          minLength: 1
+        ctaCode:
+          type: string
+          description: 행동 유도
+          minLength: 1
+        ctaUrl:
+          type: string
+          description: 행동 유도 URL
+          minLength: 1
+        imageMedias:
+          type: array
+          description: 소재 이미지 컬렉션 정보
+          items:
+            $ref: '#/components/schemas/OpenImageMedia'
+          maxItems: 10
+          minItems: 4
+      required:
+        - adSetNo
+        - creativeTemplateCode
+        - ctaCode
+        - ctaUrl
+        - imageMedias
+        - message
+        - name
+    OpenImageMedia:
+      type: object
+      properties:
+        imageNo:
+          type: integer
+          format: int64
+          description: 소재 이미지 ID
+        linkUrl:
+          type: string
+          description: 랜딩 URL
+          minLength: 1
+        linkTitle:
+          type: string
+          description: 설명 문구1
+          maxLength: 28
+          minLength: 2
+      required:
+        - imageNo
+        - linkTitle
+        - linkUrl
+    OpenCreativeOfInstreamVideoParam:
+      type: object
+      properties:
+        adSetNo:
+          type: integer
+          format: int64
+          description: 광고 그룹 ID
+        name:
+          type: string
+          description: 소재 이름
+          maxLength: 128
+          minLength: 2
+        creativeTemplateCode:
+          type: string
+          description: "소재 템플릿:\r\n `INSTREAM_VIDEO`"
+          minLength: 1
+        videoNo:
+          type: integer
+          format: int64
+          description: 소재 동영상 ID
+        linkUrl:
+          type: string
+          description: 랜딩 URL
+          minLength: 1
+      required:
+        - adSetNo
+        - creativeTemplateCode
+        - linkUrl
+        - name
+        - videoNo
+    OpenCreativeOfImageBannerParam:
+      type: object
+      properties:
+        adSetNo:
+          type: integer
+          format: int64
+          description: 광고 그룹 ID
+        name:
+          type: string
+          description: 소재 이름
+          maxLength: 128
+          minLength: 2
+        creativeTemplateCode:
+          type: string
+          description: "소재 템플릿:\r\n `BANNER_750`, `BANNER_750X200`, `BANNER_750X280`, `BANNER_1250X560`, `BANNER_1200X1200`"
+          minLength: 1
+        imageNo:
+          type: integer
+          format: int64
+          description: 소재 이미지 ID
+        url:
+          type: string
+          description: 랜딩 URL
+          minLength: 1
+        altMessage:
+          type: string
+          description: 광고 안내 문구
+          maxLength: 100
+          minLength: 2
+      required:
+        - adSetNo
+        - altMessage
+        - creativeTemplateCode
+        - imageNo
+        - name
+        - url
+    CATALOG:
       allOf:
         - $ref: '#/components/schemas/OpenCampaignCreationParam'
         - type: object
-          required:
-            - name
-            - objective
-            - performanceMax
-            - urlNo
+          properties:
+            brandNo:
+              type: integer
+              format: int64
+              description: 브랜드 ID
+            catalogId:
+              type: string
+              description: 카탈로그 ID
+            s2sApiOn:
+              type: boolean
+              description: 전환 API를 연동하여 전환 추적 사용 여부
+      required:
+        - brandNo
+        - catalogId
+        - name
+        - objective
+        - urlNo
+    CONVERSION:
+      allOf:
+        - $ref: '#/components/schemas/OpenCampaignCreationParam'
+        - type: object
+          properties:
+            brandNo:
+              type: integer
+              format: int64
+              description: 브랜드 ID
+            conversionType:
+              type: string
+              description: "최적화 전환 유형\r\n- 사용 가능한 값: `null`,`PURCHASE`,`CART`"
+            s2sApiOn:
+              type: boolean
+              description: 전환 API를 연동하여 전환 추적 사용 여부
+            optimization:
+              $ref: '#/components/schemas/OpenCampaignOptimizationParam'
+      required:
+        - brandNo
+        - name
+        - objective
+        - urlNo
+    INSTALL_APP:
+      allOf:
+        - $ref: '#/components/schemas/OpenCampaignCreationParam'
+        - type: object
+          properties:
+            brandNo:
+              type: integer
+              format: int64
+              description: 브랜드 ID
+            conversionType:
+              type: string
+              description: "최적화 전환 유형\r\n- 사용 가능한 값: `null`,`INSTALL`,`PURCHASE`,`CART`"
+            s2sApiOn:
+              type: boolean
+              description: 전환 API를 연동하여 전환 추적 사용 여부
+            optimization:
+              $ref: '#/components/schemas/OpenCampaignOptimizationParam'
+      required:
+        - brandNo
+        - name
+        - objective
+        - urlNo
+    OpenCampaignCreationParam:
+      type: object
+      discriminator:
+        propertyName: objective
+      properties:
+        name:
+          type: string
+          description: 캠페인 이름
+          maxLength: 128
+          minLength: 2
+        objective:
+          type: string
+          description: 캠페인 목적
+        urlNo:
+          type: integer
+          format: int64
+          description: 대표 url ID
+        budgetAmount:
+          type: number
+          deprecated: true
+          description: 지출 한도 (Deprecated)
+          example: 100000
+        spendLimit:
+          type: number
+          description: >-
+            지출 한도. ADVoost 쇼핑 캠페인(objective: `PMAX`)은 이 필드를 사용하지 않으며, 예산은
+            performanceMax.budget 으로 입력합니다.
+          example: 100000
+        conversionUrlNo:
+          type: integer
+          format: int64
+          description: >-
+            전환 추적 대상 ID, 캠페인 목적 `LEAD`일 경우 사용되지 않습니다. ADVoost 쇼핑 캠페인(objective:
+            `PMAX`)은 필수이며 전환스크립트가 설치 완료된 대상이어야 합니다.
+        brandNo:
+          type: integer
+          format: int64
+          description: 브랜드 ID
+      required:
+        - name
+        - objective
+        - urlNo
+    OpenCampaignOptimizationParam:
+      type: object
+      required:
+        - activated
+      properties:
+        activated:
+          type: boolean
+          description: 캠페인 예산 최적화 사용 여부
+        bidGoal:
+          type: string
+          description: 예산 최적화 시 적용할 입찰 전략
+          enum:
+            - MAX_CLICK
+            - MAX_CONV
+            - MAX_CONV_VALUE
+            - NONE
+        bidStrategy:
+          type: string
+          description: 예산 최적화 시 적용할 비용 관리
+          enum:
+            - FIXED_BID
+            - BID_CAP
+            - COST_CAP
+            - NO_CAP
+            - TARGET_COST
+            - TARGET_ROAS
+        bidStrategyValue:
+          type: number
+          description: 예산 최적화 시 적용할 비용 관리 금액
+        budget:
+          type: number
+          description: 예산 최적화 캠페인의 총 예산
+        overwriteAllAdSets:
+          type: boolean
+          description: 하위 광고그룹 일괄 변경 여부
+      title: OpenCampaignOptimizationParam
+    PMAX:
+      allOf:
+        - $ref: '#/components/schemas/OpenCampaignCreationParam'
+        - type: object
           properties:
             brandNo:
               type: integer
               format: int64
               description: 브랜드 ID (선택)
-            budgetAmount:
-              type: number
-              example: 100000
-              description: 지출 한도 (Deprecated)
-            conversionUrlNo:
-              type: integer
-              format: int64
-              description: >-
-                전환 추적 대상 ID, 캠페인 목적 `LEAD`일 경우 사용되지 않습니다. ADVoost 쇼핑
-                캠페인(objective: `PMAX`)은 필수이며 전환스크립트가 설치 완료된 대상이어야 합니다.
-            name:
-              type: string
-              description: 캠페인 이름
-              minLength: 2
-              maxLength: 128
-            objective:
-              type: string
-              description: 캠페인 목적
             performanceMax:
-              description: 'ADVoost 쇼핑 캠페인(objective: `PMAX`) 설정'
               $ref: '#/components/schemas/PerformanceMaxBlock'
-            spendLimit:
-              type: number
-              example: 100000
-              description: >-
-                지출 한도. ADVoost 쇼핑 캠페인(objective: `PMAX`)은 이 필드를 사용하지 않으며, 예산은
-                performanceMax.budget 으로 입력합니다.
-            urlNo:
-              type: integer
-              format: int64
-              description: 대표 url ID
-          title: PMAX
-    Page«BrandListResponse»:
-      type: object
-      properties:
-        content:
-          type: array
-          items:
-            $ref: '#/components/schemas/BrandListResponse'
-        empty:
-          type: boolean
-        first:
-          type: boolean
-        last:
-          type: boolean
-        number:
-          type: integer
-          format: int32
-        numberOfElements:
-          type: integer
-          format: int32
-        pageable:
-          $ref: '#/components/schemas/OpenApiPageable'
-        size:
-          type: integer
-          format: int32
-        sort:
-          $ref: '#/components/schemas/Sort'
-        totalElements:
-          type: integer
-          format: int64
-        totalPages:
-          type: integer
-          format: int32
-      title: Page«BrandListResponse»
-    Page«OpenAdSetListView»:
-      type: object
-      properties:
-        content:
-          type: array
-          items:
-            $ref: '#/components/schemas/OpenAdSetListView'
-        empty:
-          type: boolean
-        first:
-          type: boolean
-        last:
-          type: boolean
-        number:
-          type: integer
-          format: int32
-        numberOfElements:
-          type: integer
-          format: int32
-        pageable:
-          $ref: '#/components/schemas/OpenApiPageable'
-        size:
-          type: integer
-          format: int32
-        sort:
-          $ref: '#/components/schemas/Sort'
-        totalElements:
-          type: integer
-          format: int64
-        totalPages:
-          type: integer
-          format: int32
-      title: Page«OpenAdSetListView»
-    Page«OpenCampaignView»:
-      type: object
-      properties:
-        content:
-          type: array
-          items:
-            $ref: '#/components/schemas/OpenCampaignView'
-        empty:
-          type: boolean
-        first:
-          type: boolean
-        last:
-          type: boolean
-        number:
-          type: integer
-          format: int32
-        numberOfElements:
-          type: integer
-          format: int32
-        pageable:
-          $ref: '#/components/schemas/OpenApiPageable'
-        size:
-          type: integer
-          format: int32
-        sort:
-          $ref: '#/components/schemas/Sort'
-        totalElements:
-          type: integer
-          format: int64
-        totalPages:
-          type: integer
-          format: int32
-      title: Page«OpenCampaignView»
-    Page«OpenCreative»:
-      type: object
-      properties:
-        content:
-          type: array
-          items:
-            $ref: '#/components/schemas/OpenCreative'
-        empty:
-          type: boolean
-        first:
-          type: boolean
-        last:
-          type: boolean
-        number:
-          type: integer
-          format: int32
-        numberOfElements:
-          type: integer
-          format: int32
-        pageable:
-          $ref: '#/components/schemas/OpenApiPageable'
-        size:
-          type: integer
-          format: int32
-        sort:
-          $ref: '#/components/schemas/Sort'
-        totalElements:
-          type: integer
-          format: int64
-        totalPages:
-          type: integer
-          format: int32
-      title: Page«OpenCreative»
-    Page«OpenCustomTargetAdidLibraryResponse»:
-      type: object
-      properties:
-        content:
-          type: array
-          items:
-            $ref: '#/components/schemas/OpenCustomTargetAdidLibraryResponse'
-        empty:
-          type: boolean
-        first:
-          type: boolean
-        last:
-          type: boolean
-        number:
-          type: integer
-          format: int32
-        numberOfElements:
-          type: integer
-          format: int32
-        pageable:
-          $ref: '#/components/schemas/OpenApiPageable'
-        size:
-          type: integer
-          format: int32
-        sort:
-          $ref: '#/components/schemas/Sort'
-        totalElements:
-          type: integer
-          format: int64
-        totalPages:
-          type: integer
-          format: int32
-      title: Page«OpenCustomTargetAdidLibraryResponse»
-    Page«OpenUrl»:
-      type: object
-      properties:
-        content:
-          type: array
-          items:
-            $ref: '#/components/schemas/OpenUrl'
-        empty:
-          type: boolean
-        first:
-          type: boolean
-        last:
-          type: boolean
-        number:
-          type: integer
-          format: int32
-        numberOfElements:
-          type: integer
-          format: int32
-        pageable:
-          $ref: '#/components/schemas/OpenApiPageable'
-        size:
-          type: integer
-          format: int32
-        sort:
-          $ref: '#/components/schemas/Sort'
-        totalElements:
-          type: integer
-          format: int64
-        totalPages:
-          type: integer
-          format: int32
-      title: Page«OpenUrl»
+              description: 'ADVoost 쇼핑 캠페인(objective: `PMAX`) 설정'
+      required:
+        - name
+        - objective
+        - performanceMax
+        - urlNo
     PerformanceMaxBlock:
       type: object
-      required:
-        - budget
-        - startDate
       properties:
         budget:
           type: number
-          example: 50000
           description: 일 예산. ADVoost 쇼핑 캠페인의 예산은 spendLimit 이 아닌 이 필드로 입력합니다.
+          example: 50000
+        startDate:
+          type: string
+          format: date
+          description: 시작일 (yyyy-MM-dd)
         endDate:
           type: string
+          format: date
           description: 종료일 (yyyy-MM-dd)
         scheduleTimeSlots:
           type: array
           description: 광고 게재 시간대
           items:
             $ref: '#/components/schemas/ScheduleTimeSlotParam'
-        startDate:
+      required:
+        - budget
+        - startDate
+    SHOPPING:
+      allOf:
+        - $ref: '#/components/schemas/OpenCampaignCreationParam'
+        - type: object
+          properties:
+            brandNo:
+              type: integer
+              format: int64
+              description: 브랜드 ID
+            conversionType:
+              type: string
+              description: "최적화 전환 유형\r\n- 사용 가능한 값: `null`,`PURCHASE`,`CART`"
+            optimization:
+              $ref: '#/components/schemas/OpenCampaignOptimizationParam'
+      required:
+        - brandNo
+        - name
+        - objective
+        - urlNo
+    WATCH_VIDEO:
+      allOf:
+        - $ref: '#/components/schemas/OpenCampaignCreationParam'
+        - type: object
+          properties:
+            brandNo:
+              type: integer
+              format: int64
+              description: 브랜드 ID
+            s2sApiOn:
+              type: boolean
+              description: 전환 API를 연동하여 전환 추적 사용 여부
+      required:
+        - brandNo
+        - name
+        - objective
+        - urlNo
+    WEB_SITE_TRAFFIC:
+      allOf:
+        - $ref: '#/components/schemas/OpenCampaignCreationParam'
+        - type: object
+          properties:
+            brandNo:
+              type: integer
+              format: int64
+              description: 브랜드 ID
+            s2sApiOn:
+              type: boolean
+              description: 전환 API를 연동하여 전환 추적 사용 여부
+            optimization:
+              $ref: '#/components/schemas/OpenCampaignOptimizationParam'
+      required:
+        - brandNo
+        - name
+        - objective
+        - urlNo
+    AgeRange:
+      type: object
+      properties:
+        from:
+          type: integer
+          format: int32
+        to:
+          type: integer
+          format: int32
+      title: AgeRange
+    InterestTargetParam:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        depth:
+          type: integer
+          format: int32
+        recommended:
+          type: boolean
+      title: InterestTargetParam
+    OpenAdSetCreationParam:
+      type: object
+      properties:
+        campaignNo:
+          type: integer
+          format: int64
+          description: 캠페인 ID
+        name:
           type: string
-          description: 시작일 (yyyy-MM-dd)
-      title: PerformanceMaxBlock
+          description: 광고 그룹 이름
+          maxLength: 128
+          minLength: 2
+        adidLibraries:
+          type: array
+          description: 고객파일 타겟
+          items:
+            $ref: '#/components/schemas/CustomTargetParam'
+        genders:
+          type: array
+          description: "성별\r\n- 사용 가능한 값: `M`,`F`,`U`"
+          items:
+            type: string
+            enum:
+              - M
+              - F
+              - U
+          uniqueItems: true
+        ageRanges:
+          type: array
+          description: 연령
+          items:
+            $ref: '#/components/schemas/AgeRange'
+          uniqueItems: true
+        locations:
+          type: array
+          description: 지역
+          items:
+            type: string
+          uniqueItems: true
+        extensionDemos:
+          type: array
+          description: 확장 데모
+          items:
+            type: integer
+            format: int32
+          uniqueItems: true
+        interestCodes:
+          type: array
+          description: 관심사
+          items:
+            $ref: '#/components/schemas/InterestTargetParam'
+          uniqueItems: true
+        purchaseIntentCodes:
+          type: array
+          description: 구매 의도
+          items:
+            type: integer
+            format: int32
+          uniqueItems: true
+        targetingType:
+          type: string
+          description: 타게팅 타입
+          enum:
+            - AUDIENCE
+            - CONTEXT
+            - ADVOOST_AUDIENCE
+            - ADVOOST_EXPAND
+        devices:
+          type: array
+          description: "디바이스 타입\r\n- 사용 가능한 값: `DESKTOP`,`MOBILE`"
+          items:
+            type: string
+            enum:
+              - DESKTOP
+              - MOBILE
+              - UNKNOWN
+          uniqueItems: true
+        platforms:
+          type: array
+          description: "운영체제\r\n- 사용 가능한 값: `ANDROID`,`IOS`"
+          items:
+            type: string
+            enum:
+              - UNKNOWN
+              - ANDROID
+              - IOS
+              - WINDOWS
+              - MACOS
+          uniqueItems: true
+        allDevice:
+          type: boolean
+          description: 노출 가능한 모든 디바이스 선택 여부
+        placementGroupCodes:
+          type: array
+          description: 게재 위치
+          items:
+            type: string
+          uniqueItems: true
+        allPlacementGroup:
+          type: boolean
+          description: 노출 가능한 모든 게재위치 선택 여부
+        bidGoal:
+          type: string
+          description: "입찰 전략\r\n- 사용 가능한 값: `MAX_CONV`,`MAX_CLICK`,`MAX_CONV_VALUE`,`NONE`"
+          enum:
+            - MAX_CLICK
+            - MAX_CONV
+            - MAX_CONV_VALUE
+            - NONE
+        bidStrategy:
+          type: string
+          description: "비용 관리\r\n- 사용 가능한 값: `FIXED_BID`,`BID_CAP`,`COST_CAP`,`NO_CAP`"
+          enum:
+            - FIXED_BID
+            - BID_CAP
+            - COST_CAP
+            - NO_CAP
+            - TARGET_COST
+            - TARGET_ROAS
+        bidStrategyValue:
+          type: number
+          description: 한도 금액
+        bidType:
+          type: string
+          description: "청구 기준\r\n- 사용 가능한 값: `CPC`,`CPM`,`CPV`"
+          enum:
+            - CPC
+            - CPM
+            - CPV
+        bidPrice:
+          type: number
+          description: 입찰가
+        budgetType:
+          type: string
+          description: 예산 타입
+          enum:
+            - DAILY
+            - TOTAL
+        budgetAmount:
+          type: number
+          deprecated: true
+          description: 예산 금액
+        startTime:
+          type: string
+          format: date-time
+          description: 시작일시
+        endTime:
+          type: string
+          format: date-time
+          description: 종료일시
+        ongoing:
+          type: boolean
+          description: 계속 게재 여부
+        scheduleTimeSlots:
+          type: array
+          description: 상세 일정
+          items:
+            $ref: '#/components/schemas/ScheduleTimeSlotParam'
+          uniqueItems: true
+        accelerated:
+          type: boolean
+          description: 게재 방식. 빠른 게재 여부
+        creativeChooserType:
+          type: string
+          description: 소재 선택 방식
+          enum:
+            - VALUE_WEIGHTED_RANDOM
+            - SIMPLE_RANDOM
+            - OPTIMIZATION
+        frequencyAdUnit:
+          type: string
+          description: 노출 빈도 단위
+          enum:
+            - AD_SET
+            - CREATIVE
+        quota:
+          type: integer
+          format: int32
+          description: 노출 빈도 횟수
+          maximum: 5
+          minimum: 1
+        useAutoFrequency:
+          type: boolean
+          description: 노출 빈도 자동 설정 여부
+        adidLibraryParams:
+          type: array
+          description: 고객파일 타겟 (deprecated)
+          items:
+            $ref: '#/components/schemas/CustomTargetParam'
+      required:
+        - campaignNo
+        - name
+    AdSetBidAndBudgetEditParam:
+      type: object
+      discriminator:
+        propertyName: editType
+      properties:
+        editType:
+          type: string
+          description: 변경 파라미터 구분
+        adSetNos:
+          type: array
+          description: 광고그룹no 목록
+          items:
+            type: integer
+            format: int64
+          maxItems: 100
+          minItems: 1
+          uniqueItems: true
+      required:
+        - adSetNos
+        - editType
+    AdSetEditBidPriceParam:
+      allOf:
+        - $ref: '#/components/schemas/AdSetBidAndBudgetEditParam'
+        - type: object
+          properties:
+            bidPrice:
+              type: number
+              description: 입찰가
+              example: 10000
+            bidType:
+              type: string
+              description: "청구 기준\r\n- 사용 가능한 값: `CPC`,`CPM`,`CPV`"
+              enum:
+                - CPC
+                - CPM
+                - CPV
+      required:
+        - adSetNos
+        - bidPrice
+        - editType
+    AdSetEditBidStrategyValueParam:
+      allOf:
+        - $ref: '#/components/schemas/AdSetBidAndBudgetEditParam'
+        - type: object
+          properties:
+            bidGoal:
+              type: string
+              description: "입찰 전략\r\n- 사용 가능한 값: `MAX_CONV`,`MAX_CLICK`,`MAX_CONV_VALUE`"
+              enum:
+                - MAX_CLICK
+                - MAX_CONV
+                - MAX_CONV_VALUE
+                - NONE
+            bidStrategy:
+              type: string
+              description: "비용 관리\r\n- 사용 가능한 값: `BID_CAP`,`COST_CAP`,`NO_CAP`"
+              enum:
+                - FIXED_BID
+                - BID_CAP
+                - COST_CAP
+                - NO_CAP
+                - TARGET_COST
+                - TARGET_ROAS
+            bidStrategyValue:
+              type: number
+              description: 입찰가/비용 한도
+              example: 100000
+      required:
+        - adSetNos
+        - editType
+    AdSetEditBudgetParam:
+      allOf:
+        - $ref: '#/components/schemas/AdSetBidAndBudgetEditParam'
+        - type: object
+          properties:
+            budgetType:
+              type: string
+              description: 예산 타입
+              enum:
+                - DAILY
+                - TOTAL
+            budgetAmount:
+              type: number
+              deprecated: true
+              description: 예산
+              example: 100000
+      required:
+        - adSetNos
+        - budgetAmount
+        - editType
+    InterestKeywordResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        keyword:
+          type: string
+        depth:
+          type: integer
+          format: int32
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/InterestKeywordResponse'
+          uniqueItems: true
+    ConstantResponse:
+      type: object
+      properties:
+        extra:
+          type: string
+        name:
+          type: string
+        value:
+          type: string
+      title: ConstantResponse
+    RegionCodeResponse:
+      type: object
+      properties:
+        childLocations:
+          type: array
+          items:
+            $ref: '#/components/schemas/RegionCodeResponse'
+        country:
+          type: string
+          enum:
+            - KR
+            - US
+        level:
+          type: integer
+          format: int32
+        location:
+          type: string
+        rcode:
+          type: string
+      title: RegionCodeResponse
+    CodeKeywordResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        keyword:
+          type: string
+      title: CodeKeywordResponse
+    PageOpenCustomTargetAdidLibraryResponse:
+      type: object
+      properties:
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+        first:
+          type: boolean
+        last:
+          type: boolean
+        size:
+          type: integer
+          format: int32
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/OpenCustomTargetAdidLibraryResponse'
+        number:
+          type: integer
+          format: int32
+        sort:
+          $ref: '#/components/schemas/SortObject'
+        numberOfElements:
+          type: integer
+          format: int32
+        pageable:
+          $ref: '#/components/schemas/Pageable'
+        empty:
+          type: boolean
+    Pageable:
+      type: object
+      properties:
+        offset:
+          type: integer
+          format: int64
+        sort:
+          $ref: '#/components/schemas/SortObject'
+        unpaged:
+          type: boolean
+        paged:
+          type: boolean
+        pageNumber:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+    SortObject:
+      type: object
+      properties:
+        empty:
+          type: boolean
+        unsorted:
+          type: boolean
+        sorted:
+          type: boolean
+    OpenCustomTargetAdSetResponse:
+      type: object
+      properties:
+        adSetName:
+          type: string
+        adSetNo:
+          type: integer
+          format: int64
+        campaignName:
+          type: string
+        campaignNo:
+          type: integer
+          format: int64
+        status:
+          type: string
+          enum:
+            - RUNNABLE
+            - BEFORE_STARTING
+            - TERMINATED
+            - DELETED
+            - BUDGET_EXHAUSTED
+            - LOW_TARGETED
+            - TARGET_DISABLED
+            - LEARNING
+            - LEARNING_LIMITED
+            - SEGMENT_NOT_SET
+            - AUTO_TARGET_DISABLED
+      title: OpenCustomTargetAdSetResponse
+    OpenCustomTargetAdidLibraryDetailResponse:
+      type: object
+      properties:
+        adSetList:
+          type: array
+          items:
+            $ref: '#/components/schemas/OpenCustomTargetAdSetResponse'
+        customTargetAdidLibrary:
+          $ref: '#/components/schemas/OpenCustomTargetAdidLibraryResponse'
+        lookalikeAudienceList:
+          type: array
+          items:
+            $ref: '#/components/schemas/OpenCustomTargetLookalikeAudienceResponse'
+      title: OpenCustomTargetAdidLibraryDetailResponse
+    OpenCustomTargetLookalikeAudienceResponse:
+      type: object
+      properties:
+        name:
+          type: string
+        'no':
+          type: integer
+          format: int64
+        status:
+          type: string
+          enum:
+            - PREPARING
+            - AVAILABLE
+            - DISABLED
+      title: OpenCustomTargetLookalikeAudienceResponse
+    OpenCreative:
+      type: object
+      properties:
+        activated:
+          type: boolean
+          description: 소재 활성화 여부
+        adSetNo:
+          type: integer
+          format: int64
+          description: 광고 그룹 ID
+        creativeType:
+          type: string
+          description: 소재 타입
+          enum:
+            - SINGLE_IMAGE
+            - MULTIPLE_IMAGE
+            - SINGLE_VIDEO
+            - IMAGE_BANNER
+            - CATALOG
+            - ASSET_CREATIVE
+            - COMPOSITION
+            - PMAX
+        image:
+          description: 대표 이미지
+          $ref: '#/components/schemas/Image'
+        linkUrl:
+          type: string
+          description: 대표 URL
+        name:
+          type: string
+          description: 소재 이름
+        'no':
+          type: integer
+          format: int64
+          description: 소재 ID
+        status:
+          type: string
+          description: "소재 상태:\r\n `PENDING','REJECT','ACCEPT','PENDING_IN_OPERATION','REJECT_IN_OPERATION','DELETED`"
+      title: OpenCreative
+    PageOpenCreative:
+      type: object
+      properties:
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+        first:
+          type: boolean
+        last:
+          type: boolean
+        size:
+          type: integer
+          format: int32
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/OpenCreative'
+        number:
+          type: integer
+          format: int32
+        sort:
+          $ref: '#/components/schemas/SortObject'
+        numberOfElements:
+          type: integer
+          format: int32
+        pageable:
+          $ref: '#/components/schemas/Pageable'
+        empty:
+          type: boolean
+    PageOpenCampaignView:
+      type: object
+      properties:
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+        first:
+          type: boolean
+        last:
+          type: boolean
+        size:
+          type: integer
+          format: int32
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/OpenCampaignView'
+        number:
+          type: integer
+          format: int32
+        sort:
+          $ref: '#/components/schemas/SortObject'
+        numberOfElements:
+          type: integer
+          format: int32
+        pageable:
+          $ref: '#/components/schemas/Pageable'
+        empty:
+          type: boolean
+    PageOpenUrl:
+      type: object
+      properties:
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+        first:
+          type: boolean
+        last:
+          type: boolean
+        size:
+          type: integer
+          format: int32
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/OpenUrl'
+        number:
+          type: integer
+          format: int32
+        sort:
+          $ref: '#/components/schemas/SortObject'
+        numberOfElements:
+          type: integer
+          format: int32
+        pageable:
+          $ref: '#/components/schemas/Pageable'
+        empty:
+          type: boolean
+    ConversionUrlResponse:
+      type: object
+      properties:
+        name:
+          type: string
+          description: 비즈채널 이름
+        urlNo:
+          type: integer
+          format: int64
+          description: URL ID
+        naAccountId:
+          type: string
+          description: 네이버 공통키. 웹사이트·네이버 쇼핑 대상은 null
+          nullable: true
+        appId:
+          type: string
+          description: 앱 ID. 웹사이트·네이버 쇼핑 대상은 null
+          nullable: true
+        url:
+          type: string
+          description: 비즈채널 URL
+        bizChannelNo:
+          type: integer
+          format: int64
+          description: 비즈채널 ID
+        storePlatform:
+          type: string
+          description: 앱 스토어 플랫폼. 웹사이트·네이버 쇼핑 대상은 null
+          enum:
+            - ANDROID
+            - IOS
+          nullable: true
+        trackingDays:
+          type: integer
+          format: int32
+          description: 전환 추적 기간
+        status:
+          type: string
+          enum:
+            - PENDING
+            - INSTALLING
+            - INSTALLED
+            - DROP_OUT
+            - CLOSED
+    CatalogNode:
+      type: object
+      properties:
+        catalogTypeId:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+      title: CatalogNode
+    BrandListResponse:
+      type: object
+      properties:
+        adAccountNo:
+          type: integer
+          format: int64
+          description: 브랜드를 등록한 광고 계정 ID
+        brandName:
+          type: string
+          description: 브랜드명
+        brandNo:
+          type: integer
+          format: int64
+          description: 브랜드 ID
+        explanation:
+          type: string
+          description: 설명
+        favorites:
+          type: boolean
+          description: 즐겨찾기 여부
+        updatedAt:
+          type: string
+          format: date-time
+          description: 수정 일시
+      title: BrandListResponse
+    PageBrandListResponse:
+      type: object
+      properties:
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+        first:
+          type: boolean
+        last:
+          type: boolean
+        size:
+          type: integer
+          format: int32
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/BrandListResponse'
+        number:
+          type: integer
+          format: int32
+        sort:
+          $ref: '#/components/schemas/SortObject'
+        numberOfElements:
+          type: integer
+          format: int32
+        pageable:
+          $ref: '#/components/schemas/Pageable'
+        empty:
+          type: boolean
+    OpenAdSetListView:
+      type: object
+      properties:
+        'no':
+          type: integer
+          format: int64
+          description: 광고 그룹 ID
+        name:
+          type: string
+          description: 광고 그룹 이름
+        campaignNo:
+          type: integer
+          format: int64
+          description: 캠페인 ID
+        campaignName:
+          type: string
+          description: 캠페인 이름
+        activated:
+          type: boolean
+          description: 광고 그룹 ON/OFF 여부
+        bidGoal:
+          type: string
+          description: "입찰 전략\r\n- 사용 가능한 값: `MAX_CONV`,`MAX_CLICK`,`MAX_CONV_VALUE`,`NONE`"
+          enum:
+            - MAX_CLICK
+            - MAX_CONV
+            - MAX_CONV_VALUE
+            - NONE
+        budgetType:
+          type: string
+          description: 예산 타입
+          enum:
+            - DAILY
+            - TOTAL
+        budgetAmount:
+          type: number
+          deprecated: true
+          description: 예산 금액
+        bidType:
+          type: string
+          description: "청구 기준\r\n- 사용 가능한 값: `CPC`,`CPM`,`CPV`"
+          enum:
+            - CPC
+            - CPM
+            - CPV
+        bidPrice:
+          type: number
+          description: 입찰가
+        timezoneOffset:
+          type: string
+        objective:
+          type: string
+          description: 캠페인 목적
+          enum:
+            - CONVERSION
+            - WEB_SITE_TRAFFIC
+            - INSTALL_APP
+            - WATCH_VIDEO
+            - CATALOG
+            - SHOPPING
+            - LEAD
+            - PMAX
+        startTime:
+          type: string
+          format: date-time
+          description: 시작일시
+        endTime:
+          type: string
+          format: date-time
+          description: 종료일시
+        placementGroups:
+          type: array
+          description: 게재 위치
+          items:
+            $ref: '#/components/schemas/PlacementGroup'
+        bidStrategy:
+          type: string
+          description: "비용 관리\r\n- 사용 가능한 값: `FIXED_BID`,`BID_CAP`,`COST_CAP`,`NO_CAP`"
+          enum:
+            - FIXED_BID
+            - BID_CAP
+            - COST_CAP
+            - NO_CAP
+            - TARGET_COST
+            - TARGET_ROAS
+        bidStrategyValue:
+          type: number
+          description: 한도 금액
+        autoBidStatus:
+          type: string
+          enum:
+            - LEARNING
+            - RE_LEARNING
+            - STABLE
+            - LIMITED
+        allPlacementGroup:
+          type: boolean
+          description: 노출 가능한 모든 게재위치 선택 여부
+        interestIntersection:
+          type: boolean
+        deleted:
+          type: boolean
+          description: 삭제 여부
+        status:
+          type: string
+          enum:
+            - RUNNABLE
+            - BEFORE_STARTING
+            - TERMINATED
+            - DELETED
+            - BUDGET_EXHAUSTED
+            - LOW_TARGETED
+            - TARGET_DISABLED
+            - LEARNING
+            - LEARNING_LIMITED
+            - SEGMENT_NOT_SET
+            - AUTO_TARGET_DISABLED
+    PageOpenAdSetListView:
+      type: object
+      properties:
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+        first:
+          type: boolean
+        last:
+          type: boolean
+        size:
+          type: integer
+          format: int32
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/OpenAdSetListView'
+        number:
+          type: integer
+          format: int32
+        sort:
+          $ref: '#/components/schemas/SortObject'
+        numberOfElements:
+          type: integer
+          format: int32
+        pageable:
+          $ref: '#/components/schemas/Pageable'
+        empty:
+          type: boolean
     PlacementGroup:
       type: object
       properties:
@@ -5919,117 +5536,237 @@ components:
           type: string
           format: date-time
       title: PlacementGroup
-    PurchaseIntentParam:
+    OpenAdSetView:
+      type: object
+      properties:
+        'no':
+          type: integer
+          format: int64
+          description: 광고 그룹 ID
+        campaignNo:
+          type: integer
+          format: int64
+          description: 캠페인 ID
+        name:
+          type: string
+          description: 광고 그룹 이름
+        adidLibraryParams:
+          type: array
+          items:
+            $ref: '#/components/schemas/OpenCustomTargetView'
+        matTargetParams:
+          type: array
+          items:
+            $ref: '#/components/schemas/OpenCustomTargetView'
+        lookalikeAudienceParams:
+          type: array
+          items:
+            $ref: '#/components/schemas/OpenCustomTargetView'
+        aiplTargetParams:
+          type: array
+          items:
+            $ref: '#/components/schemas/OpenCustomTargetView'
+        shoppingNewsTargetParams:
+          type: array
+          items:
+            $ref: '#/components/schemas/OpenCustomTargetView'
+        searchKeywordTargetParams:
+          type: array
+          items:
+            $ref: '#/components/schemas/OpenCustomTargetView'
+        websiteTargetParams:
+          type: array
+          items:
+            $ref: '#/components/schemas/OpenCustomTargetView'
+        genders:
+          type: array
+          description: "성별\r\n- 사용 가능한 값: `M`,`F`,`U`"
+          items:
+            type: string
+          uniqueItems: true
+        ageRanges:
+          type: array
+          description: 연령
+          items:
+            $ref: '#/components/schemas/AgeRange'
+          uniqueItems: true
+        locations:
+          type: array
+          description: 지역
+          items:
+            type: string
+          uniqueItems: true
+        extensionDemos:
+          type: array
+          description: 확장 데모
+          items:
+            type: integer
+            format: int32
+          uniqueItems: true
+        interestCodes:
+          type: array
+          description: 관심사
+          items:
+            $ref: '#/components/schemas/InterestTargetOpenApiParam'
+          uniqueItems: true
+        purchaseIntentCodes:
+          type: array
+          description: 구매 의도
+          items:
+            type: integer
+            format: int32
+          uniqueItems: true
+        targetingType:
+          type: string
+          description: 타게팅 타입
+          enum:
+            - AUDIENCE
+            - CONTEXT
+            - ADVOOST_AUDIENCE
+            - ADVOOST_EXPAND
+        devices:
+          type: array
+          description: "디바이스 타입\r\n- 사용 가능한 값: `DESKTOP`,`MOBILE`"
+          items:
+            type: string
+          uniqueItems: true
+        platforms:
+          type: array
+          description: "운영체제\r\n- 사용 가능한 값: `ANDROID`,`IOS`"
+          items:
+            type: string
+          uniqueItems: true
+        allDevice:
+          type: boolean
+          description: 노출 가능한 모든 디바이스 선택 여부
+        placementGroupCodes:
+          type: array
+          description: 게재 위치
+          items:
+            type: string
+          uniqueItems: true
+        allPlacementGroup:
+          type: boolean
+          description: 노출 가능한 모든 게재위치 선택 여부
+        bidGoal:
+          type: string
+          description: "입찰 전략\r\n- 사용 가능한 값: `MAX_CONV`,`MAX_CLICK`,`MAX_CONV_VALUE`,`NONE`"
+        bidStrategy:
+          type: string
+          description: "비용 관리\r\n- 사용 가능한 값: `FIXED_BID`,`BID_CAP`,`COST_CAP`,`NO_CAP`"
+        bidStrategyValue:
+          type: number
+          description: 한도 금액
+        bidType:
+          type: string
+          description: "청구 기준\r\n- 사용 가능한 값: `CPC`,`CPM`,`CPV`"
+        bidPrice:
+          type: number
+          description: 입찰가
+        budgetType:
+          type: string
+          description: 예산 타입
+          enum:
+            - DAILY
+            - TOTAL
+        budgetAmount:
+          type: number
+          deprecated: true
+          description: 예산 금액
+        startTime:
+          type: string
+          format: date-time
+          description: 시작일시
+        endTime:
+          type: string
+          format: date-time
+          description: 종료일시
+        ongoing:
+          type: boolean
+          description: 계속 게재 여부
+        scheduleTimeSlots:
+          type: array
+          description: 상세 일정
+          items:
+            $ref: '#/components/schemas/ScheduleTimeSlotParam'
+          uniqueItems: true
+        accelerated:
+          type: boolean
+          description: 게재 방식. 빠른 게재 여부
+        creativeChooserType:
+          type: string
+          description: 소재 선택 방식
+          enum:
+            - VALUE_WEIGHTED_RANDOM
+            - SIMPLE_RANDOM
+            - OPTIMIZATION
+        frequencyAdUnit:
+          type: string
+          description: 노출 빈도 단위
+          enum:
+            - AD_SET
+            - CREATIVE
+        quota:
+          type: integer
+          format: int32
+          description: 노출 빈도 횟수
+        creativeTemplates:
+          type: array
+          description: 소재 템플릿 정보
+          items:
+            $ref: '#/components/schemas/OpenCreativeTemplateView'
+          uniqueItems: true
+        status:
+          type: string
+          enum:
+            - RUNNABLE
+            - BEFORE_STARTING
+            - TERMINATED
+            - DELETED
+            - BUDGET_EXHAUSTED
+            - LOW_TARGETED
+            - TARGET_DISABLED
+            - LEARNING
+            - LEARNING_LIMITED
+            - SEGMENT_NOT_SET
+            - AUTO_TARGET_DISABLED
+        spentBudgetRatio:
+          type: number
+    OpenCreativeTemplateView:
       type: object
       properties:
         code:
-          type: integer
-          format: int32
-        recommended:
-          type: boolean
-      title: PurchaseIntentParam
-    RegionCodeResponse:
-      type: object
-      properties:
-        childLocations:
-          type: array
-          items:
-            $ref: '#/components/schemas/RegionCodeResponse'
-        country:
           type: string
+          description: 소재 템플릿
+        creativeType:
+          type: string
+          description: 소재 타입
           enum:
-            - KR
-            - US
-        level:
-          type: integer
-          format: int32
-        location:
-          type: string
-        rcode:
-          type: string
-      title: RegionCodeResponse
-    Resource:
+            - SINGLE_IMAGE
+            - MULTIPLE_IMAGE
+            - SINGLE_VIDEO
+            - IMAGE_BANNER
+            - CATALOG
+            - ASSET_CREATIVE
+            - COMPOSITION
+            - PMAX
+        sizeGroups:
+          type: array
+          description: 소재 미디어(이미지/동영상) 규격
+          items:
+            $ref: '#/components/schemas/SizeGroup'
+      title: OpenCreativeTemplateView
+    OpenCustomTargetView:
       type: object
       properties:
-        description:
-          type: string
-        file:
-          $ref: '#/components/schemas/File'
-        filename:
-          type: string
-        inputStream:
-          $ref: '#/components/schemas/InputStream'
-        open:
+        included:
           type: boolean
-        readable:
-          type: boolean
-        uri:
-          $ref: '#/components/schemas/URI'
-        url:
-          $ref: '#/components/schemas/URL'
-      title: Resource
-    SHOPPING:
-      title: SHOPPING
-      allOf:
-        - $ref: '#/components/schemas/OpenCampaignCreationParam'
-        - type: object
-          required:
-            - brandNo
-            - name
-            - objective
-            - urlNo
-          properties:
-            brandNo:
-              type: integer
-              format: int64
-              description: 브랜드 ID
-            budgetAmount:
-              type: number
-              example: 100000
-              description: 지출 한도 (Deprecated)
-            conversionType:
-              type: string
-              description: "최적화 전환 유형\r\n- 사용 가능한 값: `null`,`PURCHASE`,`CART`"
-            conversionUrlNo:
-              type: integer
-              format: int64
-              description: >-
-                전환 추적 대상 ID, 캠페인 목적 `LEAD`일 경우 사용되지 않습니다. ADVoost 쇼핑
-                캠페인(objective: `PMAX`)은 필수이며 전환스크립트가 설치 완료된 대상이어야 합니다.
-            name:
-              type: string
-              description: 캠페인 이름
-              minLength: 2
-              maxLength: 128
-            objective:
-              type: string
-              description: 캠페인 목적
-            optimization:
-              $ref: '#/components/schemas/OpenCampaignOptimizationParam'
-            spendLimit:
-              type: number
-              example: 100000
-              description: >-
-                지출 한도. ADVoost 쇼핑 캠페인(objective: `PMAX`)은 이 필드를 사용하지 않으며, 예산은
-                performanceMax.budget 으로 입력합니다.
-            urlNo:
-              type: integer
-              format: int64
-              description: 대표 url ID
-          title: SHOPPING
-    ScheduleTimeSlotParam:
-      type: object
-      properties:
-        dayOfWeek:
+        name:
+          type: string
+        'no':
           type: integer
-          format: int32
-        endHour:
-          type: integer
-          format: int32
-        startHour:
-          type: integer
-          format: int32
-      title: ScheduleTimeSlotParam
+          format: int64
+      title: OpenCustomTargetView
     SizeGroup:
       type: object
       properties:
@@ -6057,367 +5794,54 @@ components:
           format: int32
           description: 너비 or 너비 비율
       title: SizeGroup
-    Sort:
+    AvailableTypesOfAdSet:
       type: object
       properties:
-        empty:
-          type: boolean
-        sorted:
-          type: boolean
-        unsorted:
-          type: boolean
-      title: Sort
-    SuccessResponse:
-      type: object
-      properties:
-        description:
-          type: string
-        message:
-          type: string
-        success:
-          type: boolean
-      title: SuccessResponse
-    TemporalUnit:
-      type: object
-      properties:
-        dateBased:
-          type: boolean
-        duration:
-          $ref: '#/components/schemas/Duration'
-        durationEstimated:
-          type: boolean
-        timeBased:
-          type: boolean
-      title: TemporalUnit
-    Timestamp:
-      type: object
-      properties:
-        date:
-          type: integer
-          format: int32
-        day:
-          type: integer
-          format: int32
-        hours:
-          type: integer
-          format: int32
-        minutes:
-          type: integer
-          format: int32
-        month:
-          type: integer
-          format: int32
-        nanos:
-          type: integer
-          format: int32
-        seconds:
-          type: integer
-          format: int32
-        time:
-          type: integer
-          format: int64
-        timezoneOffset:
-          type: integer
-          format: int32
-        year:
-          type: integer
-          format: int32
-      title: Timestamp
-    URI:
-      type: object
-      properties:
-        absolute:
-          type: boolean
-        authority:
-          type: string
-        fragment:
-          type: string
-        host:
-          type: string
-        opaque:
-          type: boolean
-        path:
-          type: string
-        port:
-          type: integer
-          format: int32
-        query:
-          type: string
-        rawAuthority:
-          type: string
-        rawFragment:
-          type: string
-        rawPath:
-          type: string
-        rawQuery:
-          type: string
-        rawSchemeSpecificPart:
-          type: string
-        rawUserInfo:
-          type: string
-        scheme:
-          type: string
-        schemeSpecificPart:
-          type: string
-        userInfo:
-          type: string
-      title: URI
-    URL:
-      type: object
-      properties:
-        authority:
-          type: string
-        content:
-          type: object
-        defaultPort:
-          type: integer
-          format: int32
-        deserializedFields:
-          $ref: '#/components/schemas/URLStreamHandler'
-        file:
-          type: string
-        host:
-          type: string
-        path:
-          type: string
-        port:
-          type: integer
-          format: int32
-        protocol:
-          type: string
-        query:
-          type: string
-        ref:
-          type: string
-        serializedHashCode:
-          type: integer
-          format: int32
-        userInfo:
-          type: string
-      title: URL
-    URLStreamHandler:
-      type: object
-      title: URLStreamHandler
-    UploadVideo:
-      type: object
-      properties:
-        createdAt:
-          type: string
-          format: date-time
-        failMessage:
-          type: string
-        'no':
-          type: integer
-          format: int64
-        sizeGroupNo:
-          type: integer
-          format: int32
-        status:
-          type: string
-          enum:
-            - READY
-            - ONGOING
-            - COMPLETED
-            - FAILED
-            - NOT_AVAILABLE
-      title: UploadVideo
-    WATCH_VIDEO:
-      title: WATCH_VIDEO
-      allOf:
-        - $ref: '#/components/schemas/OpenCampaignCreationParam'
-        - type: object
-          required:
-            - brandNo
-            - name
-            - objective
-            - urlNo
-          properties:
-            brandNo:
-              type: integer
-              format: int64
-              description: 브랜드 ID
-            budgetAmount:
-              type: number
-              example: 100000
-              description: 지출 한도 (Deprecated)
-            conversionUrlNo:
-              type: integer
-              format: int64
-              description: >-
-                전환 추적 대상 ID, 캠페인 목적 `LEAD`일 경우 사용되지 않습니다. ADVoost 쇼핑
-                캠페인(objective: `PMAX`)은 필수이며 전환스크립트가 설치 완료된 대상이어야 합니다.
-            name:
-              type: string
-              description: 캠페인 이름
-              minLength: 2
-              maxLength: 128
-            objective:
-              type: string
-              description: 캠페인 목적
-            s2sApiOn:
-              type: boolean
-              description: 전환 API를 연동하여 전환 추적 사용 여부
-            spendLimit:
-              type: number
-              example: 100000
-              description: >-
-                지출 한도. ADVoost 쇼핑 캠페인(objective: `PMAX`)은 이 필드를 사용하지 않으며, 예산은
-                performanceMax.budget 으로 입력합니다.
-            urlNo:
-              type: integer
-              format: int64
-              description: 대표 url ID
-          title: WATCH_VIDEO
-    WEB_SITE_TRAFFIC:
-      title: WEB_SITE_TRAFFIC
-      allOf:
-        - $ref: '#/components/schemas/OpenCampaignCreationParam'
-        - type: object
-          required:
-            - brandNo
-            - name
-            - objective
-            - urlNo
-          properties:
-            brandNo:
-              type: integer
-              format: int64
-              description: 브랜드 ID
-            budgetAmount:
-              type: number
-              example: 100000
-              description: 지출 한도 (Deprecated)
-            conversionUrlNo:
-              type: integer
-              format: int64
-              description: >-
-                전환 추적 대상 ID, 캠페인 목적 `LEAD`일 경우 사용되지 않습니다. ADVoost 쇼핑
-                캠페인(objective: `PMAX`)은 필수이며 전환스크립트가 설치 완료된 대상이어야 합니다.
-            name:
-              type: string
-              description: 캠페인 이름
-              minLength: 2
-              maxLength: 128
-            objective:
-              type: string
-              description: 캠페인 목적
-            optimization:
-              $ref: '#/components/schemas/OpenCampaignOptimizationParam'
-            s2sApiOn:
-              type: boolean
-              description: 전환 API를 연동하여 전환 추적 사용 여부
-            spendLimit:
-              type: number
-              example: 100000
-              description: >-
-                지출 한도. ADVoost 쇼핑 캠페인(objective: `PMAX`)은 이 필드를 사용하지 않으며, 예산은
-                performanceMax.budget 으로 입력합니다.
-            urlNo:
-              type: integer
-              format: int64
-              description: 대표 url ID
-          title: WEB_SITE_TRAFFIC
-    ZoneId:
-      type: object
-      properties:
-        id:
-          type: string
-        rules:
-          $ref: '#/components/schemas/ZoneRules'
-      title: ZoneId
-    ZoneOffset:
-      type: object
-      properties:
-        id:
-          type: string
-        rules:
-          $ref: '#/components/schemas/ZoneRules'
-        totalSeconds:
-          type: integer
-          format: int32
-      title: ZoneOffset
-    ZoneOffsetTransition:
-      type: object
-      properties:
-        dateTimeAfter:
-          type: string
-          format: date-time
-        dateTimeBefore:
-          type: string
-          format: date-time
-        duration:
-          $ref: '#/components/schemas/Duration'
-        gap:
-          type: boolean
-        instant:
-          type: string
-          format: date-time
-        offsetAfter:
-          $ref: '#/components/schemas/ZoneOffset'
-        offsetBefore:
-          $ref: '#/components/schemas/ZoneOffset'
-        overlap:
-          type: boolean
-      title: ZoneOffsetTransition
-    ZoneOffsetTransitionRule:
-      type: object
-      properties:
-        dayOfMonthIndicator:
-          type: integer
-          format: int32
-        dayOfWeek:
-          type: string
-          enum:
-            - MONDAY
-            - TUESDAY
-            - WEDNESDAY
-            - THURSDAY
-            - FRIDAY
-            - SATURDAY
-            - SUNDAY
-        localTime:
-          $ref: '#/components/schemas/LocalTime'
-        midnightEndOfDay:
-          type: boolean
-        month:
-          type: string
-          enum:
-            - JANUARY
-            - FEBRUARY
-            - MARCH
-            - APRIL
-            - MAY
-            - JUNE
-            - JULY
-            - AUGUST
-            - SEPTEMBER
-            - OCTOBER
-            - NOVEMBER
-            - DECEMBER
-        offsetAfter:
-          $ref: '#/components/schemas/ZoneOffset'
-        offsetBefore:
-          $ref: '#/components/schemas/ZoneOffset'
-        standardOffset:
-          $ref: '#/components/schemas/ZoneOffset'
-        timeDefinition:
-          type: string
-          enum:
-            - UTC
-            - WALL
-            - STANDARD
-      title: ZoneOffsetTransitionRule
-    ZoneRules:
-      type: object
-      properties:
-        fixedOffset:
-          type: boolean
-        transitionRules:
+        bidGoals:
           type: array
           items:
-            $ref: '#/components/schemas/ZoneOffsetTransitionRule'
-        transitions:
+            type: string
+            enum:
+              - MAX_CLICK
+              - MAX_CONV
+              - MAX_CONV_VALUE
+              - NONE
+        bidStrategies:
           type: array
           items:
-            $ref: '#/components/schemas/ZoneOffsetTransition'
-      title: ZoneRules
+            type: string
+            enum:
+              - FIXED_BID
+              - BID_CAP
+              - COST_CAP
+              - NO_CAP
+              - TARGET_COST
+              - TARGET_ROAS
+        bidTypes:
+          type: array
+          items:
+            type: string
+            enum:
+              - CPC
+              - CPM
+              - CPV
+        budgetTypes:
+          type: array
+          items:
+            type: string
+            enum:
+              - DAILY
+              - TOTAL
+        deviceTypes:
+          type: array
+          items:
+            type: string
+            enum:
+              - DESKTOP
+              - MOBILE
+              - UNKNOWN
+        placementGroupCodes:
+          type: array
+          items:
+            type: string
+      title: AvailableTypesOfAdSet
