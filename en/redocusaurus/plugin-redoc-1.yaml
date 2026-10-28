@@ -15,7 +15,7 @@ tags:
   - name: Creatives
   - name: Targetting details
   - name: Type information
-  - name: Potential customers
+  - name: Audiences
 paths:
   /{version}/adAccounts/{adAccountNo}/adSets:
     get:
@@ -2266,7 +2266,7 @@ paths:
   /{version}/adAccounts/{adAccountNo}/customTargets/adidLibraries:
     get:
       tags:
-        - Potential customers
+        - Audiences
       summary: Get a list of customer files
       operationId: getCustomTargetAdidListUsingGET
       responses:
@@ -2328,7 +2328,7 @@ paths:
             default: 1
     post:
       tags:
-        - Potential customers
+        - Audiences
       summary: Upload and add customer files
       description: >-
         - A single customer file can be uploaded and added at a time.
@@ -2400,7 +2400,7 @@ paths:
   /{version}/adAccounts/{adAccountNo}/customTargets/adidLibraries/{adidLibraryNo}:
     get:
       tags:
-        - Potential customers
+        - Audiences
       summary: Get a customer file
       operationId: getCustomTargetAdidUsingGET
       responses:
@@ -2449,7 +2449,7 @@ paths:
             default: 1
     put:
       tags:
-        - Potential customers
+        - Audiences
       summary: Update customer files
       description: '- The length of a target name can be between 1 and 128 characters.'
       operationId: updateCustomTargetAdidUsingPUT
@@ -2513,7 +2513,7 @@ paths:
             default: 1
     delete:
       tags:
-        - Potential customers
+        - Audiences
       summary: Delete customer files
       operationId: deleteCustomTargetAdidUsingDELETE
       responses:
@@ -2553,7 +2553,7 @@ paths:
   /{version}/adAccounts/{adAccountNo}/customTargets/adidLibraries/{adidLibraryNo}/addAdid:
     post:
       tags:
-        - Potential customers
+        - Audiences
       summary: Add customer file target
       description: >-
         - Only one file can be uploaded at a time.
@@ -2631,7 +2631,7 @@ paths:
   /{version}/adAccounts/{adAccountNo}/customTargets/adidLibraries/{adidLibraryNo}/removeAdid:
     post:
       tags:
-        - Potential customers
+        - Audiences
       summary: Delete customer file target
       description: >-
         - Only one file can be uploaded at a time.
