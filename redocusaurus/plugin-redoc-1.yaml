@@ -3077,6 +3077,48 @@ paths:
             type: number
             format: float
             default: 1
+  /{version}/adAccounts/{adAccountNo}/creatives/video/{videoNo}:
+    get:
+      tags:
+        - 광고 소재
+      summary: 광고 소재 동영상 조회
+      description: 업로드한 동영상의 인코딩 상태를 조회합니다.
+      operationId: getVideo
+      parameters:
+        - name: version
+          in: path
+          description: API 버전
+          required: true
+          schema:
+            type: number
+            format: float
+            default: 1
+        - name: adAccountNo
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: videoNo
+          in: path
+          description: 동영상 업로드 응답의 no
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: 조회 완료했습니다.
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UploadVideo'
+        '400':
+          description: 잘못된 요청입니다.
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
 components:
   schemas:
     Error:
@@ -3731,17 +3773,9 @@ components:
     UploadVideo:
       type: object
       properties:
-        createdAt:
-          type: string
-          format: date-time
-        failMessage:
-          type: string
         'no':
           type: integer
           format: int64
-        sizeGroupNo:
-          type: integer
-          format: int32
         status:
           type: string
           enum:
@@ -3750,38 +3784,51 @@ components:
             - COMPLETED
             - FAILED
             - NOT_AVAILABLE
-      title: UploadVideo
-    Image:
-      type: object
-      properties:
-        adAccountNo:
+        sizeGroupNo:
           type: integer
-          format: int64
+          format: int32
         createdAt:
           type: string
           format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        failMessage:
+          type: string
+    Image:
+      type: object
+      properties:
+        'no':
+          type: integer
+          format: int64
+        adAccountNo:
+          type: integer
+          format: int64
+        sizeGroupNo:
+          type: integer
+          format: int32
+        rareColor:
+          type: string
+        imageUrl:
+          type: string
+        width:
+          type: integer
+          format: int32
+        height:
+          type: integer
+          format: int32
         fileSize:
           type: integer
           format: int64
         filename:
           type: string
-        height:
-          type: integer
-          format: int32
-        imageUrl:
+        aiRecommId:
           type: string
-        'no':
-          type: integer
-          format: int64
-        rareColor:
+        aiRecommended:
+          type: boolean
+        createdAt:
           type: string
-        sizeGroupNo:
-          type: integer
-          format: int32
-        width:
-          type: integer
-          format: int32
-      title: Image
+          format: date-time
     SuccessResponse:
       type: object
       properties:
@@ -3811,7 +3858,7 @@ components:
           minLength: 2
         creativeTemplateCode:
           type: string
-          description: "소재 템플릿:\r\n `NATIVE_SINGLE_IMAGE_V2`, `NATIVE_SINGLE_IMAGE_PC`, `FEED_SINGLE_IMAGE`, `FEED_SINGLE_IMAGE_2TO3`, `FEED_SINGLE_IMAGE_SQUARE`, `NATIVE_SINGLE_IMAGE_COMMUNICATION`"
+          description: "소재 템플릿:\r\n `NATIVE_SINGLE_IMAGE_V2`, `NATIVE_SINGLE_IMAGE_PC`, `NATIVE_SINGLE_IMAGE_450X450`, `FEED_SINGLE_IMAGE`, `FEED_SINGLE_IMAGE_2TO3`, `FEED_SINGLE_IMAGE_SQUARE`, `NATIVE_SINGLE_IMAGE_COMMUNICATION`"
           minLength: 1
         imageNo:
           type: integer
@@ -3849,7 +3896,6 @@ components:
         ctaCode:
           type: string
           description: 행동 유도
-          minLength: 1
         adviceMessage:
           type: string
           description: 고지 문구
@@ -3858,7 +3904,6 @@ components:
       required:
         - adSetNo
         - creativeTemplateCode
-        - ctaCode
         - imageNo
         - linkUrl
         - name
@@ -4365,7 +4410,7 @@ components:
           minLength: 2
         creativeTemplateCode:
           type: string
-          description: "소재 템플릿:\r\n `BANNER_750`, `BANNER_750X200`, `BANNER_750X280`, `BANNER_1250X560`, `BANNER_1200X1200`"
+          description: "소재 템플릿:\r\n `BANNER_750`, `BANNER_750X200`, `BANNER_1250X560`, `BANNER_1200X1200`"
           minLength: 1
         imageNo:
           type: integer
@@ -5279,6 +5324,13 @@ components:
             - INSTALLED
             - DROP_OUT
             - CLOSED
+        bizChannelType:
+          type: string
+          description: 비즈채널 유형 (WEBSITE / NAVER_SHOPPING / MOBILE_APP)
+          enum:
+            - NAVER_SHOPPING
+            - WEBSITE
+            - MOBILE_APP
     CatalogNode:
       type: object
       properties:
